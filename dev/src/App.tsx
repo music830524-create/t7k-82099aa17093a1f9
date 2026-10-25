@@ -1,5 +1,6 @@
 import * as React from "react";
 import { D } from "./data";
+import { KK } from "./kk";
 import { ReactNode, ChangeEvent, KeyboardEvent, Page, Section, Text, Metrics, Segmented, Toggle, Input, Button, Table, Callout, useState, useEffect, useMemo, useCallback, useRef, useGrokTheme } from "./kit";
 
 type Word = { id: number; w: string; pos: string; zh: string; lv: number };
@@ -22,6 +23,9 @@ const WORDS: Word[] = (() => {
   });
   return out;
 })();
+
+const KK_LIST: string[] = KK.split("|");
+const kkOf = (w: Word): string => KK_LIST[w.id] || "";
 
 const LV_COUNT: number[] = LEVELS.map((_: string, i: number) => WORDS.filter((x: Word) => x.lv === i).length);
 const UNIT = 100;
@@ -597,6 +601,16 @@ export default function App() {
       </div>
     );
   };
+  const kkEl = (w: Word, size?: string) => {
+    const k = kkOf(w);
+    return k ? <span className="kk" data-word={w.w} style={size ? { fontSize: size } : undefined}>[{k}]</span> : null;
+  };
+  const wordCell = (x: Word) => (
+    <span key={"wc" + x.id} style={{ display: "inline-flex", flexDirection: "column" }}>
+      <span>{x.w + "  " + x.pos}</span>
+      {kkEl(x, "13px")}
+    </span>
+  );
   const wordLink = (x: Word) => (
     <span key={"wl" + x.id} className="wlink" onClick={() => setDetail(x)} style={{ cursor: "pointer", color: t.text.accent }}>
       例句
@@ -615,6 +629,7 @@ export default function App() {
       >
         <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
           <span onClick={() => speak(detail.w, sp)} style={{ fontSize: "26px", fontWeight: t.weight.semibold, cursor: "pointer" }}>{detail.w}</span>
+          {kkEl(detail, "17px")}
           <span style={{ color: t.text.secondary }}>{detail.pos}</span>
           <span style={{ color: t.text.primary }}>{detail.zh}</span>
         </div>
@@ -656,6 +671,7 @@ export default function App() {
           {[tag(LEVELS[w.lv] + "・" + BANDS[w.lv]), ...(w.pos ? [tag(w.pos)] : []), tag(isRev ? "複習" : statusLabel(w))]}
         </div>
         <div style={{ color: t.text.primary, fontSize: "36px", lineHeight: "44px", fontWeight: t.weight.semibold, wordBreak: "break-word" }}>{w.w}</div>
+        {kkEl(w, "19px")}
         {flipped ? (
           <>
             <div style={{ color: t.text.primary, fontSize: t.font.heading2.fontSize, lineHeight: t.font.heading2.lineHeight, fontWeight: t.weight.medium }}>{w.zh}</div>
@@ -724,7 +740,7 @@ export default function App() {
           <div style={{ border: "1px solid " + t.border.default, borderRadius: t.radius.lg, padding: "12px 14px", display: "flex", flexDirection: "column", gap: 4 }}>
             <div style={{ color: quiz.correct ? t.text.success : t.text.danger, fontWeight: t.weight.semibold }}>{quiz.correct ? "答對了！" : "答錯了，已加入錯題本"}</div>
             <div style={{ color: t.text.primary }}>
-              {w.w}（{w.pos}）{w.zh}
+              {w.w} {kkEl(w)}（{w.pos}）{w.zh}
             </div>
             {exBlock(w)}
           </div>
@@ -952,7 +968,7 @@ export default function App() {
           <Table
             columns={["單字", "中文", "狀態", ""]}
             rows={listSrc.map((x: Word) => [
-              x.w + "  " + x.pos,
+              wordCell(x),
               x.zh,
               statusLabel(x),
               <span key={x.id} style={{ display: "inline-flex", gap: 12, fontSize: t.font.body1.fontSize }}>
@@ -980,6 +996,7 @@ export default function App() {
       width="column"
       sources={[
         "單字、中文與大部分例句：kknono668/toeic-vocab-tw（Hugging Face，CC BY-SA 4.0）https://huggingface.co/datasets/kknono668/toeic-vocab-tw",
+        "KK 音標：edc026588/toeic-cards（CC BY-SA 4.0，由 CMU Pronouncing Dictionary 轉換，BSD 授權）https://github.com/edc026588/toeic-cards ；本站修正 384 筆（詞性、重音位置），清單見 README",
         "約 3.7% 的例句（資料集缺漏或不含該單字時）為本站自行撰寫補上，並以相同的 CC BY-SA 4.0 授權釋出；說明 https://github.com/music830524-create/t7k-82099aa17093a1f9#readme",
       ]}
     >
@@ -1074,7 +1091,7 @@ export default function App() {
             <Table
               columns={["單字", "中文", "位置", ""]}
               rows={searchResults.map((x: Word) => [
-                x.w + "  " + x.pos,
+                wordCell(x),
                 x.zh,
                 LEVELS[x.lv] + "・單元 " + (unitOf(x) + 1) + "・" + statusLabel(x),
                 <span key={x.id} style={{ display: "inline-flex", gap: 12, fontSize: t.font.body1.fontSize }}>
@@ -1105,7 +1122,7 @@ export default function App() {
                 rows={reviewWords.slice(0, 60).map((x: Word) => {
                   const r = prog[x.w];
                   const days = Math.ceil((r.due - now) / DAY);
-                  return [x.w + "  " + x.pos, x.zh, String(r.x), r.due <= now ? { text: "今天", tone: "warning" as const } : days + " 天後", wordLink(x)];
+                  return [wordCell(x), x.zh, String(r.x), r.due <= now ? { text: "今天", tone: "warning" as const } : days + " 天後", wordLink(x)];
                 })}
               />
             </div>

@@ -28,8 +28,9 @@ self.addEventListener("fetch", (e) => {
     );
     return;
   }
+  // cache: "no-cache" revalidates with the server so a new app.js isn't held back by the browser's HTTP cache.
   e.respondWith(
-    fetch(req)
+    fetch(req, { cache: "no-cache" })
       .then((res) => {
         if (res && res.ok) {
           const copy = res.clone();

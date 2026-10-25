@@ -1,5 +1,5 @@
 // Offline cache (v2: adds example sentences). Network-first for the page and app code so updates arrive; cache fallback when offline.
-const CACHE = "toeic7000-0a38516115";
+const CACHE = "toeic7000-cfb6a3eafb";
 const ASSETS = ["./", "index.html", "app.js", "style.css", "manifest.webmanifest", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "favicon.png"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
@@ -28,8 +28,9 @@ self.addEventListener("fetch", (e) => {
     );
     return;
   }
+  // cache: "no-cache" revalidates with the server so a new app.js isn't held back by the browser's HTTP cache.
   e.respondWith(
-    fetch(req)
+    fetch(req, { cache: "no-cache" })
       .then((res) => {
         if (res && res.ok) {
           const copy = res.clone();
