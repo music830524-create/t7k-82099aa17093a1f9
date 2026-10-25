@@ -28,6 +28,65 @@ const UNIT = 100;
 const LV_START: number[] = LEVELS.map((_: string, i: number) => WORDS.findIndex((x: Word) => x.lv === i));
 const unitCount = (lv: number): number => Math.ceil(LV_COUNT[lv] / UNIT);
 const unitOf = (w: Word): number => Math.floor((w.id - LV_START[w.lv]) / UNIT);
+
+// Example sentences live in ex/{lv}-{unit}.json (one file per 100-word unit), fetched on demand.
+type Ex = [string, string];
+const exChunks: Record<string, Ex[][]> = {};
+const exPending: Record<string, Promise<void> | undefined> = {};
+const exListeners = new Set<() => void>();
+const chunkKey = (lv: number, u: number): string => lv + "-" + u;
+function loadChunk(lv: number, u: number): Promise<void> {
+  const k = chunkKey(lv, u);
+  if (exChunks[k]) return Promise.resolve();
+  const p0 = exPending[k];
+  if (p0) return p0;
+  const p = fetch("ex/" + k + ".json")
+    .then((r: Response) => {
+      if (!r.ok) throw new Error(String(r.status));
+      return r.json();
+    })
+    .then((d: Ex[][]) => {
+      exChunks[k] = d;
+      exListeners.forEach((f: () => void) => f());
+    })
+    .catch(() => {
+      /* offline and not cached yet */
+    })
+    .then(() => {
+      exPending[k] = undefined;
+    });
+  exPending[k] = p;
+  return p;
+}
+function examplesOf(w: Word): Ex[] | null {
+  const u = unitOf(w);
+  const c = exChunks[chunkKey(w.lv, u)];
+  if (!c) {
+    loadChunk(w.lv, u);
+    return null;
+  }
+  return c[w.id - LV_START[w.lv] - u * UNIT] || [];
+}
+// Quietly fetch every chunk once so examples work offline (the service worker keeps them).
+function warmAllChunks(): void {
+  try {
+    const c = (navigator as unknown as { connection?: { saveData?: boolean } }).connection;
+    if (c && c.saveData) return;
+  } catch (e) {
+    /* ignore */
+  }
+  const keys: [number, number][] = [];
+  LEVELS.forEach((_: string, lv: number) => {
+    for (let u = 0; u < unitCount(lv); u++) keys.push([lv, u]);
+  });
+  let i = 0;
+  const next = () => {
+    if (i >= keys.length) return;
+    const [lv, u] = keys[i++];
+    loadChunk(lv, u).then(() => setTimeout(next, 150));
+  };
+  next();
+}
 type Last = { lv: number; u: number };
 const KEY = "toeic7000_progress_v1";
 const SET_KEY = "toeic7000_settings_v1";
@@ -126,6 +185,17 @@ export default function App() {
   const [skipKnown, setSkipKnown] = useState<boolean>(true);
   const [speed, setSpeed] = useState<string>("0.9");
   const [flipped, setFlipped] = useState<boolean>(false);
+  const [, setExTick] = useState<number>(0);
+  const [detail, setDetail] = useState<Word | null>(null);
+  useEffect(() => {
+    const f = () => setExTick((n: number) => n + 1);
+    exListeners.add(f);
+    const tm = setTimeout(warmAllChunks, 4000);
+    return () => {
+      exListeners.delete(f);
+      clearTimeout(tm);
+    };
+  }, []);
   const [quizMode, setQuizMode] = useState<string>("en2zh");
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [session, setSession] = useState<{ c: number; n: number }>({ c: 0, n: 0 });
@@ -497,7 +567,69 @@ export default function App() {
 
   const muted = (s: string) => <span style={{ color: t.text.secondary, fontSize: t.font.body2.fontSize }}>{s}</span>;
 
+  // Two example sentences with Traditional Chinese; tap a sentence to hear it.
+  const exBlock = (w: Word, align?: "center" | "left") => {
+    const ex = examplesOf(w);
+    return (
+      <div className="ex" data-word={w.w} style={{ display: "flex", flexDirection: "column", gap: 8, width: "100%", textAlign: align === "center" ? "center" : "left" }}>
+        {ex === null ? (
+          <div style={{ color: t.text.tertiary, fontSize: t.font.label.fontSize }}>例句載入中…</div>
+        ) : ex.length === 0 ? null : (
+          ex.map((e: Ex, i: number) => (
+            <div
+              key={i}
+              className="ex-item"
+              role="button"
+              onClick={(ev: React.MouseEvent) => {
+                ev.stopPropagation();
+                speak(e[0], sp);
+              }}
+              style={{ cursor: "pointer", padding: "8px 10px", borderRadius: t.radius.lg, background: t.bg.base, border: "1px solid " + t.border.default, userSelect: "text" }}
+            >
+              <div className="ex-en" style={{ color: t.text.primary, fontSize: t.font.body1.fontSize, lineHeight: 1.45 }}>
+                <span style={{ color: t.text.accent, marginRight: 6 }}>🔊</span>
+                {e[0]}
+              </div>
+              <div className="ex-zh" style={{ color: t.text.secondary, fontSize: t.font.body2.fontSize, lineHeight: 1.45, marginTop: 2 }}>{e[1]}</div>
+            </div>
+          ))
+        )}
+      </div>
+    );
+  };
+  const wordLink = (x: Word) => (
+    <span key={"wl" + x.id} className="wlink" onClick={() => setDetail(x)} style={{ cursor: "pointer", color: t.text.accent }}>
+      例句
+    </span>
+  );
+  const detailSheet = detail ? (
+    <div
+      className="sheet-bg"
+      onClick={() => setDetail(null)}
+      style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.35)", zIndex: 50, display: "flex", alignItems: "flex-end", justifyContent: "center" }}
+    >
+      <div
+        className="sheet"
+        onClick={(ev: React.MouseEvent) => ev.stopPropagation()}
+        style={{ background: t.bg.elevated, color: t.text.primary, width: "100%", maxWidth: 640, maxHeight: "80vh", overflowY: "auto", borderRadius: "16px 16px 0 0", padding: "18px 18px calc(18px + env(safe-area-inset-bottom))", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: 10 }}
+      >
+        <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
+          <span onClick={() => speak(detail.w, sp)} style={{ fontSize: "26px", fontWeight: t.weight.semibold, cursor: "pointer" }}>{detail.w}</span>
+          <span style={{ color: t.text.secondary }}>{detail.pos}</span>
+          <span style={{ color: t.text.primary }}>{detail.zh}</span>
+        </div>
+        {muted(LEVELS[detail.lv] + "・單元 " + (unitOf(detail) + 1) + "・" + statusLabel(detail) + "・點例句可聽發音")}
+        {exBlock(detail)}
+        {row([
+          <Button key="dp" label="發音" onClick={() => speak(detail.w, sp)} />,
+          <Button key="dc" variant="primary" label="關閉" onClick={() => setDetail(null)} />,
+        ])}
+      </div>
+    </div>
+  ) : null;
+
   const card = (w: Word) => {
+    examplesOf(w); // start loading before the card is flipped
     const r = prog[w.w];
     const isRev = isReview(r);
     return (
@@ -525,7 +657,10 @@ export default function App() {
         </div>
         <div style={{ color: t.text.primary, fontSize: "36px", lineHeight: "44px", fontWeight: t.weight.semibold, wordBreak: "break-word" }}>{w.w}</div>
         {flipped ? (
-          <div style={{ color: t.text.primary, fontSize: t.font.heading2.fontSize, lineHeight: t.font.heading2.lineHeight, fontWeight: t.weight.medium }}>{w.zh}</div>
+          <>
+            <div style={{ color: t.text.primary, fontSize: t.font.heading2.fontSize, lineHeight: t.font.heading2.lineHeight, fontWeight: t.weight.medium }}>{w.zh}</div>
+            {exBlock(w)}
+          </>
         ) : (
           <div style={{ color: t.text.tertiary, fontSize: t.font.label.fontSize }}>點一下卡片看中文</div>
         )}
@@ -536,6 +671,7 @@ export default function App() {
   const quizBlock = () => {
     if (!quiz) return null;
     const w = quiz.word;
+    examplesOf(w);
     const prompt = quizMode === "en2zh" ? w.w : w.zh;
     const right = quiz.options.findIndex((o: Word) => o.w === w.w);
     return (
@@ -590,6 +726,7 @@ export default function App() {
             <div style={{ color: t.text.primary }}>
               {w.w}（{w.pos}）{w.zh}
             </div>
+            {exBlock(w)}
           </div>
         ) : null}
       </div>
@@ -818,8 +955,9 @@ export default function App() {
               x.w + "  " + x.pos,
               x.zh,
               statusLabel(x),
-              <span key={x.id} onClick={() => speak(x.w, sp)} style={{ cursor: "pointer", color: t.text.accent, fontSize: t.font.body1.fontSize }}>
-                發音
+              <span key={x.id} style={{ display: "inline-flex", gap: 12, fontSize: t.font.body1.fontSize }}>
+                <span onClick={() => speak(x.w, sp)} style={{ cursor: "pointer", color: t.text.accent }}>發音</span>
+                {wordLink(x)}
               </span>,
             ])}
           />
@@ -840,8 +978,12 @@ export default function App() {
       title="多益單字練習"
       summary={"共 " + WORDS.length.toLocaleString() + " 個多益單字，分基礎到高階四級，每 100 字一個單元。選級數或單元練習，每次都重新隨機出題，不熟和答錯的字會依間隔複習穿插出現。"}
       width="column"
-      sources={["kknono668/toeic-vocab-tw（Hugging Face，CC BY-SA 4.0）https://huggingface.co/datasets/kknono668/toeic-vocab-tw"]}
+      sources={[
+        "單字、中文與大部分例句：kknono668/toeic-vocab-tw（Hugging Face，CC BY-SA 4.0）https://huggingface.co/datasets/kknono668/toeic-vocab-tw",
+        "約 3.7% 的例句（資料集缺漏或不含該單字時）為本站自行撰寫補上，並以相同的 CC BY-SA 4.0 授權釋出；說明 https://github.com/music830524-create/t7k-82099aa17093a1f9#readme",
+      ]}
     >
+      {detailSheet}
       {view === "home" ? (
         <Section heading="選擇級數">
           {last
@@ -937,6 +1079,7 @@ export default function App() {
                 LEVELS[x.lv] + "・單元 " + (unitOf(x) + 1) + "・" + statusLabel(x),
                 <span key={x.id} style={{ display: "inline-flex", gap: 12, fontSize: t.font.body1.fontSize }}>
                   <span onClick={() => speak(x.w, sp)} style={{ cursor: "pointer", color: t.text.accent }}>發音</span>
+                  {wordLink(x)}
                   <span onClick={() => enter(x.lv, unitOf(x))} style={{ cursor: "pointer", color: t.text.accent }}>去練習</span>
                 </span>,
               ])}
@@ -958,11 +1101,11 @@ export default function App() {
               {quizBlock()}
               {quizControls("開始複習")}
               <Table
-                columns={["單字", "中文", "答錯", "下次複習"]}
+                columns={["單字", "中文", "答錯", "下次複習", ""]}
                 rows={reviewWords.slice(0, 60).map((x: Word) => {
                   const r = prog[x.w];
                   const days = Math.ceil((r.due - now) / DAY);
-                  return [x.w + "  " + x.pos, x.zh, String(r.x), r.due <= now ? { text: "今天", tone: "warning" as const } : days + " 天後"];
+                  return [x.w + "  " + x.pos, x.zh, String(r.x), r.due <= now ? { text: "今天", tone: "warning" as const } : days + " 天後", wordLink(x)];
                 })}
               />
             </div>

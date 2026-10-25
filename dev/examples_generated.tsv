@@ -1,0 +1,519 @@
+word	level	example_no	english	chinese
+anything	0	2	Is there anything else you need before the client meeting?	客戶會議前你還需要什麼嗎？
+birth	0	1	Please enter your date of birth on the insurance application form.	請在保險申請表上填寫您的出生日期。
+brought	0	2	The new manager brought several fresh ideas to the sales team.	新經理為業務團隊帶來了幾個新點子。
+country	0	2	Our company now has branch offices in more than twenty countries.	我們公司目前在二十多個國家設有分公司。
+date	0	2	Please check the date on the invoice before you make the payment.	付款前請確認發票上的日期。
+drank	0	2	The guests drank a toast to the success of the new company.	賓客們舉杯祝賀新公司成功。
+eat	0	1	Most employees eat lunch in the company cafeteria.	大多數員工都在公司餐廳吃午餐。
+fact	0	1	The fact that sales rose by 15% surprised the board.	銷售額成長了 15%，這個事實讓董事會感到意外。
+fly	0	2	The sales director will fly to Tokyo next Monday to meet the client.	業務總監下週一將飛往東京與客戶會面。
+group	0	1	A group of visitors from our Singapore office will tour the factory today.	新加坡辦公室的一群訪客今天將參觀工廠。
+honey	0	1	The hotel serves fresh honey with its breakfast buffet.	飯店的自助早餐附有新鮮蜂蜜。
+honey	0	2	The farm sells honey and jam at the weekend market.	這座農場在週末市集販售蜂蜜和果醬。
+kept	0	2	The receptionist kept all the visitor records in a locked cabinet.	櫃台人員把所有訪客紀錄都保存在上鎖的櫃子裡。
+less	0	1	The new printer uses less ink than the old model.	新的印表機比舊機型用的墨水更少。
+love	0	1	I would love to join the planning committee for the company picnic.	我很樂意加入公司野餐的籌備委員會。
+money	0	1	The company saved a lot of money by switching to a new supplier.	公司換了新的供應商，省下了一大筆錢。
+money	0	2	Please do not send cash or money orders by regular mail.	請勿以平信寄送現金或匯票。
+myself	0	2	I will contact the supplier myself to confirm the delivery date.	我會親自聯絡供應商確認交貨日期。
+none	0	1	None of the applicants had experience with the new accounting software.	沒有一位應徵者用過這套新的會計軟體。
+ourselves	0	2	We organized the training workshop ourselves to save costs.	為了節省成本，我們自己籌辦了這場培訓工作坊。
+place	0	1	The hotel is a convenient place to stay for business travelers.	對商務旅客來說，這家飯店是很方便的住宿地點。
+road	0	1	The road to the warehouse will be closed for repairs this weekend.	通往倉庫的道路本週末將因維修而封閉。
+second	0	1	Our second quarter results were better than expected.	我們第二季的業績比預期好。
+self	0	1	After his vacation, he came back to work feeling like his old self again.	休假回來後，他工作時又恢復了原本的自己。
+sent	0	1	I sent the revised contract to the client this morning.	我今天早上已將修改後的合約寄給客戶。
+sleep	0	1	Getting enough sleep helps employees stay focused at work.	充足的睡眠能幫助員工在工作時保持專注。
+space	0	2	The new office has plenty of space for meetings and events.	新辦公室有充足的空間可以開會和舉辦活動。
+star	0	1	The hotel received a five-star rating from the travel guide.	這家飯店獲得了旅遊指南的五星評等。
+teeth	0	2	Remember to brush your teeth after lunch before meeting clients.	和客戶見面前，記得午餐後刷牙。
+world	0	1	The company ships its products to customers all over the world.	這家公司把產品運送到世界各地的客戶手中。
+yes	0	1	Yes, I can attend the meeting tomorrow afternoon.	好的，我明天下午可以出席會議。
+aboard	1	1	Once all passengers are aboard, the plane will leave the gate.	所有乘客登機後，飛機就會離開登機門。
+adjustment	1	1	We made a small adjustment to the schedule so everyone can attend.	我們稍微調整了時程，讓每個人都能出席。
+adjustment	1	2	Moving to a new country requires some adjustment for employees and their families.	搬到新的國家，員工和家人都需要一些時間適應。
+admission	1	2	Admission to the museum is free for children under 12.	12 歲以下兒童可免費入館參觀。
+aid	1	1	The government offered financial aid to small businesses affected by the storm.	政府為受暴風雨影響的小型企業提供財務援助。
+aid	1	2	All staff must complete a first aid course this year.	所有員工今年都必須完成急救課程。
+aim	1	1	The aim of the meeting is to agree on next year's budget.	這次會議的目標是就明年的預算達成共識。
+aim	1	2	Our aim is to answer every customer email within 24 hours.	我們的目標是在 24 小時內回覆每一封客戶電子郵件。
+arrangement	1	2	We have made special arrangements for guests who need wheelchair access.	我們已為需要輪椅通道的來賓做了特別安排。
+battery	1	2	My laptop battery runs out after about four hours.	我的筆電電池大約四個小時就沒電了。
+behavior	1	2	The company does not tolerate rude behavior toward customers.	公司不容許對顧客有無禮的行為。
+blind	1	1	The new website is designed to be accessible to blind users.	新網站的設計讓視障使用者也能使用。
+checkout	1	1	Hotel checkout time is 11 a.m., but late checkout is available on request.	飯店退房時間是上午 11 點，但可應要求延後退房。
+choice	1	2	You have a choice of chicken or fish for lunch.	午餐你可以選擇雞肉或魚。
+clap	1	2	The audience began to clap when the speaker finished her presentation.	講者結束簡報時，觀眾開始鼓掌。
+coast	1	2	The company is building a new hotel on the east coast.	公司正在東海岸興建一家新飯店。
+combination	1	2	A combination of lower prices and better service increased our sales.	價格降低加上服務改善，讓我們的銷售額增加。
+comparison	1	2	The report includes a comparison of last year's costs and this year's costs.	這份報告包含去年與今年成本的比較。
+competition	1	2	Competition among online retailers has become very intense.	網路零售業者之間的競爭變得非常激烈。
+conclusion	1	2	In conclusion, we recommend expanding the project to two more cities.	總結來說，我們建議將專案擴展到另外兩個城市。
+confirmation	1	2	You will receive a confirmation email once your order has been processed.	訂單處理完成後，您會收到一封確認電子郵件。
+cooperation	1	2	Thank you for your cooperation during the office renovation.	感謝您在辦公室整修期間的配合。
+danger	1	1	The warning sign tells workers about the danger of falling objects.	警告標誌提醒工人注意物體掉落的危險。
+danger	1	2	Experts say the company is in danger of losing its biggest client.	專家表示，這家公司面臨失去最大客戶的危機。
+decision	1	2	The board will announce its decision on the merger next week.	董事會將於下週公布對合併案的決定。
+direction	1	2	The visitor asked the receptionist for directions to the meeting room.	訪客向櫃台人員詢問前往會議室的路線。
+entry	1	1	Entry to the conference hall requires a valid name badge.	進入會議廳需要配戴有效的名牌。
+examination	1	1	All new employees must pass a medical examination before starting work.	所有新進員工上班前都必須通過體格檢查。
+examination	1	2	The accounting examination will be held at the end of the month.	會計考試將在月底舉行。
+extension	1	2	Please call me at extension 205 if you have any questions.	如有任何問題，請撥分機 205 給我。
+follow-up	1	2	I sent a follow-up email to the client after our meeting.	會議結束後，我寄了一封後續追蹤的電子郵件給客戶。
+follower	1	1	The company's social media account now has over 50,000 followers.	公司的社群媒體帳號目前有超過五萬名追蹤者。
+follower	1	2	He is a loyal follower of the new management style.	他是新管理風格的忠實追隨者。
+handwriting	1	1	Please write clearly, because the clerk could not read your handwriting.	請寫清楚一點，因為職員看不懂你的字跡。
+held	1	2	The job fair was held at the city convention center last weekend.	就業博覽會上週末在市立會議中心舉行。
+inspection	1	2	The factory passed its annual safety inspection last week.	工廠上週通過了年度安全檢查。
+instruction	1	2	The trainer gave clear instructions on how to use the new machine.	培訓人員清楚說明了新機器的使用方法。
+introduction	1	2	The manager gave a brief introduction before the guest speaker began.	在客座講者開始之前，經理做了簡短的介紹。
+kneel	1	1	The technician had to kneel on the floor to fix the cables under the desk.	技術人員必須跪在地上修理桌子底下的線路。
+led	1	2	She led the negotiations with the new supplier last month.	她上個月主導了與新供應商的談判。
+load	1	1	The truck can carry a load of up to ten tons.	這輛卡車最多可載運十噸的貨物。
+load	1	2	Please help me load the boxes into the van.	請幫我把箱子裝上廂型車。
+management	1	2	The hotel is under new management and has improved its service.	這家飯店換了新的經營團隊，服務也有所改善。
+measurement	1	1	Please take an accurate measurement of the window before ordering curtains.	訂購窗簾前，請準確測量窗戶的尺寸。
+measurement	1	2	The engineer checked every measurement on the drawing.	工程師核對了圖面上的每一個尺寸。
+mechanic	1	1	The mechanic said the delivery van needs new brakes.	技師說這輛送貨車需要換新的煞車。
+mechanic	1	2	We called a mechanic to repair the broken forklift.	我們請了一位技師來修理故障的堆高機。
+met	1	1	I met the new marketing director at the trade fair last year.	我去年在商展上遇見了新的行銷總監。
+met	1	2	The team met several problems during the system upgrade.	團隊在系統升級期間遇到了幾個問題。
+motivation	1	2	Lack of motivation can lower the productivity of the whole team.	缺乏動力會降低整個團隊的生產力。
+obey	1	1	All visitors must obey the safety rules in the factory.	所有訪客都必須遵守工廠的安全規定。
+obey	1	2	Drivers who do not obey traffic laws may lose their company car.	不遵守交通規則的司機可能會被收回公司配車。
+outlet	1	1	Is there a power outlet near the podium for my laptop?	講台附近有可以給我筆電用的電源插座嗎？
+outlet	1	2	The company opened a new retail outlet in the shopping mall.	公司在購物中心開了一家新的門市。
+owe	1	1	We still owe the supplier $3,000 for last month's order.	我們還欠供應商上個月訂單的三千美元。
+owe	1	2	I owe you an apology for missing the meeting.	我沒出席會議，欠你一個道歉。
+payment	1	1	Payment is due within 30 days of the invoice date.	款項須在發票日期後 30 天內付清。
+permission	1	2	You need permission from your supervisor to work from home.	在家工作需要主管的許可。
+politeness	1	1	Customers appreciate the politeness of our front desk staff.	顧客很欣賞我們櫃台人員的禮貌。
+politeness	1	2	Out of politeness, she thanked the client for the long wait.	出於禮貌，她感謝客戶耐心久候。
+presentation	1	2	Her presentation on the new marketing plan impressed the clients.	她對新行銷計畫的簡報讓客戶印象深刻。
+pressure	1	2	Working under pressure is part of the job in the newsroom.	在新聞編輯室裡，承受壓力工作是常態。
+reaction	1	1	The customers' reaction to the new design was very positive.	顧客對新設計的反應非常正面。
+reaction	1	2	What was the manager's reaction when he heard the news?	經理聽到這個消息時有什麼反應？
+registration	1	2	Registration for the workshop closes on Friday.	工作坊的報名將於星期五截止。
+responsibility	1	2	It is the team leader's responsibility to make sure the deadline is met.	確保如期完成是團隊主管的責任。
+rest	1	1	After the long meeting, we took a short rest before the next session.	長時間的會議之後，我們在下一場開始前稍作休息。
+rose	1	1	He bought a dozen roses for the reception desk.	他買了一打玫瑰花放在接待櫃台。
+rose	1	2	The hotel lobby was decorated with fresh red roses for the event.	飯店大廳為了這場活動布置了新鮮的紅玫瑰。
+salesperson	1	2	The salesperson explained the warranty to the customer in detail.	銷售員向顧客詳細說明了保固內容。
+setup	1	1	The technician will help you with the setup of your new computer.	技術人員會協助你設定新電腦。
+setup	1	2	The room setup for the conference takes about two hours.	研討會的會場布置大約需要兩個小時。
+sight	1	1	After the eye surgery, his sight improved greatly.	眼睛手術後，他的視力大幅改善。
+signature	1	2	The contract is not valid without the director's signature.	這份合約沒有總監的簽名就無效。
+smokers	1	1	Smokers must use the designated area outside the building.	吸菸者必須使用大樓外的指定區域。
+stomach	1	1	I had a stomach ache, so I left the office early.	我胃痛，所以提早離開辦公室。
+suggestion	1	2	Thank you for your helpful suggestions on the report.	謝謝你對這份報告提出的寶貴建議。
+supporter	1	1	She is a strong supporter of flexible working hours.	她非常支持彈性工時制度。
+supporter	1	2	The charity thanked all its supporters for their donations.	這個慈善機構感謝所有支持者的捐款。
+teamwork	1	1	Good teamwork helped us finish the project ahead of schedule.	良好的團隊合作讓我們提前完成了專案。
+teamwork	1	2	The workshop focuses on communication and teamwork skills.	這場工作坊著重於溝通與團隊合作的技巧。
+technician	1	1	A technician will come to repair the air conditioner tomorrow.	明天會有一位技術員來修理冷氣。
+technician	1	2	The lab is hiring a technician with experience in testing equipment.	實驗室正在招聘一名有檢測設備經驗的技術員。
+tees	1	1	The golf shop sells tees, balls, and gloves.	這家高爾夫用品店販售球座、球和手套。
+unforgettable	1	1	The conference was an unforgettable experience for all attendees.	這場研討會對所有與會者來說都是難忘的經驗。
+youth	1	1	In his youth, the CEO worked part-time in a small bookstore.	執行長年輕時曾在一家小書店打工。
+accomplishment	2	1	Winning the industry award was a great accomplishment for the team.	贏得產業獎項是團隊的一大成就。
+accomplishment	2	2	The report lists the department's main accomplishments this year.	這份報告列出了部門今年的主要成就。
+achievement	2	1	The CEO thanked the staff for their achievements over the past year.	執行長感謝員工在過去一年的成就。
+achievement	2	2	Reaching one million users was a major achievement for the startup.	達到一百萬名用戶是這家新創公司的一大成就。
+adaptation	2	1	The film is an adaptation of a best-selling novel.	這部電影改編自一本暢銷小說。
+adaptation	2	2	Adaptation to the new software took the staff about a month.	員工花了大約一個月才適應新軟體。
+advancement	2	1	The company offers many opportunities for career advancement.	這家公司提供許多職涯晉升的機會。
+advancement	2	2	Recent advancements in technology have made remote work easier.	近來的科技進步讓遠距工作變得更容易。
+affordability	2	1	Affordability is the main concern for many first-time home buyers.	對許多首購族來說，可負擔性是最主要的考量。
+alliance	2	1	The two airlines formed an alliance to share routes.	這兩家航空公司結盟共享航線。
+alliance	2	2	Our alliance with a local partner helped us enter the market quickly.	我們與當地夥伴的合作聯盟讓我們迅速打入市場。
+allocation	2	1	The allocation of the marketing budget will be decided next week.	行銷預算的分配將在下週決定。
+allocation	2	2	Office space allocation is based on the size of each team.	辦公空間是依照各團隊的人數來分配。
+alteration	2	1	The tailor can make alterations to your suit by Friday.	裁縫師可以在星期五前幫你修改西裝。
+alteration	2	2	Any alteration to the contract must be approved by both parties.	合約的任何變更都必須經雙方同意。
+analysis	2	1	The analysis shows that most of our customers are under 35.	分析顯示我們大部分的顧客都在 35 歲以下。
+analysis	2	2	The consultant will present her analysis of the market next week.	顧問下週將提出她對市場的分析。
+anxiety	2	1	Many employees feel anxiety before their annual review.	許多員工在年度考核前都會感到焦慮。
+anxiety	2	2	Clear communication can reduce anxiety during a company merger.	清楚的溝通能減少公司合併期間的焦慮。
+appreciation	2	2	The director expressed her appreciation for the team's hard work.	總監對團隊的努力表達了感謝。
+assumption	2	2	The sales forecast is based on the assumption that prices will stay the same.	銷售預測是基於價格維持不變的假設。
+authorization	2	1	You need written authorization from your manager to access these files.	你需要主管的書面授權才能存取這些檔案。
+authorization	2	2	The payment was declined because the card authorization failed.	因為信用卡授權失敗，這筆付款被拒絕了。
+automation	2	1	Automation has greatly increased the factory's output.	自動化大幅提高了工廠的產量。
+automation	2	2	Some workers worry that automation will replace their jobs.	有些工人擔心自動化會取代他們的工作。
+beaten	2	2	Our prices cannot be beaten by any other store in the area.	我們的價格是這一帶其他商店都比不上的。
+bookkeeping	2	1	The small business hired an accountant to handle its bookkeeping.	這家小公司聘請了一位會計師來處理記帳工作。
+boundary	2	1	The river forms the boundary between the two counties.	這條河是兩個郡之間的邊界。
+boundary	2	2	Managers should respect the boundary between work and personal time.	主管應該尊重工作與私人時間的界限。
+breakdown	2	2	A breakdown in communication caused the delay.	溝通中斷導致了這次延誤。
+breakthrough	2	2	The new drug is a major breakthrough in cancer treatment.	這種新藥是癌症治療的一大突破。
+cargo	2	1	The ship was carrying cargo from Shanghai to Los Angeles.	這艘船載運從上海到洛杉磯的貨物。
+cargo	2	2	All cargo must be inspected before it is loaded onto the plane.	所有貨物在裝上飛機前都必須接受檢查。
+challenger	2	1	The new challenger in the smartphone market is selling at lower prices.	智慧型手機市場的新挑戰者以更低的價格銷售。
+challenger	2	2	The current champion will face a young challenger in the final.	衛冕冠軍將在決賽中迎戰一位年輕的挑戰者。
+chase	2	2	Please chase the supplier for the missing delivery.	請向供應商追問那批還沒送到的貨。
+command	2	1	The general manager is in command of all overseas operations.	總經理負責指揮所有海外業務。
+command	2	2	She has a good command of both English and Japanese.	她精通英語和日語。
+commitment	2	1	Our commitment to quality has earned us loyal customers.	我們對品質的堅持為我們贏得了忠實的顧客。
+commitment	2	2	Taking on a second project is a big commitment of time.	再接一個專案需要投入大量的時間。
+concentration	2	2	The noise from the construction site affected my concentration.	工地傳來的噪音影響了我的專注力。
+conjunction	2	1	The marketing team worked in conjunction with the design team on the campaign.	行銷團隊與設計團隊共同合作進行這次宣傳活動。
+conjunction	2	2	The discount can be used in conjunction with other offers.	這個折扣可以與其他優惠合併使用。
+consequence	2	1	Missing the deadline could have serious consequences for the company.	錯過截止日期可能會對公司造成嚴重的後果。
+consequence	2	2	As a consequence of the strike, several flights were canceled.	由於罷工，好幾個航班被取消了。
+contribution	2	2	Each employee made a contribution to the charity fund.	每位員工都為慈善基金捐了款。
+conventional	2	1	The new engine uses less fuel than conventional engines.	新引擎比傳統引擎更省油。
+conventional	2	2	The company took a conventional approach to its advertising.	這家公司在廣告上採取了傳統的做法。
+conversion	2	1	The conversion of the old warehouse into offices took six months.	把舊倉庫改建成辦公室花了六個月。
+conversion	2	2	The website shows the currency conversion rate for each country.	網站會顯示每個國家的貨幣換算匯率。
+copyright	2	1	The publisher owns the copyright to all of the author's books.	出版社擁有這位作者所有書籍的版權。
+copyright	2	2	You may not copy these photos without the copyright holder's permission.	未經版權所有人許可，不得複製這些照片。
+currency	2	1	You can exchange currency at the airport or at a local bank.	您可以在機場或當地銀行兌換貨幣。
+deduction	2	2	Employees can claim a tax deduction for some work-related expenses.	員工的部分工作相關費用可以申報扣除額。
+delegate	2	1	A good manager knows how to delegate tasks to the team.	好的主管懂得如何把工作委派給團隊。
+delegate	2	2	She delegated the hiring process to her assistant.	她把招聘流程交給助理處理。
+demonstration	2	2	The salesperson gave a short demonstration of the new vacuum cleaner.	業務員簡短示範了新款吸塵器的用法。
+dependability	2	1	Customers choose our trucks for their dependability.	顧客選擇我們的卡車是因為它們很可靠。
+dependability	2	2	Dependability is one of the most important qualities in an employee.	可靠是員工最重要的特質之一。
+dialogue	2	1	The two companies have started a dialogue about a possible merger.	兩家公司已經開始就可能的合併進行對話。
+dialogue	2	2	The textbook includes short dialogues set in hotels and airports.	這本教科書收錄了以飯店和機場為場景的簡短對話。
+disagreement	2	1	There was some disagreement about the size of the budget.	大家對預算的規模有些分歧。
+disagreement	2	2	The two partners settled their disagreement through discussion.	兩位合夥人透過討論化解了彼此的歧見。
+discovery	2	1	The discovery of an error in the report delayed its release.	報告中發現了錯誤，因此延後發布。
+discovery	2	2	The scientist's discovery could lead to a new type of medicine.	這位科學家的發現可能會促成一種新藥。
+dose	2	2	Take one dose of the medicine every six hours.	每六小時服用一劑藥。
+dump	2	1	It is illegal to dump waste near the river.	在河邊傾倒廢棄物是違法的。
+duration	2	1	Please keep your phone switched off for the duration of the flight.	飛行全程請將手機關機。
+duration	2	2	The duration of the training program is three weeks.	這項培訓課程為期三週。
+edge	2	1	Do not place the laptop too close to the edge of the desk.	不要把筆電放得太靠近桌子邊緣。
+emphasis	2	1	The new strategy places emphasis on customer service.	新策略強調顧客服務。
+emphasis	2	2	The speaker put special emphasis on online security.	講者特別強調網路安全。
+engagement	2	2	Customer engagement on our social media pages has increased this year.	今年顧客在我們社群網頁上的參與度提高了。
+enhancement	2	1	The latest software update includes several security enhancements.	最新的軟體更新包含幾項安全性強化。
+enhancement	2	2	The enhancement of our website has attracted more visitors.	網站改善後吸引了更多訪客。
+evaluation	2	2	All staff will receive a performance evaluation at the end of the year.	所有員工都會在年底接受績效評估。
+expansion	2	2	The expansion of the factory will create 200 new jobs.	工廠的擴建將創造 200 個新的工作機會。
+extent	2	1	We do not yet know the full extent of the damage.	我們還不清楚損害的全部程度。
+extent	2	2	To some extent, the drop in sales was caused by the weather.	銷售下滑在某種程度上是天氣造成的。
+festivity	2	1	The office was decorated for the holiday festivities.	辦公室為節慶活動布置了一番。
+festivity	2	2	Employees and their families are invited to join the New Year festivities.	員工與家屬受邀參加新年慶祝活動。
+floss	2	1	Dentists recommend that you floss your teeth every day.	牙醫建議每天用牙線清潔牙齒。
+forth	2	1	The two managers went back and forth on the budget for an hour.	兩位經理針對預算來回討論了一個小時。
+forth	2	2	The new policy sets forth the rules for working remotely.	新政策列出了遠端工作的相關規定。
+forthcoming	2	1	Details of the forthcoming conference will be announced next week.	即將舉行的研討會詳細資訊將於下週公布。
+forum	2	1	Customers can ask questions on our online forum.	顧客可以在我們的線上論壇提問。
+forum	2	2	The city will hold a public forum on the new transport plan.	市政府將針對新的交通計畫舉辦公開論壇。
+freight	2	1	The freight will arrive at the port on Thursday.	這批貨將在星期四抵達港口。
+freight	2	2	Freight costs have risen sharply this year.	今年貨運費用大幅上漲。
+frequency	2	1	The frequency of bus service increases during rush hour.	尖峰時段公車班次會增加。
+frequency	2	2	We have reduced the frequency of our team meetings to once a week.	我們把團隊會議的頻率減少為每週一次。
+freshness	2	2	We use special packaging to keep the freshness of our coffee beans.	我們使用特殊包裝來保持咖啡豆的新鮮度。
+fuel-efficient	2	2	The company replaced its delivery trucks with fuel-efficient vehicles.	公司把送貨卡車換成了省油的車輛。
+gross	2	1	The company's gross profit rose by 8% this year.	公司今年的毛利成長了 8%。
+gross	2	2	Your gross salary is the amount before taxes are taken out.	稅前薪資總額是指扣稅前的金額。
+guidance	2	1	New employees work under the guidance of a senior staff member.	新進員工在資深同仁的指導下工作。
+guidance	2	2	Please ask your advisor for guidance on choosing a course.	選課時請向你的指導老師尋求建議。
+guideline	2	1	Please follow the company guidelines when posting on social media.	在社群媒體上發文時，請遵守公司的規範。
+guideline	2	2	The new guidelines explain how to report safety problems.	新的指導方針說明了如何通報安全問題。
+gun	2	2	Security guards at the bank do not carry a gun.	這家銀行的保全人員不配槍。
+hazard	2	1	Wet floors are a safety hazard in the kitchen.	濕滑的地板是廚房的安全隱患。
+hazard	2	2	Workers must wear gloves when handling hazardous materials.	處理危險物品時，工人必須戴手套。
+home-improvement	2	1	The home-improvement store is offering 20% off all paint this week.	這家居家修繕用品店本週所有油漆打八折。
+hospitality	2	1	The hotel is famous for its warm hospitality.	這家飯店以熱情好客聞名。
+hospitality	2	2	She is looking for a job in the hospitality industry.	她正在找餐旅業的工作。
+implementation	2	1	The implementation of the new system will begin in March.	新系統將於三月開始實施。
+implementation	2	2	The manager is responsible for the implementation of the plan.	經理負責執行這項計畫。
+impression	2	2	The candidate made a good impression during the interview.	這位應徵者在面試時留下了好印象。
+indicator	2	1	The red indicator light shows that the battery is low.	紅色指示燈表示電池電量不足。
+indicator	2	2	Rising sales are a good indicator of customer confidence.	銷售成長是顧客信心的良好指標。
+influential	2	2	She is one of the most influential people in the fashion industry.	她是時尚界最有影響力的人物之一。
+initiative	2	1	She took the initiative and organized a training session for new staff.	她主動為新進員工籌辦了一場培訓。
+initiative	2	2	The city launched a new initiative to support local businesses.	市政府推出一項支持在地企業的新倡議。
+intention	2	1	We have no intention of raising our prices this year.	我們今年無意調漲價格。
+intention	2	2	The company announced its intention to open three new stores.	公司宣布打算開設三家新門市。
+interval	2	1	There will be a 15-minute interval between the two sessions.	兩場議程之間會有 15 分鐘的休息時間。
+interval	2	2	The machine is checked at regular intervals.	這台機器會定期進行檢查。
+invention	2	1	The invention of the smartphone changed the way people work.	智慧型手機的發明改變了人們的工作方式。
+invention	2	2	The engineer applied for a patent for her new invention.	這位工程師為她的新發明申請了專利。
+last-minute	2	2	We were able to get two last-minute tickets for the flight.	我們搶到了兩張最後一刻釋出的機票。
+lawsuit	2	1	The customer filed a lawsuit against the airline.	那位顧客對航空公司提起了訴訟。
+lawsuit	2	2	The two companies settled the lawsuit out of court.	兩家公司在庭外和解了這起訴訟。
+maintain	2	2	It is important to maintain good relationships with our suppliers.	和供應商維持良好關係是很重要的。
+makeup	2	2	The actors put on their makeup before the commercial was filmed.	廣告開拍前，演員們先上了妝。
+margin	2	1	The store increased its profit margin by cutting costs.	這家店透過削減成本提高了利潤率。
+margin	2	2	Please write your comments in the margin of the report.	請把意見寫在報告的頁邊空白處。
+metric	2	1	Customer satisfaction is a key metric for our service team.	顧客滿意度是我們服務團隊的關鍵指標。
+metric	2	2	We use several metrics to measure the success of a campaign.	我們用好幾項指標來衡量行銷活動的成效。
+mislead	2	1	The advertisement was removed because it could mislead customers.	這則廣告因可能誤導消費者而被撤下。
+mislead	2	2	Please do not mislead investors about the company's profits.	請不要在公司獲利方面誤導投資人。
+moderate	2	1	Prices in the area have seen a moderate increase this year.	這一帶的價格今年有溫和的上漲。
+moderate	2	2	Bake the bread at a moderate temperature for 30 minutes.	以中溫烘烤麵包 30 分鐘。
+modernization	2	1	The modernization of the factory will cost about $2 million.	工廠的現代化將花費約兩百萬美元。
+modernization	2	2	The bank is investing in the modernization of its online services.	這家銀行正投資推動網路服務現代化。
+narrow	2	1	The road narrows near the bridge, so please drive carefully.	道路在橋附近變窄，請小心駕駛。
+narrow	2	2	We have narrowed the list of candidates down to three.	我們已經把候選人名單縮小到三位。
+navigation	2	2	The rental car comes with a built-in navigation system.	這輛租用的車附有內建導航系統。
+observe	2	1	The trainer will observe how you handle customer calls.	培訓人員會觀察你如何處理客戶來電。
+observe	2	2	All employees must observe the company's safety rules.	所有員工都必須遵守公司的安全規定。
+occupy	2	1	The marketing team will occupy the third floor of the new building.	行銷團隊將進駐新大樓的三樓。
+occupy	2	2	Meetings occupy most of the manager's day.	會議佔據了經理一天中大部分的時間。
+omit	2	1	Please do not omit any details from the accident report.	事故報告中請不要遺漏任何細節。
+omit	2	2	His name was omitted from the list by mistake.	他的名字被誤從名單中漏掉了。
+opponent	2	1	Our main opponent in this bid is a large European firm.	我們在這次投標中的主要對手是一家大型歐洲公司。
+opponent	2	2	The candidate thanked her opponent after the election.	選舉結束後，那位候選人向她的對手致謝。
+overflow	2	1	The meeting room was so popular that guests had to sit in an overflow room.	會議室太受歡迎，客人只好坐到另外準備的備用會場。
+overflow	2	2	Turn off the tap before the sink overflows.	在水槽滿出來之前把水龍頭關掉。
+paternity	2	1	He will take two weeks of paternity leave after his baby is born.	孩子出生後，他將請兩週的陪產假。
+paternity	2	2	The company improved its paternity benefits this year.	公司今年改善了陪產假的福利。
+pension	2	1	She will receive a monthly pension after she retires.	她退休後每個月將領取退休金。
+pension	2	2	The company contributes 6% of each salary to the pension plan.	公司提撥每位員工薪資的 6% 到退休金計畫。
+percentage	2	1	A large percentage of our customers shop online.	我們有很大比例的顧客在網路上購物。
+persuade	2	1	We finally persuaded the client to sign the contract.	我們終於說服客戶簽下合約。
+persuade	2	2	It was hard to persuade the board to approve the budget.	要說服董事會核准這份預算並不容易。
+placement	2	2	The university helps students find summer job placements.	大學協助學生找到暑期工作職位。
+postponement	2	1	The postponement of the conference was announced yesterday.	研討會延期的消息昨天已經公布。
+postponement	2	2	Bad weather caused the postponement of the outdoor event.	惡劣的天氣導致戶外活動延期。
+precise	2	2	Please give me the precise number of guests attending the dinner.	請告訴我出席晚宴的確切賓客人數。
+preferably	2	1	Applicants should preferably have experience in customer service.	應徵者最好具備客服經驗。
+preservation	2	1	The city spent a lot of money on the preservation of old buildings.	市政府花了大筆經費保存老建築。
+preservation	2	2	Proper storage helps with the preservation of food.	妥善的存放有助於保存食物。
+projection	2	1	Sales projections for next year look very positive.	明年的銷售預估看起來非常樂觀。
+projection	2	2	The financial team revised its profit projections downward.	財務團隊下修了獲利預估。
+questionnaire	2	1	Please fill out this short questionnaire about our service.	請填寫這份關於我們服務的簡短問卷。
+questionnaire	2	2	More than 500 customers returned the questionnaire.	超過五百位顧客交回了問卷。
+recommendation	2	2	The hotel was chosen on the recommendation of a colleague.	這家飯店是依照一位同事的推薦選的。
+recruitment	2	1	The recruitment of new sales staff will begin next month.	新業務人員的招聘工作將於下個月開始。
+recruitment	2	2	She works for a recruitment agency in Taipei.	她在台北一家人力仲介公司工作。
+reduction	2	2	The new system led to a 10% reduction in energy costs.	新系統讓能源成本降低了 10%。
+reflection	2	2	The sales figures are a reflection of the team's hard work.	銷售數字反映了團隊的努力。
+remainder	2	1	The remainder of the budget will be used for staff training.	剩下的預算將用於員工培訓。
+remainder	2	2	I'll spend the remainder of the afternoon answering emails.	今天下午剩下的時間我要用來回覆電子郵件。
+replacement	2	1	The store will send a replacement for the damaged item.	商店會寄一件替換品來取代損壞的商品。
+residence	2	1	The ambassador's official residence is located near the park.	大使的官邸位於公園附近。
+retention	2	1	Employee retention has improved since we raised salaries.	自從我們調薪後，員工留任率已有改善。
+retention	2	2	The company's data retention policy requires records to be kept for seven years.	公司的資料保存政策規定紀錄須保留七年。
+revision	2	1	The editor made several revisions to the article.	編輯對這篇文章做了幾處修訂。
+revision	2	2	Please send me the latest revision of the contract.	請把合約的最新修訂版寄給我。
+romance	2	2	The film is a romance set in a small seaside town.	這部電影是以海邊小鎮為背景的愛情故事。
+settlement	2	1	The two companies reached a settlement before the case went to court.	兩家公司在案件進入法院前就達成了和解。
+settlement	2	2	The settlement includes a payment of $50,000 to the customer.	和解內容包括支付顧客五萬美元。
+shredder	2	1	Please put old customer files in the shredder.	請把舊的客戶檔案放進碎紙機。
+shutoff	2	1	The shutoff valve is located under the sink.	關閉閥位於水槽下方。
+shutoff	2	2	Residents were warned about a water shutoff on Tuesday morning.	住戶已接獲通知，星期二早上將停水。
+slowdown	2	2	The economic slowdown has affected sales across the industry.	經濟成長減緩已影響了整個產業的銷售。
+span	2	1	The project will be completed over a span of two years.	這個專案將在兩年期間內完成。
+span	2	2	Children have a shorter attention span than adults.	兒童的注意力持續時間比成人短。
+specialization	2	1	Her specialization is international tax law.	她的專長是國際稅法。
+specialization	2	2	Specialization allows each factory to focus on one product.	專業分工讓每間工廠可以專注於一項產品。
+spokespeople	2	1	Company spokespeople declined to comment on the merger.	公司發言人拒絕對合併案發表評論。
+spokespeople	2	2	Both spokespeople answered questions at the press conference.	兩位發言人都在記者會上回答了問題。
+spokesperson	2	1	A company spokesperson said the factory would reopen next week.	公司發言人表示工廠下週將重新開工。
+spokesperson	2	2	The spokesperson refused to answer questions about the merger.	發言人拒絕回答有關合併的問題。
+sponsorship	2	2	The event was made possible by the sponsorship of several local businesses.	多虧幾家當地企業的贊助，這場活動才得以舉辦。
+squad	2	1	A squad of engineers was sent to fix the network problem.	公司派了一組工程師去修復網路問題。
+squad	2	2	The sales squad meets every Monday morning to review targets.	業務小組每週一早上開會檢討目標。
+startup	2	1	She left her bank job to join a technology startup.	她辭去銀行的工作，加入一家科技新創公司。
+startup	2	2	The startup raised $5 million from investors last year.	這家新創公司去年向投資人募得五百萬美元。
+stationary	2	1	Please remain stationary until the bus comes to a complete stop.	在公車完全停妥之前，請保持不動。
+stationary	2	2	The truck was stationary at the loading dock for two hours.	那輛卡車在卸貨區停了兩個小時沒有移動。
+steadily	2	2	Sales have increased steadily over the past three years.	過去三年來銷售額穩定成長。
+submission	2	1	The deadline for submission of proposals is May 31.	提案的提交截止日是 5 月 31 日。
+submission	2	2	All submissions will be reviewed by a panel of judges.	所有提交的作品都將由評審團審查。
+tactic	2	1	The sales team tried a new tactic to attract younger customers.	業務團隊嘗試用新手法吸引年輕顧客。
+tactic	2	2	Offering free shipping is a common marketing tactic.	提供免運費是常見的行銷手段。
+tension	2	1	There was some tension between the two departments over the budget.	兩個部門之間因預算問題而關係緊張。
+tension	2	2	A short walk can help reduce tension after a long meeting.	長時間開會後散散步有助於舒緩緊繃。
+termination	2	1	The contract allows termination with 30 days' notice.	合約允許在提前 30 天通知的情況下終止。
+termination	2	2	The termination of the project surprised many employees.	專案終止讓許多員工感到意外。
+territory	2	1	Each sales representative is responsible for a different territory.	每位業務代表負責不同的區域。
+territory	2	2	The company is moving into new territory by selling online.	公司透過網路銷售進軍新的領域。
+thickly	2	1	Spread the paint thickly to cover the old color.	把油漆塗厚一點，才能蓋住原來的顏色。
+trademark	2	1	The company's logo is a registered trademark.	這家公司的標誌是註冊商標。
+trademark	2	2	Using another firm's trademark without permission is illegal.	未經許可使用其他公司的商標是違法的。
+transformation	2	2	The company is going through a digital transformation.	這家公司正在進行數位轉型。
+translation	2	2	The translation of the user manual will be finished by Friday.	使用手冊的翻譯將在星期五前完成。
+treatment	2	2	All guests should receive equal treatment regardless of membership level.	無論會員等級為何，所有賓客都應受到同等的對待。
+troubleshoot	2	1	The IT staff will troubleshoot the printer problem this afternoon.	資訊人員今天下午會排除印表機的故障。
+troubleshoot	2	2	This guide explains how to troubleshoot common network issues.	這份指南說明如何排除常見的網路問題。
+turnover	2	1	The company's annual turnover reached $20 million.	公司的年營業額達到兩千萬美元。
+turnover	2	2	High staff turnover is a serious problem in the restaurant industry.	員工流動率高是餐飲業的一大問題。
+universal	2	1	Good customer service has universal appeal.	良好的顧客服務是人人都喜歡的。
+universal	2	2	The adapter works with a universal power outlet.	這個轉接頭適用於萬用電源插座。
+urgency	2	1	The manager stressed the urgency of finishing the report.	經理強調完成報告的急迫性。
+urgency	2	2	Please treat this request with urgency.	請緊急處理這項要求。
+verification	2	1	Please bring a photo ID for verification at the front desk.	請攜帶有照片的證件到櫃台核對身分。
+verification	2	2	A verification code has been sent to your phone.	驗證碼已經傳送到你的手機。
+violate	2	2	Any employee who violates the safety rules will receive a warning.	任何違反安全規定的員工都會受到警告。
+voluntarily	2	1	Several staff members voluntarily stayed late to help with the inventory.	有幾位員工自願留下來加班協助盤點。
+wholesale	2	1	We buy our office supplies at wholesale prices.	我們以批發價購買辦公用品。
+wholesale	2	2	The company sells its products wholesale to supermarkets.	這家公司把產品批發給超市。
+wholesaler	2	1	The store buys its fruit directly from a local wholesaler.	這家店直接向當地的批發商購買水果。
+wholesaler	2	2	The wholesaler offers discounts on large orders.	批發商對大量訂單提供折扣。
+withdrawal	2	1	You can make a cash withdrawal at any of our ATMs.	你可以在我們任何一台提款機領取現金。
+withdrawal	2	2	The company announced its withdrawal from the Asian market.	公司宣布退出亞洲市場。
+acceleration	3	1	The acceleration of online sales has changed the retail industry.	網路銷售的加速成長改變了零售業。
+acceleration	3	2	The new car is known for its quick acceleration.	這款新車以加速快速聞名。
+accountability	3	1	The new system improves accountability in the purchasing department.	新制度提升了採購部門的權責歸屬。
+accountability	3	2	Managers must take accountability for their team's results.	主管必須為團隊的成果負責。
+adjournment	3	1	The chairperson called for a short adjournment for lunch.	主席宣布短暫休會吃午餐。
+adjournment	3	2	The judge ordered an adjournment until next Monday.	法官下令休庭至下週一。
+affiliate	3	1	The bank opened an affiliate in Singapore last year.	這家銀行去年在新加坡設立了一家關係企業。
+affiliate	3	2	The hotel is affiliated with a large international chain.	這家飯店隸屬於一家大型國際連鎖集團。
+affirmative	3	2	The board voted in the affirmative on the new budget.	董事會投票通過了新預算。
+allegedly	3	1	The manager allegedly approved the payment without checking the invoice.	據稱，經理沒有核對發票就核准了這筆付款。
+ambassador	3	1	The ambassador attended the opening of the trade fair.	大使出席了貿易展的開幕式。
+ambassador	3	2	The famous athlete is the brand ambassador for our sportswear.	這位知名運動員是我們運動服飾的品牌大使。
+amendment	3	1	The board approved an amendment to the company's rules.	董事會通過了公司章程的修正案。
+amendment	3	2	Please review the amendments to the contract before signing.	簽約前請先檢閱合約的修訂條款。
+arbitration	3	1	The two sides agreed to settle the dispute through arbitration.	雙方同意透過仲裁解決這項爭議。
+arbitration	3	2	The contract includes an arbitration clause.	這份合約包含仲裁條款。
+benchmark	3	1	The company uses last year's sales as a benchmark for growth.	公司以去年的銷售額作為成長的基準。
+benchmark	3	2	The new phone sets a benchmark for battery life.	這款新手機為電池續航力樹立了標竿。
+bless	3	1	The priest was invited to bless the new office building.	神父受邀為新辦公大樓祈福。
+carrot	3	2	The menu offers a fresh carrot and ginger soup every day.	菜單上每天都供應新鮮的胡蘿蔔薑湯。
+coin	3	2	The parking machine only accepts coins.	這台停車繳費機只收硬幣。
+competency	3	1	Leadership is a core competency for all managers.	領導力是所有主管的核心能力。
+competency	3	2	The training program helps staff develop technical competencies.	這項培訓課程幫助員工培養專業技術能力。
+compliance	3	1	The factory was fined for lack of compliance with safety rules.	這家工廠因未遵守安全規定而被罰款。
+compliance	3	2	Our compliance team checks that all contracts follow the law.	我們的法遵團隊會確認所有合約都符合法規。
+computerization	3	1	The computerization of patient records has saved hospitals time.	病歷電腦化為醫院節省了時間。
+computerization	3	2	Computerization of the warehouse made inventory checks much faster.	倉庫電腦化之後，盤點速度快了許多。
+concession	3	2	The union won several concessions from management.	工會從資方那裡爭取到幾項讓步。
+configuration	3	1	The technician changed the configuration of the network.	技術人員變更了網路的配置。
+configuration	3	2	This laptop is available in several configurations.	這款筆電有好幾種規格配置可選。
+conglomerate	3	1	The hotel is owned by a large Japanese conglomerate.	這家飯店由一家大型日本企業集團持有。
+conglomerate	3	2	The conglomerate has businesses in shipping, retail and banking.	這個企業集團的事業橫跨航運、零售和銀行業。
+consolidation	3	1	The consolidation of the two offices will save rent.	合併兩間辦公室可以節省租金。
+consolidation	3	2	The industry has seen a lot of consolidation in recent years.	這個產業近年來經歷了大量整併。
+consortium	3	1	A consortium of banks agreed to finance the new airport.	一個銀行團同意為新機場提供融資。
+consortium	3	2	The bridge was built by a consortium of three construction firms.	這座橋由三家營造公司組成的聯合團隊興建。
+contender	3	1	Our product is a strong contender for this year's design award.	我們的產品是今年設計獎的有力競爭者。
+contender	3	2	Three contenders remain in the bidding for the project.	仍有三家競爭者在爭取這個專案。
+controversy	3	1	The new parking fees caused a lot of controversy among staff.	新的停車費在員工之間引起了許多爭議。
+controversy	3	2	The CEO tried to avoid controversy by not commenting.	執行長不予置評，以避免引發爭議。
+counsel	3	1	The company sought legal counsel before signing the agreement.	公司在簽署協議前先尋求了法律顧問的意見。
+counsel	3	2	She gave me wise counsel about changing careers.	她針對轉換跑道給了我明智的建議。
+customization	3	1	We offer customization of our software for large clients.	我們為大型客戶提供軟體客製化服務。
+customization	3	2	Customization of the order may take an extra week.	訂單客製化可能需要多一週的時間。
+deficit	3	1	The government is trying to reduce the budget deficit.	政府正設法減少預算赤字。
+deficit	3	2	The country has a large trade deficit with its neighbors.	這個國家對鄰國有大量的貿易逆差。
+delegation	3	1	A delegation from the Tokyo office will visit next week.	東京辦公室的代表團下週將來訪。
+delegation	3	2	Effective delegation allows managers to focus on planning.	有效的授權讓主管能專注於規劃。
+deliverable	3	1	The first deliverable is a project plan due on Friday.	第一項交付成果是星期五要交的專案計畫。
+deliverable	3	2	Please list all deliverables and deadlines in the contract.	請在合約中列出所有交付項目和期限。
+deployment	3	1	The deployment of the new software will happen over the weekend.	新軟體將在週末部署。
+deployment	3	2	The deployment of extra staff helped shorten waiting times.	加派人手縮短了等候時間。
+deviation	3	2	Any deviation from the safety procedures must be reported.	任何偏離安全程序的情況都必須通報。
+devotion	3	1	Her devotion to her customers earned her many loyal clients.	她對顧客的用心為她贏得了許多忠實客戶。
+devotion	3	2	The award recognizes his devotion to the company over 30 years.	這個獎項表彰他 30 年來對公司的奉獻。
+differentiation	3	1	Product differentiation helps us stand out from our competitors.	產品差異化有助於我們在競爭者中脫穎而出。
+differentiation	3	2	Price alone is not enough for differentiation in this market.	在這個市場上，光靠價格不足以做出差異化。
+digitization	3	1	The library completed the digitization of its old newspapers.	圖書館完成了舊報紙的數位化。
+digitization	3	2	The digitization of invoices has reduced paper use.	發票數位化減少了紙張的使用。
+disbursement	3	1	The disbursement of funds will take place at the end of the month.	款項將在月底撥付。
+disbursement	3	2	The finance office handles the disbursement of travel expenses.	財務部門負責支付差旅費用。
+distinction	3	1	There is a clear distinction between a sale and a lease.	銷售和租賃之間有明確的區別。
+distinction	3	2	She graduated with distinction from a top business school.	她以優異成績從頂尖商學院畢業。
+dividend	3	1	The company will pay a dividend of $1.20 per share.	公司將配發每股 1.20 美元的股息。
+dividend	3	2	Shareholders were happy with this year's dividend.	股東們對今年的股利感到滿意。
+ecology	3	1	The new factory must not harm the local ecology.	新工廠不得破壞當地的生態。
+ecology	3	2	She studied ecology before working for an environmental consulting firm.	她在進入環境顧問公司工作之前主修生態學。
+eternity	3	2	Waiting for the test results felt like an eternity.	等待檢驗結果的時間彷彿永無止境。
+ett	3	1	The ETT cable in the meeting room needs to be replaced.	會議室裡的乙太網路線需要更換。
+ett	3	2	Please plug your laptop into the ETT port on the wall.	請把筆電接上牆上的乙太網路孔。
+fabrication	3	1	The fabrication of steel parts is done in our Ohio plant.	鋼製零件是在我們位於俄亥俄州的工廠製造的。
+fabrication	3	2	The report was found to be a complete fabrication.	這份報告被發現完全是捏造的。
+faithfulness	3	1	Customers value the faithfulness of the translation to the original text.	顧客重視譯文對原文的忠實程度。
+faithfulness	3	2	The company rewarded his faithfulness with a long-service award.	公司頒發年資獎表揚他的忠誠。
+fantasy	3	2	Many people have a fantasy about quitting their job and traveling the world.	許多人都幻想過辭掉工作去環遊世界。
+franchise	3	1	He bought a franchise of a popular coffee chain.	他買下了一家熱門連鎖咖啡店的加盟權。
+franchise	3	2	The restaurant chain plans to franchise its brand overseas.	這家連鎖餐廳計畫將品牌授權海外加盟。
+immensity	3	1	The immensity of the project worried some of the investors.	這個專案的龐大規模讓一些投資人感到擔憂。
+immensity	3	2	Visitors are often amazed by the immensity of the convention center.	訪客常常對會展中心的廣闊感到驚嘆。
+implication	3	2	The implication of his remark was that the deal might fail.	他那番話的言外之意是這筆交易可能會失敗。
+incompetent	3	2	The client complained that the contractor was incompetent.	客戶抱怨承包商能力不足。
+integration	3	1	The integration of the two computer systems took several months.	兩套電腦系統的整合花了好幾個月。
+integration	3	2	The program supports the integration of new employees into the team.	這項計畫協助新進員工融入團隊。
+integrity	3	1	We look for employees with honesty and integrity.	我們尋找誠實正直的員工。
+integrity	3	2	The engineers tested the integrity of the bridge.	工程師檢測了這座橋的結構完整性。
+intervention	3	2	The dispute was settled without government intervention.	這場糾紛在沒有政府介入的情況下解決了。
+joint-venture	3	1	The two firms formed a joint-venture company to enter the Asian market.	兩家公司成立了一家合資企業以進軍亞洲市場。
+joint-venture	3	2	The joint-venture agreement was signed in Seoul last month.	合資協議上個月在首爾簽署。
+legislation	3	1	New legislation requires companies to protect customer data.	新法規要求企業保護顧客資料。
+legislation	3	2	The government plans to introduce legislation on minimum wages.	政府計畫推動最低工資的立法。
+litigation	3	1	The company wants to avoid costly litigation.	公司希望避免代價高昂的訴訟。
+litigation	3	2	The dispute is still in litigation.	這起糾紛仍在訴訟中。
+mechanization	3	1	Mechanization has reduced the number of farm workers needed.	機械化減少了農場所需的人力。
+mechanization	3	2	The mechanization of the packing line doubled production.	包裝線機械化後，產量增加了一倍。
+mediate	3	1	A neutral expert was asked to mediate between the two companies.	一位中立的專家受邀在兩家公司之間進行調解。
+mediate	3	2	The union leader helped mediate the dispute over working hours.	工會領袖協助調解了工時爭議。
+mediation	3	1	The disagreement was resolved through mediation.	這項分歧透過調解解決了。
+mediation	3	2	Both parties agreed to try mediation before going to court.	雙方同意在上法院之前先嘗試調解。
+morality	3	1	The course discusses morality in business decisions.	這門課探討商業決策中的道德問題。
+morality	3	2	Some people question the morality of selling customer data.	有些人質疑出售顧客資料是否合乎道德。
+niche	3	1	The small company found a niche in eco-friendly packaging.	這家小公司在環保包裝領域找到了利基市場。
+niche	3	2	Luxury travel is a profitable niche market.	豪華旅遊是一個有利可圖的利基市場。
+nourishment	3	1	Plants get nourishment from the soil.	植物從土壤中獲取養分。
+optimization	3	1	Search engine optimization can bring more visitors to our website.	搜尋引擎最佳化可以為我們的網站帶來更多訪客。
+optimization	3	2	The optimization of delivery routes saved fuel costs.	配送路線最佳化節省了燃料費用。
+optimum	3	1	The room is kept at the optimum temperature for storing wine.	房間保持在儲存葡萄酒的最佳溫度。
+optimum	3	2	We need to find the optimum balance between cost and quality.	我們需要在成本和品質之間找到最佳平衡。
+originality	3	1	The judges praised the originality of her design.	評審稱讚她的設計很有獨創性。
+originality	3	2	The ad campaign lacks originality.	這個廣告活動缺乏新意。
+outlay	3	1	The new equipment requires an initial outlay of $200,000.	新設備需要二十萬美元的初期支出。
+outlay	3	2	The total outlay on advertising rose last year.	去年廣告總支出增加了。
+outreach	3	1	The hospital runs an outreach program in rural areas.	這家醫院在偏鄉地區推動外展服務計畫。
+outreach	3	2	Our customer outreach team contacts new clients every week.	我們的客戶拓展團隊每週都會聯繫新客戶。
+oversight	3	1	The committee has oversight of all public spending.	委員會負責監督所有公共支出。
+oversight	3	2	Due to an oversight, the invoice was sent to the wrong address.	由於疏忽，發票寄到了錯誤的地址。
+penalize	3	1	The new rules penalize companies that pollute rivers.	新規定會懲罰污染河川的公司。
+penalize	3	2	Customers will be penalized for late payment.	顧客逾期付款將被罰款。
+peril	3	1	The report warns of the perils of expanding too quickly.	這份報告警告擴張過快的風險。
+peril	3	2	Investors ignore these risks at their peril.	投資人忽視這些風險，後果自負。
+personalization	3	1	Personalization of emails can increase customer response rates.	個人化電子郵件可以提高顧客回應率。
+personalization	3	2	The website offers personalization options for each user.	網站為每位使用者提供個人化選項。
+procurement	3	1	The procurement department handles all purchases over $5,000.	採購部門負責處理所有超過五千美元的採購。
+procurement	3	2	We are reviewing our procurement process to reduce costs.	我們正在檢討採購流程以降低成本。
+protocol	3	1	Staff must follow safety protocol when entering the lab.	員工進入實驗室時必須遵守安全規範。
+protocol	3	2	The two countries signed a protocol on trade.	兩國簽署了一項貿易協議。
+reconfiguration	3	2	The reconfiguration of the network will take place over the weekend.	網路的重新配置將在週末進行。
+redemption	3	2	Redemption of the gift card is limited to one per customer.	每位顧客限兌換一張禮品卡。
+regularity	3	1	The machines are serviced with great regularity.	這些機器都定期保養。
+regularity	3	2	Buses run with regularity throughout the day.	公車整天都規律地發車。
+reinforcement	3	2	Positive reinforcement helps new employees learn faster.	正面的鼓勵能幫助新進員工學得更快。
+remuneration	3	1	The job offers attractive remuneration and benefits.	這份工作提供優渥的報酬和福利。
+remuneration	3	2	The board approved the remuneration package for the new CEO.	董事會核准了新任執行長的薪酬方案。
+segmentation	3	1	Market segmentation helps us target the right customers.	市場區隔幫助我們鎖定合適的顧客。
+segmentation	3	2	The report includes a segmentation of customers by age.	這份報告依年齡將顧客細分。
+sensitivity	3	2	Please handle this customer complaint with sensitivity.	請以體貼謹慎的態度處理這項客訴。
+shortfall	3	1	The company faces a shortfall of skilled workers.	公司面臨技術人力不足的問題。
+shortfall	3	2	We had to cut costs to cover the revenue shortfall.	我們必須削減成本來彌補營收缺口。
+significance	3	1	The CEO explained the significance of the new partnership.	執行長說明了新合作關係的重要性。
+significance	3	2	The results have great significance for future planning.	這些結果對未來的規劃意義重大。
+sincerity	3	2	The client did not doubt the sincerity of our apology.	客戶並不懷疑我們道歉的誠意。
+stakeholder	3	1	The project manager meets regularly with all stakeholders.	專案經理定期與所有利害關係人開會。
+stakeholder	3	2	We need input from key stakeholders before making a decision.	做決定前，我們需要聽取主要利害關係人的意見。
+statute	3	1	The statute requires all companies to file annual reports.	法規要求所有公司提交年度報告。
+statute	3	2	The new statute will take effect next January.	新法規將於明年一月生效。
+subsidiary	3	1	The company opened a subsidiary in Vietnam last year.	這家公司去年在越南成立了一家子公司。
+subsidiary	3	2	The bank is a wholly owned subsidiary of a Japanese group.	這家銀行是一家日本集團百分之百持股的子公司。
+summit	3	1	World leaders met at an economic summit in Geneva.	世界各國領袖在日內瓦的經濟高峰會上會面。
+summit	3	2	The climbers reached the summit of the mountain at noon.	登山者在中午抵達了山頂。
+sustainability	3	1	The company has made sustainability a priority.	這家公司把永續經營列為優先事項。
+sustainability	3	2	Investors are paying more attention to sustainability reports.	投資人越來越重視永續報告書。
+tariff	3	1	The government raised tariffs on imported steel.	政府提高了進口鋼材的關稅。
+tariff	3	2	The new tariff will increase the price of foreign cars.	新的關稅將使外國汽車的價格上漲。
+taxation	3	1	The firm offers advice on international taxation.	這家事務所提供國際稅務方面的諮詢。
+taxation	3	2	Changes in taxation will affect small businesses.	稅制的改變將影響小型企業。
+tranquility	3	1	The resort is known for the tranquility of its gardens.	這座度假村以庭園的寧靜聞名。
+trustworthiness	3	1	Trustworthiness is essential for anyone handling company funds.	經手公司資金的人一定要值得信賴。
+trustworthiness	3	2	Online reviews help customers judge the trustworthiness of a seller.	網路評價幫助顧客判斷賣家是否可靠。
+uniqueness	3	1	The uniqueness of the hotel's design attracts many tourists.	這家飯店設計獨特，吸引了許多觀光客。
+uniqueness	3	2	Our marketing focuses on the uniqueness of each product.	我們的行銷著重於每項產品的獨特性。
+unmet	3	2	The report lists the unmet needs of local small businesses.	這份報告列出了當地小型企業尚未被滿足的需求。
+variably	3	1	Online traffic changed variably throughout the holiday season.	網路流量在整個假期期間起伏不定。
+violation	3	1	Parking here is a violation of building rules.	在這裡停車違反大樓規定。
+violation	3	2	The company was fined for a violation of safety laws.	這家公司因違反安全法規而被罰款。
+waiver	3	1	Participants must sign a waiver before joining the activity.	參加者在參與活動前必須簽署免責聲明。
+waiver	3	2	The bank offered a waiver of the annual fee for new customers.	銀行為新客戶免除年費。
+washout	3	2	Heavy rain turned the company picnic into a washout.	大雨讓公司野餐泡湯了。
