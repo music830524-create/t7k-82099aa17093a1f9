@@ -1,5 +1,5 @@
 // Offline cache (v2: adds example sentences). Network-first for the page and app code so updates arrive; cache fallback when offline.
-const CACHE = "toeic7000-cfb6a3eafb";
+const CACHE = "toeic7000-330a2bae2a";
 const ASSETS = ["./", "index.html", "app.js", "style.css", "manifest.webmanifest", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "favicon.png"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));

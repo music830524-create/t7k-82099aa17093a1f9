@@ -1,28 +1,11 @@
 import * as React from "react";
-import { D } from "./data";
-import { KK } from "./kk";
-import { ReactNode, ChangeEvent, KeyboardEvent, Page, Section, Text, Metrics, Segmented, Toggle, Input, Button, Table, Callout, useState, useEffect, useMemo, useCallback, useRef, useGrokTheme } from "./kit";
+import { Word, LEVELS, BANDS, WORDS } from "./words";
+import { lookupSentence, Tok } from "./lookup";
 
-type Word = { id: number; w: string; pos: string; zh: string; lv: number };
 type Rec = { s: number; c: number; x: number; box: number; due: number };
 type Prog = Record<string, Rec>;
-
-const LEVELS: string[] = ["基礎", "核心", "進階", "高階"];
-const BANDS: string[] = ["0–400 分", "400–600 分", "600–780 分", "780–900 分"];
-const POS: Record<string, string> = { "1": "n.", "2": "v.", "3": "adj.", "4": "adv.", "5": "prep.", "6": "conj.", "7": "pron.", "8": "其他" };
-
-const WORDS: Word[] = (() => {
-  const out: Word[] = [];
-  D.join(" ").split("#").forEach((block: string, lv: number) => {
-    block.split(" ").forEach((tok: string) => {
-      const m = /^([A-Za-z'\-]+)(\d*)(.*)$/.exec(tok.trim());
-      if (!m || !m[3]) return;
-      const pos = m[2].split("").map((c: string) => POS[c] || "").filter((s: string) => !!s).join("/");
-      out.push({ id: out.length, w: m[1], pos, zh: m[3], lv });
-    });
-  });
-  return out;
-})();
+import { KK } from "./kk";
+import { ReactNode, ChangeEvent, KeyboardEvent, Page, Section, Text, Metrics, Segmented, Toggle, Input, Button, Table, Callout, useState, useEffect, useMemo, useCallback, useRef, useGrokTheme } from "./kit";
 
 const KK_LIST: string[] = KK.split("|");
 const kkOf = (w: Word): string => KK_LIST[w.id] || "";
@@ -112,6 +95,33 @@ function saveProg(p: Prog): boolean {
   }
 }
 
+// 生字本: words tapped in example sentences that are not in the 7,010 list (separate key; progress format untouched).
+type Extra = { w: string; s: string; t: number };
+const EXTRA_KEY = "toeic7000_extra_v1";
+function cleanExtra(a: unknown): Extra[] {
+  if (!Array.isArray(a)) return [];
+  return a
+    .filter((x: unknown) => x && typeof (x as Extra).w === "string")
+    .map((x: unknown) => ({ w: String((x as Extra).w).slice(0, 60), s: String((x as Extra).s || "").slice(0, 400), t: +(x as Extra).t || 0 }));
+}
+function loadExtra(): Extra[] {
+  try {
+    return cleanExtra(JSON.parse(window.localStorage.getItem(EXTRA_KEY) || "[]"));
+  } catch (e) {
+    return [];
+  }
+}
+function saveExtra(a: Extra[]): void {
+  try {
+    window.localStorage.setItem(EXTRA_KEY, JSON.stringify(a));
+  } catch (e) {
+    /* ignore */
+  }
+}
+const tokCache: Record<string, Tok[]> = {};
+const toksOf = (s: string): Tok[] => tokCache[s] || (tokCache[s] = lookupSentence(s));
+type Look = { tok: string; hits: Word[]; i: number; sent: string };
+
 function speak(text: string, rate: number): void {
   try {
     const synth = window.speechSynthesis;
@@ -191,6 +201,9 @@ export default function App() {
   const [flipped, setFlipped] = useState<boolean>(false);
   const [, setExTick] = useState<number>(0);
   const [detail, setDetail] = useState<Word | null>(null);
+  const [look, setLook] = useState<Look[]>([]);
+  const [lookMsg, setLookMsg] = useState<string>("");
+  const [extra, setExtra] = useState<Extra[]>([]);
   useEffect(() => {
     const f = () => setExTick((n: number) => n + 1);
     exListeners.add(f);
@@ -221,6 +234,7 @@ export default function App() {
     const p = loadProg();
     progRef.current = p;
     setProg(p);
+    setExtra(loadExtra());
     try {
       const s = window.localStorage.getItem(SET_KEY);
       if (s) {
@@ -285,17 +299,17 @@ export default function App() {
 
   const makeBackup = () => {
     try {
-      const json = JSON.stringify({ app: "toeic7000", v: 1, t: Date.now(), p: progRef.current, s: setRef.current });
+      const json = JSON.stringify({ app: "toeic7000", v: 1, t: Date.now(), p: progRef.current, s: setRef.current, e: extra });
       const code = "T7K1:" + btoa(unescape(encodeURIComponent(json)));
       setBackupOut(code);
-      const n = Object.keys(progRef.current).length;
+      const n = Object.keys(progRef.current).length + " 個字的紀錄" + (extra.length ? "、生字本 " + extra.length + " 個字" : "");
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(code).then(
-          () => setBackupMsg("已複製進度碼（" + n + " 個字的紀錄），請貼到備忘錄保存。"),
-          () => setBackupMsg("進度碼已產生（" + n + " 個字的紀錄），請長按下方文字框全選後複製。")
+          () => setBackupMsg("已複製進度碼（" + n + "），請貼到備忘錄保存。"),
+          () => setBackupMsg("進度碼已產生（" + n + "），請長按下方文字框全選後複製。")
         );
       } else {
-        setBackupMsg("進度碼已產生（" + n + " 個字的紀錄），請長按下方文字框全選後複製。");
+        setBackupMsg("進度碼已產生（" + n + "），請長按下方文字框全選後複製。");
       }
     } catch (e) {
       setBackupMsg("產生進度碼失敗。");
@@ -310,10 +324,11 @@ export default function App() {
         return;
       }
       if (raw.indexOf("T7K1:") === 0) raw = raw.slice(5);
-      const o = JSON.parse(decodeURIComponent(escape(atob(raw.replace(/\s+/g, ""))))) as { app?: string; p?: Prog; s?: { speed?: string; skip?: boolean; last?: Last | null } };
+      const o = JSON.parse(decodeURIComponent(escape(atob(raw.replace(/\s+/g, ""))))) as { app?: string; p?: Prog; s?: { speed?: string; skip?: boolean; last?: Last | null }; e?: unknown };
       if (!o || o.app !== "toeic7000" || !o.p || typeof o.p !== "object") throw new Error("bad");
       const n = Object.keys(o.p).length;
-      if (!window.confirm("要用這個進度碼（" + n + " 個字的紀錄）取代目前的進度嗎？")) return;
+      const ex = Array.isArray(o.e) ? cleanExtra(o.e) : null; // codes made before 生字本 existed have no "e": keep the current list
+      if (!window.confirm("要用這個進度碼（" + n + " 個字的紀錄" + (ex ? "、生字本 " + ex.length + " 個字" : "") + "）取代目前的進度嗎？")) return;
       const next: Prog = {};
       Object.keys(o.p).forEach((k: string) => {
         const r = (o.p as Prog)[k];
@@ -327,9 +342,13 @@ export default function App() {
         if (typeof o.s.skip === "boolean") setSkipKnown(o.s.skip);
         if (o.s.last && typeof o.s.last.lv === "number" && o.s.last.lv >= 0 && o.s.last.lv < LEVELS.length) setLast(o.s.last);
       }
+      if (ex) {
+        setExtra(ex);
+        saveExtra(ex);
+      }
       setRound((r: number) => r + 1);
       setBackupIn("");
-      setBackupMsg("已還原 " + n + " 個字的進度。");
+      setBackupMsg("已還原 " + n + " 個字的進度" + (ex ? "與生字本 " + ex.length + " 個字" : "") + "。");
     } catch (e) {
       setBackupMsg("進度碼格式不對，請確認有完整貼上。");
     }
@@ -415,7 +434,7 @@ export default function App() {
     setFlipped(false);
   };
 
-  const mark = (w: Word, s: number) => {
+  const setStatus = (w: Word, s: number) =>
     update(w.w, (r: Rec) => {
       r.s = s;
       if (s === 2) {
@@ -424,6 +443,8 @@ export default function App() {
       }
       return r;
     });
+  const mark = (w: Word, s: number) => {
+    setStatus(w, s);
     nextCard();
   };
 
@@ -583,16 +604,32 @@ export default function App() {
             <div
               key={i}
               className="ex-item"
-              role="button"
               onClick={(ev: React.MouseEvent) => {
                 ev.stopPropagation();
                 speak(e[0], sp);
               }}
-              style={{ cursor: "pointer", padding: "8px 10px", borderRadius: t.radius.lg, background: t.bg.base, border: "1px solid " + t.border.default, userSelect: "text" }}
+              style={{ cursor: "pointer", padding: "8px 10px", borderRadius: t.radius.lg, background: t.bg.base, border: "1px solid " + t.border.default }}
             >
-              <div className="ex-en" style={{ color: t.text.primary, fontSize: t.font.body1.fontSize, lineHeight: 1.45 }}>
-                <span style={{ color: t.text.accent, marginRight: 6 }}>🔊</span>
-                {e[0]}
+              <div className="ex-en" style={{ color: t.text.primary, fontSize: t.font.body1.fontSize, lineHeight: 1.6 }}>
+                <button className="ex-say" aria-label="播放例句" onClick={(ev: React.MouseEvent) => { ev.stopPropagation(); speak(e[0], sp); }}>🔊</button>
+                {toksOf(e[0]).map((x: Tok, j: number) =>
+                  /^[A-Za-z]/.test(x.t) ? (
+                    <span
+                      key={j}
+                      className={"tw" + (x.hits.length ? " hit" : "")}
+                      data-hw={x.hits.length ? x.hits[0].w : ""}
+                      onClick={(ev: React.MouseEvent) => {
+                        ev.stopPropagation();
+                        setLookMsg("");
+                        setLook((st: Look[]) => st.concat({ tok: x.t, hits: x.hits, i: 0, sent: e[0] }));
+                      }}
+                    >
+                      {x.t}
+                    </span>
+                  ) : (
+                    x.t
+                  )
+                )}
               </div>
               <div className="ex-zh" style={{ color: t.text.secondary, fontSize: t.font.body2.fontSize, lineHeight: 1.45, marginTop: 2 }}>{e[1]}</div>
             </div>
@@ -633,12 +670,126 @@ export default function App() {
           <span style={{ color: t.text.secondary }}>{detail.pos}</span>
           <span style={{ color: t.text.primary }}>{detail.zh}</span>
         </div>
-        {muted(LEVELS[detail.lv] + "・單元 " + (unitOf(detail) + 1) + "・" + statusLabel(detail) + "・點例句可聽發音")}
+        {muted(LEVELS[detail.lv] + "・單元 " + (unitOf(detail) + 1) + "・" + statusLabel(detail) + "・點 🔊 聽例句，點例句中的字可查")}
         {exBlock(detail)}
         {row([
           <Button key="dp" label="發音" onClick={() => speak(detail.w, sp)} />,
           <Button key="dc" variant="primary" label="關閉" onClick={() => setDetail(null)} />,
         ])}
+      </div>
+    </div>
+  ) : null;
+
+  // Word tapped in an example sentence: a stacked sheet, so 返回 goes back one word and the practice session underneath is untouched.
+  const lk = look.length ? look[look.length - 1] : null;
+  const back = () => {
+    setLookMsg("");
+    setLook((st: Look[]) => st.slice(0, -1));
+  };
+  const closeLook = () => {
+    setLookMsg("");
+    setLook([]);
+  };
+  const lookBody = (L: Look) => {
+    const w = L.hits.length ? L.hits[Math.min(L.i, L.hits.length - 1)] : null;
+    const nav = row([
+      <Button key="lb" label={look.length > 1 ? "◀ 返回上一個字" : "◀ 返回"} onClick={back} />,
+      ...(look.length > 1 ? [<Button key="lx" label="關閉" onClick={closeLook} />] : []),
+    ]);
+    const msg = lookMsg ? <div className="lk-msg" style={{ color: t.text.success, fontSize: t.font.body2.fontSize }}>{lookMsg}</div> : null;
+    if (!w) {
+      const inExtra = extra.some((x: Extra) => x.w.toLowerCase() === L.tok.toLowerCase());
+      return (
+        <>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
+            <span className="lk-word" onClick={() => speak(L.tok, sp)} style={{ fontSize: "26px", fontWeight: t.weight.semibold, cursor: "pointer" }}>{L.tok}</span>
+            <span style={{ color: t.text.secondary }}>不在 7000 字庫中</span>
+          </div>
+          <div style={{ color: t.text.secondary, fontSize: t.font.body2.fontSize, lineHeight: 1.5 }}>{"例句：" + L.sent}</div>
+          {row([
+            <Button
+              key="ae"
+              variant={inExtra ? undefined : "primary"}
+              disabled={inExtra}
+              label={inExtra ? "已在生字本" : "加入生字本"}
+              onClick={() => {
+                const next = extra.concat({ w: L.tok, s: L.sent, t: Date.now() });
+                setExtra(next);
+                saveExtra(next);
+                setLookMsg("已加入生字本（首頁可查看）。");
+              }}
+            />,
+            <Button key="sp" label="發音" onClick={() => speak(L.tok, sp)} />,
+          ])}
+          {msg}
+          {nav}
+        </>
+      );
+    }
+    const unf = !!prog[w.w] && prog[w.w].s === 2;
+    return (
+      <>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
+          <span className="lk-word" onClick={() => speak(w.w, sp)} style={{ fontSize: "26px", fontWeight: t.weight.semibold, cursor: "pointer" }}>{w.w}</span>
+          {kkEl(w, "17px")}
+          <span style={{ color: t.text.secondary }}>{w.pos}</span>
+          <span style={{ color: t.text.primary }}>{w.zh}</span>
+        </div>
+        {L.tok.toLowerCase() !== w.w.toLowerCase() ? muted("例句中的「" + L.tok + "」→ 字庫中的 " + w.w) : null}
+        {L.hits.length > 1 ? (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
+            {muted("也可能是：")}
+            {L.hits.map((h: Word, k: number) =>
+              h === w ? null : (
+                <button key={h.id} className="chip" onClick={() => setLook((st: Look[]) => st.slice(0, -1).concat({ ...L, i: k }))}>
+                  {h.w}
+                </button>
+              )
+            )}
+          </div>
+        ) : null}
+        {muted(LEVELS[w.lv] + "・單元 " + (unitOf(w) + 1) + "・" + statusLabel(w))}
+        {exBlock(w)}
+        {row([
+          <Button
+            key="au"
+            variant={unf ? undefined : "primary"}
+            disabled={unf}
+            label={unf ? "已在不熟" : "加入不熟"}
+            onClick={() => {
+              setStatus(w, 2);
+              setLookMsg("已加入不熟：會出現在錯題本，並排入間隔複習。");
+            }}
+          />,
+          <Button key="sp" label="發音" onClick={() => speak(w.w, sp)} />,
+          <Button
+            key="go"
+            label="去練習"
+            onClick={() => {
+              closeLook();
+              setDetail(null);
+              enter(w.lv, unitOf(w));
+            }}
+          />,
+        ])}
+        {msg}
+        {nav}
+      </>
+    );
+  };
+  const lookSheet = lk ? (
+    <div
+      className="sheet-bg"
+      onClick={closeLook}
+      style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.35)", zIndex: 60, display: "flex", alignItems: "flex-end", justifyContent: "center" }}
+    >
+      <div
+        className="sheet lk"
+        key={look.length}
+        onClick={(ev: React.MouseEvent) => ev.stopPropagation()}
+        style={{ background: t.bg.elevated, color: t.text.primary, width: "100%", maxWidth: 640, maxHeight: "85vh", overflowY: "auto", borderRadius: "16px 16px 0 0", padding: "18px 18px calc(18px + env(safe-area-inset-bottom))", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: 10 }}
+      >
+        {lookBody(lk)}
       </div>
     </div>
   ) : null;
@@ -1001,6 +1152,7 @@ export default function App() {
       ]}
     >
       {detailSheet}
+      {lookSheet}
       {view === "home" ? (
         <Section heading="選擇級數">
           {last
@@ -1029,6 +1181,39 @@ export default function App() {
           {speedControl}
           {muted("每答一題就自動存檔在這支手機上；畫面會跟著手機切換淺色或深色模式。")}
           {!persist ? <Callout tone="info">這個瀏覽器不允許儲存資料（例如無痕模式），進度只會保留到關閉頁面為止。</Callout> : null}
+        </Section>
+      ) : null}
+
+      {view === "home" ? (
+        <Section heading={"生字本（" + extra.length + "）"}>
+          {extra.length ? (
+            <Table
+              columns={["單字", "例句", ""]}
+              rows={extra
+                .slice()
+                .reverse()
+                .map((x: Extra) => [
+                  x.w,
+                  <span key={"s" + x.t + x.w} style={{ whiteSpace: "normal", color: t.text.secondary }}>{x.s}</span>,
+                  <span key={"a" + x.t + x.w} style={{ display: "inline-flex", gap: 12, fontSize: t.font.body1.fontSize }}>
+                    <span onClick={() => speak(x.w, sp)} style={{ cursor: "pointer", color: t.text.accent }}>發音</span>
+                    <span
+                      className="xdel"
+                      onClick={() => {
+                        if (!window.confirm("從生字本刪除「" + x.w + "」？")) return;
+                        const next = extra.filter((y: Extra) => y !== x);
+                        setExtra(next);
+                        saveExtra(next);
+                      }}
+                      style={{ cursor: "pointer", color: t.text.danger }}
+                    >
+                      刪除
+                    </span>
+                  </span>,
+                ])}
+            />
+          ) : null}
+          {muted("例句裡有虛線底線的字在 7,010 字庫中，點一下可查並「加入不熟」；沒有底線的字也能點，可存進這個生字本。")}
         </Section>
       ) : null}
 
