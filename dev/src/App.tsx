@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Word, LEVELS, BANDS, WORDS } from "./words";
+import { Word, LEVELS, BANDS, WORDS, POOL, ALLW, TCATS, TOPICS_OF, TOPIC_ZH, TopicWords } from "./words";
+import { TOPIC_KK } from "./topics";
 import { lookupSentence, lookupToken, Tok } from "./lookup";
 
 type Rec = { s: number; c: number; x: number; box: number; due: number };
@@ -7,14 +8,20 @@ type Prog = Record<string, Rec>;
 import { KK } from "./kk";
 import { ReactNode, ChangeEvent, KeyboardEvent, Page, Section, Text, Metrics, Segmented, Toggle, Input, Button, Table, Callout, useState, useEffect, useMemo, useCallback, useRef, useGrokTheme } from "./kit";
 
-const KK_LIST: string[] = KK.split("|");
-const kkOf = (w: Word): string => KK_LIST[w.id] || "";
+const KK_LIST: string[] = KK.split("|").concat(TOPIC_KK.split("|")); // 7010-list words first, then the topic-only words
+const kkOf = (w: Word): string => KK_LIST[w.kid !== undefined ? w.kid : w.id] || "";
 
 const LV_COUNT: number[] = LEVELS.map((_: string, i: number) => WORDS.filter((x: Word) => x.lv === i).length);
 const UNIT = 100;
 const LV_START: number[] = LEVELS.map((_: string, i: number) => WORDS.findIndex((x: Word) => x.lv === i));
 const unitCount = (lv: number): number => Math.ceil(LV_COUNT[lv] / UNIT);
-const unitOf = (w: Word): number => Math.floor((w.id - LV_START[w.lv]) / UNIT);
+const unitOf = (w: Word): number => (w.lv < LEVELS.length ? Math.floor(((w.kid !== undefined ? w.kid : w.id) - LV_START[w.lv]) / UNIT) : 0);
+// Where a word lives: its level and unit, or its topics for words that are only in a topic category.
+const lvName = (w: Word): string => (w.lv < LEVELS.length ? LEVELS[w.lv] : "主題・" + (TOPICS_OF[w.w.toLowerCase()] || []).join("、"));
+const locOf = (w: Word): string => {
+  const tp = TOPICS_OF[w.w.toLowerCase()];
+  return w.lv < LEVELS.length ? LEVELS[w.lv] + "・單元 " + (unitOf(w) + 1) + (tp ? "・主題：" + tp.join("、") : "") : lvName(w);
+};
 
 // Example sentences live in ex/{lv}-{unit}.json (one file per 100-word unit), fetched on demand.
 type Ex = [string, string];
@@ -45,7 +52,37 @@ function loadChunk(lv: number, u: number): Promise<void> {
   exPending[k] = p;
   return p;
 }
+// Topic words (ex/topics.json): topic-only words by word, topic-specific variants by "topic:word".
+let topicEx: Record<string, Ex[]> | null = null;
+let topicPending: Promise<void> | null = null;
+function loadTopicEx(): Promise<void> {
+  if (topicEx) return Promise.resolve();
+  if (topicPending) return topicPending;
+  topicPending = fetch("ex/topics.json")
+    .then((r: Response) => {
+      if (!r.ok) throw new Error(String(r.status));
+      return r.json();
+    })
+    .then((d: Record<string, Ex[]>) => {
+      topicEx = d;
+      exListeners.forEach((f: () => void) => f());
+    })
+    .catch(() => {
+      /* offline and not cached yet */
+    })
+    .then(() => {
+      topicPending = null;
+    });
+  return topicPending;
+}
 function examplesOf(w: Word): Ex[] | null {
+  if (w.tk || w.lv >= LEVELS.length) {
+    if (!topicEx) {
+      loadTopicEx();
+      return null;
+    }
+    return topicEx[w.tk ? w.tk + ":" + w.w : w.w] || [];
+  }
   const u = unitOf(w);
   const c = exChunks[chunkKey(w.lv, u)];
   if (!c) {
@@ -68,7 +105,10 @@ function warmAllChunks(): void {
   });
   let i = 0;
   const next = () => {
-    if (i >= keys.length) return;
+    if (i >= keys.length) {
+      loadTopicEx();
+      return;
+    }
     const [lv, u] = keys[i++];
     loadChunk(lv, u).then(() => setTimeout(next, 150));
   };
@@ -219,7 +259,9 @@ export default function App() {
   const [query, setQuery] = useState<string>(""); // debounced copy of qIn, drives the home search results
   const [qIn, setQIn] = useState<string>("");
   const [sMsg, setSMsg] = useState<string>("");
-  const [sk, setSk] = useState<string>("unf"); // which stat card opened the "set" view: known | unf | due | acc
+  const [sk, setSk] = useState<string>("unf"); // which stat card opened the "set" view: known | unf | due | acc | topic
+  const [tkey, setTkey] = useState<string>(""); // topic category shown when sk === "topic"
+  const tcat: TopicWords | undefined = TCATS.find((c: TopicWords) => c.key === tkey);
   const [sTab, setSTab] = useState<string>("list");
   const [sDeck, setSDeck] = useState<number[]>([]);
   const [sPos, setSPos] = useState<number>(0);
@@ -380,7 +422,7 @@ export default function App() {
 
   const now = Date.now();
   const reviewWords: Word[] = useMemo(() => {
-    const list = WORDS.filter((x: Word) => isReview(prog[x.w]));
+    const list = POOL.filter((x: Word) => isReview(prog[x.w]));
     const score = (x: Word): number => {
       const r = prog[x.w];
       return (r.due <= now ? 100 : 0) + r.x * 3 + (r.s === 2 ? 5 : 0) - r.box * 4 - r.c;
@@ -419,14 +461,17 @@ export default function App() {
     let x = 0;
     const perLv: { known: number; learning: number }[] = LEVELS.map(() => ({ known: 0, learning: 0 }));
     const perUnit: number[][] = LEVELS.map((_: string, i: number) => new Array<number>(unitCount(i)).fill(0));
-    WORDS.forEach((w: Word) => {
+    POOL.forEach((w: Word) => {
       const r = prog[w.w];
       if (!r) return;
+      const lvOk = w.lv < LEVELS.length; // topic-only words count in the totals but not in a level
       if (r.s === 1) {
         known += 1;
-        perLv[w.lv].known += 1;
-        perUnit[w.lv][unitOf(w)] += 1;
-      } else {
+        if (lvOk) {
+          perLv[w.lv].known += 1;
+          perUnit[w.lv][unitOf(w)] += 1;
+        }
+      } else if (lvOk) {
         perLv[w.lv].learning += 1;
       }
       if (r.s === 2) unf += 1;
@@ -440,15 +485,16 @@ export default function App() {
 
   const setOf = (kind: string): Word[] => {
     const p = prog;
-    if (kind === "known") return WORDS.filter((x: Word) => p[x.w] && p[x.w].s === 1);
-    if (kind === "unf") return WORDS.filter((x: Word) => p[x.w] && p[x.w].s === 2).sort((a: Word, b: Word) => p[b.w].x - p[a.w].x);
+    if (kind === "topic") return tcat ? tcat.words : [];
+    if (kind === "known") return POOL.filter((x: Word) => p[x.w] && p[x.w].s === 1);
+    if (kind === "unf") return POOL.filter((x: Word) => p[x.w] && p[x.w].s === 2).sort((a: Word, b: Word) => p[b.w].x - p[a.w].x);
     if (kind === "due") return dueWords;
-    return WORDS.filter((x: Word) => p[x.w] && p[x.w].x > 0).sort((a: Word, b: Word) => p[b.w].x - p[a.w].x || p[a.w].c - p[b.w].c);
+    return POOL.filter((x: Word) => p[x.w] && p[x.w].x > 0).sort((a: Word, b: Word) => p[b.w].x - p[a.w].x || p[a.w].c - p[b.w].c);
   };
-  const setWords: Word[] = useMemo(() => setOf(sk), [sk, prog, dueWords]);
+  const setWords: Word[] = useMemo(() => setOf(sk), [sk, tkey, prog, dueWords]);
 
   const sp = parseFloat(speed);
-  const cur: Word | undefined = cardPos < cardDeck.length ? WORDS[cardDeck[cardPos]] : undefined;
+  const cur: Word | undefined = cardPos < cardDeck.length ? ALLW[cardDeck[cardPos]] : undefined;
 
   const nextCard = () => {
     setCardPos((i: number) => i + 1);
@@ -473,8 +519,9 @@ export default function App() {
     nextCard();
   };
 
-  const makeQuiz = (word: Word, fromReview: boolean): Quiz => {
-    const sameLevel = WORDS.filter((x: Word) => x.lv === word.lv && x.w !== word.w && x.zh !== word.zh);
+  const makeQuiz = (word: Word, fromReview: boolean, pool?: Word[]): Quiz => {
+    // inside a topic the wrong answers come from the same topic, so they are plausible
+    const sameLevel = (pool && pool.length >= 8 ? pool : POOL).filter((x: Word) => (pool && pool.length >= 8 ? true : x.lv === word.lv) && x.w !== word.w && x.zh !== word.zh);
     const firstPos = word.pos.split("/")[0];
     const samePos = sameLevel.filter((x: Word) => x.pos.split("/")[0] === firstPos);
     const src = samePos.length >= 10 ? samePos : sameLevel;
@@ -501,9 +548,9 @@ export default function App() {
         setQuiz(null);
         return;
       }
-      const w = WORDS[rd.ids[rd.pos]];
+      const w = ALLW[rd.ids[rd.pos]];
       rd.pos += 1;
-      setQuiz(makeQuiz(w, isReview(progRef.current[w.w])));
+      setQuiz(makeQuiz(w, isReview(progRef.current[w.w]), sk === "topic" ? setWords : undefined));
       return;
     }
     if (view === "review") {
@@ -513,7 +560,7 @@ export default function App() {
         rd.pos = 0;
       }
       if (!rd.ids.length) return;
-      const w = WORDS[rd.ids[rd.pos]];
+      const w = ALLW[rd.ids[rd.pos]];
       rd.pos += 1;
       setQuiz(makeQuiz(w, true));
       return;
@@ -524,7 +571,7 @@ export default function App() {
       setRound((r: number) => r + 1);
       return;
     }
-    const w = WORDS[quizDeck[pos]];
+    const w = ALLW[quizDeck[pos]];
     pos += 1;
     setQuizPos(pos);
     setQuiz(makeQuiz(w, isReview(progRef.current[w.w])));
@@ -569,9 +616,9 @@ export default function App() {
     const q = raw.toLowerCase();
     if (!q) return { res: [] as Word[], infl: [] as Word[], ext: [] as Extra[], eng: false };
     const eng = /^[A-Za-z][A-Za-z'’-]*$/.test(raw);
-    const exact = WORDS.filter((x: Word) => x.w.toLowerCase() === q);
-    const starts = WORDS.filter((x: Word) => x.w.toLowerCase() !== q && x.w.toLowerCase().startsWith(q));
-    const contains = WORDS.filter((x: Word) => !x.w.toLowerCase().startsWith(q) && (x.w.toLowerCase().includes(q) || x.zh.includes(raw)));
+    const exact = POOL.filter((x: Word) => x.w.toLowerCase() === q);
+    const starts = POOL.filter((x: Word) => x.w.toLowerCase() !== q && x.w.toLowerCase().startsWith(q));
+    const contains = POOL.filter((x: Word) => !x.w.toLowerCase().startsWith(q) && (x.w.toLowerCase().includes(q) || x.zh.includes(raw) || (TOPIC_ZH[x.w.toLowerCase()] || "").includes(raw)));
     const res = exact.concat(starts, contains).slice(0, 50);
     const infl = eng && !exact.length ? lookupToken(raw).filter((h: Word) => res.indexOf(h) < 0) : [];
     const ext = extra.filter((x: Extra) => x.w.toLowerCase().includes(q));
@@ -706,7 +753,7 @@ export default function App() {
           <span className="w">{x.w}</span> <span className="pos">{x.pos}</span> {kkEl(x, "13px")}
         </span>
         <span className="zh">{x.zh}</span>
-        <span className="st">{sub !== undefined ? sub : LEVELS[x.lv] + "・" + statusLabel(x)}</span>
+        <span className="st">{sub !== undefined ? sub : lvName(x) + "・" + statusLabel(x)}</span>
       </span>
     </button>
   );
@@ -727,13 +774,13 @@ export default function App() {
           <span style={{ color: t.text.secondary }}>{detail.pos}</span>
           <span style={{ color: t.text.primary }}>{detail.zh}</span>
         </div>
-        {muted(LEVELS[detail.lv] + "・單元 " + (unitOf(detail) + 1) + "・" + statusLabel(detail) + "・點 🔊 聽例句，點例句中的字可查")}
+        {muted(locOf(detail) + "・" + statusLabel(detail) + "・點 🔊 聽例句，點例句中的字可查")}
         {exBlock(detail)}
         {row([
           <Button key="du" variant={prog[detail.w] && prog[detail.w].s === 2 ? undefined : "primary"} disabled={!!prog[detail.w] && prog[detail.w].s === 2} label={prog[detail.w] && prog[detail.w].s === 2 ? "已在不熟" : "加入不熟"} onClick={() => setStatus(detail, 2)} />,
           <Button key="dk" disabled={!!prog[detail.w] && prog[detail.w].s === 1} label={prog[detail.w] && prog[detail.w].s === 1 ? "已認識" : "標為已認識"} onClick={() => setStatus(detail, 1)} />,
           <Button key="dp" label="發音" onClick={() => speak(detail.w, sp)} />,
-          <Button key="dg" label="去練習" onClick={() => { const d = detail; setDetail(null); enter(d.lv, unitOf(d)); }} />,
+          ...(detail.lv < LEVELS.length ? [<Button key="dg" label="去練習" onClick={() => { const d = detail; setDetail(null); enter(d.lv, unitOf(d)); }} />] : []),
           <Button key="dc" label="關閉" onClick={() => setDetail(null)} />,
         ])}
       </div>
@@ -808,7 +855,7 @@ export default function App() {
             )}
           </div>
         ) : null}
-        {muted(LEVELS[w.lv] + "・單元 " + (unitOf(w) + 1) + "・" + statusLabel(w))}
+        {muted(locOf(w) + "・" + statusLabel(w))}
         {exBlock(w)}
         {row([
           <Button
@@ -822,15 +869,19 @@ export default function App() {
             }}
           />,
           <Button key="sp" label="發音" onClick={() => speak(w.w, sp)} />,
-          <Button
-            key="go"
-            label="去練習"
-            onClick={() => {
-              closeLook();
-              setDetail(null);
-              enter(w.lv, unitOf(w));
-            }}
-          />,
+          ...(w.lv < LEVELS.length
+            ? [
+                <Button
+                  key="go"
+                  label="去練習"
+                  onClick={() => {
+                    closeLook();
+                    setDetail(null);
+                    enter(w.lv, unitOf(w));
+                  }}
+                />,
+              ]
+            : []),
         ])}
         {msg}
         {nav}
@@ -879,7 +930,7 @@ export default function App() {
         }}
       >
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "center" }}>
-          {[tag(LEVELS[w.lv] + "・" + BANDS[w.lv]), ...(w.pos ? [tag(w.pos)] : []), tag(isRev ? "複習" : statusLabel(w))]}
+          {[...(view === "set" && sk === "topic" && tcat ? [tag(tcat.emoji + " " + tcat.name)] : []), tag(w.lv < LEVELS.length ? LEVELS[w.lv] + "・" + BANDS[w.lv] : "主題單字"), ...(w.pos ? [tag(w.pos)] : []), tag(isRev ? "複習" : statusLabel(w))]}
         </div>
         <div style={{ color: t.text.primary, fontSize: "36px", lineHeight: "44px", fontWeight: t.weight.semibold, wordBreak: "break-word" }}>{w.w}</div>
         {kkEl(w, "19px")}
@@ -905,7 +956,7 @@ export default function App() {
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         <div style={{ border: "1px solid " + t.border.default, borderRadius: t.radius.xl, background: t.bg.elevated, padding: "22px 18px", textAlign: "center", display: "flex", flexDirection: "column", gap: 8, alignItems: "center" }}>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "center" }}>
-            {[tag(quizMode === "en2zh" ? "選出中文意思" : quizMode === "zh2en" ? "選出英文單字" : "拼出英文單字"), ...(w.pos ? [tag(w.pos)] : []), tag(LEVELS[w.lv]), ...(quiz.fromReview ? [tag("複習")] : [])]}
+            {[tag(quizMode === "en2zh" ? "選出中文意思" : quizMode === "zh2en" ? "選出英文單字" : "拼出英文單字"), ...(w.pos ? [tag(w.pos)] : []), tag(w.lv < LEVELS.length ? LEVELS[w.lv] : "主題單字"), ...(quiz.fromReview ? [tag("複習")] : [])]}
           </div>
           <div style={{ color: t.text.primary, fontSize: quizMode === "en2zh" ? "32px" : t.font.heading2.fontSize, lineHeight: "1.35", fontWeight: t.weight.semibold, wordBreak: "break-word" }}>{prompt}</div>
           {quizMode === "spell" ? <div style={{ color: t.text.secondary, fontSize: t.font.body2.fontSize }}>提示：{w.w.length} 個字母，開頭是「{w.w[0]}」</div> : null}
@@ -1049,8 +1100,23 @@ export default function App() {
     go("set");
     if (kind === "due" && ids.length) {
       sQuizRef.current = { ids: shuffle(ids), pos: 1 };
-      setQuiz(makeQuiz(WORDS[sQuizRef.current.ids[0]], true));
+      setQuiz(makeQuiz(ALLW[sQuizRef.current.ids[0]], true));
     }
+  };
+
+  // A topic category opens the same card / quiz / list screen; 不熟 and 已認識 go to the same progress store.
+  const openTopic = (key: string) => {
+    const c = TCATS.find((x: TopicWords) => x.key === key);
+    if (!c) return;
+    setSk("topic");
+    setTkey(key);
+    setSTab("list");
+    setSDeck(shuffle(c.words.map((x: Word) => x.id)));
+    setSPos(0);
+    setSMore(60);
+    setFlipped(false);
+    sQuizRef.current = { ids: [], pos: 0 };
+    go("set");
   };
 
   const unitSize = (lv: number, u: number): number => Math.min(UNIT, LV_COUNT[lv] - u * UNIT);
@@ -1233,6 +1299,7 @@ export default function App() {
       sources={[
         "單字、中文與大部分例句：kknono668/toeic-vocab-tw（Hugging Face，CC BY-SA 4.0）https://huggingface.co/datasets/kknono668/toeic-vocab-tw",
         "KK 音標：edc026588/toeic-cards（CC BY-SA 4.0，由 CMU Pronouncing Dictionary 轉換，BSD 授權）https://github.com/edc026588/toeic-cards ；本站修正 384 筆（詞性、重音位置），清單見 README",
+        "主題分類（28 類、319 個字庫外的新字）：單字與分類由本站依 English Wiktionary 主題分類（CC BY-SA 4.0）挑選整理，中文解釋、例句為本站撰寫；音標同上。詳見 README",
         "約 3.7% 的例句（資料集缺漏或不含該單字時）為本站自行撰寫補上，並以相同的 CC BY-SA 4.0 授權釋出；說明 https://github.com/music830524-create/t7k-82099aa17093a1f9#readme",
       ]}
     >
@@ -1243,7 +1310,7 @@ export default function App() {
           <Input label="搜尋單字（英文或中文）" value={qIn} onChange={(v: string) => setQIn(v)} placeholder="例如 invoice、會議、approved" />
           {query.trim() ? (
             <div className="slist" data-q={query.trim()}>
-              {search.infl.map((h: Word) => wordRow(h, "「" + query.trim() + "」是 " + h.w + " 的變化形・" + LEVELS[h.lv] + "・" + statusLabel(h)))}
+              {search.infl.map((h: Word) => wordRow(h, "「" + query.trim() + "」是 " + h.w + " 的變化形・" + lvName(h) + "・" + statusLabel(h)))}
               {search.res.map((x: Word) => wordRow(x))}
               {search.ext.map((x: Extra) => (
                 <button key={"ex" + x.t + x.w} className="srow ext" onClick={() => { setLookMsg(""); setLook([{ tok: x.w, hits: [], i: 0, sent: x.s }]); }}>
@@ -1299,10 +1366,28 @@ export default function App() {
       ) : null}
 
       {view === "home" ? (
+        <Section heading={"主題分類（" + TCATS.length + " 類）"}>
+          <Text>身體部位、餐廳、家具……依生活場景分類的單字，點一類進去用單字卡、測驗或清單複習。</Text>
+          <div className="tgrid">
+            {TCATS.map((c: TopicWords) => {
+              const k = c.words.filter((x: Word) => prog[x.w] && prog[x.w].s === 1).length;
+              return (
+                <button key={c.key} className="tcat" data-key={c.key} onClick={() => openTopic(c.key)}>
+                  <span className="te">{c.emoji}</span>
+                  <span className="tn">{c.name}</span>
+                  <span className="tc">{c.words.length + " 字" + (k ? "・已認識 " + k : "")}</span>
+                </button>
+              );
+            })}
+          </div>
+        </Section>
+      ) : null}
+
+      {view === "home" ? (
         <Section heading="學習進度">
           <Metrics
             metrics={[
-              { value: stats.known.toLocaleString(), label: "已認識", detail: "共 " + WORDS.length.toLocaleString() + " 字", onClick: () => openSet("known") },
+              { value: stats.known.toLocaleString(), label: "已認識", detail: "共 " + POOL.length.toLocaleString() + " 字", onClick: () => openSet("known") },
               { value: String(stats.unf), label: "不熟", onClick: () => openSet("unf") },
               { value: accuracy, label: "測驗正確率", detail: stats.c + stats.x ? "共答 " + (stats.c + stats.x) + " 題" : "還沒測驗，點進去開始", onClick: () => openSet("acc") },
               { value: String(dueWords.length), label: "今天待複習", onClick: () => openSet("due") },
@@ -1401,10 +1486,12 @@ export default function App() {
       ) : null}
 
       {view === "set" ? (
-        <Section heading={sk === "known" ? "已認識的字" : sk === "unf" ? "不熟的字" : sk === "due" ? "今天待複習" : "測驗紀錄"}>
+        <Section heading={sk === "topic" && tcat ? tcat.emoji + " " + tcat.name + "（" + tcat.en + "）" : sk === "known" ? "已認識的字" : sk === "unf" ? "不熟的字" : sk === "due" ? "今天待複習" : "測驗紀錄"}>
           {backHome}
           {muted(
-            sk === "known"
+            sk === "topic" && tcat
+              ? "共 " + tcat.words.length + " 字，已認識 " + tcat.words.filter((x: Word) => prog[x.w] && prog[x.w].s === 1).length + "、不熟 " + tcat.words.filter((x: Word) => prog[x.w] && prog[x.w].s === 2).length + "。每個字都有 KK 音標和兩個例句；按「認識」或「不熟」會存進同一份學習進度，不熟的字也會出現在首頁的「不熟」和錯題本。"
+              : sk === "known"
               ? "共 " + setWords.length.toLocaleString() + " 字：按過「認識」或測驗連續答對的字。可以用單字卡或測驗再複習，也可以逐字查看。"
               : sk === "unf"
               ? "共 " + setWords.length + " 字：按「不熟」或測驗答錯的字，答錯最多的排前面。單字卡或測驗答對幾次後會自動移出。"
@@ -1429,7 +1516,7 @@ export default function App() {
             <Text>{sk === "due" ? "今天的複習都完成了 🎉" : sk === "unf" ? "目前沒有不熟的字。" : sk === "known" ? "還沒有標為已認識的字。" : "還沒有答錯的字。"}</Text>
           ) : sTab === "card" ? (
             (() => {
-              const sc = sPos < sDeck.length ? WORDS[sDeck[sPos]] : undefined;
+              const sc = sPos < sDeck.length ? ALLW[sDeck[sPos]] : undefined;
               const sNext = () => {
                 setSPos((i: number) => i + 1);
                 setFlipped(false);
@@ -1472,7 +1559,7 @@ export default function App() {
               <div className="slist">
                 {setWords.slice(0, sMore).map((x: Word) => {
                   const r = prog[x.w];
-                  return wordRow(x, LEVELS[x.lv] + "・" + statusLabel(x) + (r && r.c + r.x ? "・答對 " + r.c + "／答錯 " + r.x : ""));
+                  return wordRow(x, lvName(x) + "・" + statusLabel(x) + (r && r.c + r.x ? "・答對 " + r.c + "／答錯 " + r.x : ""));
                 })}
               </div>
               {setWords.length > sMore ? row([<Button key="m" label={"顯示更多（還有 " + (setWords.length - sMore) + " 字）"} onClick={() => setSMore((n: number) => n + 60)} />]) : null}

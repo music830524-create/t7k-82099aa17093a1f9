@@ -1,21 +1,25 @@
 // Map words in example sentences to headwords: exact form, then irregular forms, then inflection rules
 // (gated by part of speech), plus hyphenated headwords spanning several tokens ("follow-up", "state-of-the-art").
-import { Word, WORDS } from "./words";
+import { Word, WORDS, TWORDS } from "./words";
 
 export type Tok = { t: string; hits: Word[] }; // t = text; hits = matched headwords (best first); non-word pieces have hits = [] and no tap
 
-const IDX: Record<string, Word> = {};
+const IDX: Record<string, Word> = {}; // the 7010 list: always wins
+const TIDX: Record<string, Word> = {}; // words that are only in a topic category: matched after the 7010 list ("running" -> run, then running)
 const PHR: Record<string, string[][]> = {}; // first token -> token lists of multi-token headwords
-WORDS.forEach((w: Word) => {
+const addTo = (ix: Record<string, Word>, w: Word) => {
   const k = w.w.toLowerCase();
-  if (!IDX[k]) IDX[k] = w;
+  if (!ix[k]) ix[k] = w;
   if (k.indexOf("-") > 0) {
     const parts = k.split("-");
     (PHR[parts[0]] = PHR[parts[0]] || []).push(parts);
     const joined = parts.join("");
-    if (!IDX[joined]) IDX[joined] = w; // email -> e-mail
+    if (!ix[joined]) ix[joined] = w; // email -> e-mail
   }
-});
+};
+WORDS.forEach((w: Word) => addTo(IDX, w));
+TWORDS.forEach((w: Word) => addTo(TIDX, w));
+const headword = (k: string): Word | undefined => IDX[k] || TIDX[k];
 
 const IRR: Record<string, string[]> = {};
 ("be:was,were,been,is,am,are,being;have:has,had,having;do:does,did,done;go:goes,went,gone;buy:bought;bring:brought;think:thought;teach:taught;catch:caught;fight:fought;seek:sought;" +
@@ -96,6 +100,10 @@ export function lookupToken(t: string): Word[] {
     const w = IDX[b];
     if (w && ok(w) && out.indexOf(w) < 0) out.push(w);
   });
+  bases(t.toLowerCase().replace(/’/g, "'")).forEach(([b, ok]: [string, (w: Word) => boolean]) => {
+    const w = TIDX[b];
+    if (w && ok(w) && out.indexOf(w) < 0) out.push(w);
+  });
   return out;
 }
 
@@ -124,7 +132,7 @@ export function lookupSentence(s: string): Tok[] {
         const okLast = j === parts.length - 1 && bases(tw).some(([bb]: [string, unknown]) => bb === parts[j]);
         if (tw !== parts[j] && !okLast) return;
       }
-      const hw = IDX[parts.join("-")] || IDX[parts.join("")];
+      const hw = headword(parts.join("-")) || headword(parts.join(""));
       if (!hw) return;
       for (let j = 0; j < parts.length; j++) {
         const x = toks[wordIdx[n + j]];

@@ -54,3 +54,50 @@
 - 首頁「學習進度」四個方塊都可以點：已認識 / 不熟 / 今天待複習 / 測驗正確率，各自開一個「單字卡・測驗・清單」畫面，只針對那一組字（測驗正確率＝曾答錯的字；還沒答過題時直接進測驗畫面）。清單每個字可點開看音標、中文、兩個例句，並可「加入不熟」「標為已認識」。
 - 首頁最上面有搜尋欄（輸入後約 0.12 秒顯示結果）：英文開頭／片段、中文都可以，也可以打 approved 這類變化形；也會搜尋生字本。找不到時可「加入生字本」。
 - 沒有新增任何儲存欄位，`toeic7000_progress_v1`、`toeic7000_extra_v1` 格式不變。
+
+## 主題分類（身體部位、餐廳、家具…）
+
+首頁「主題分類」列出 28 個生活場景的分類，每類 27–53 字，點進去是同一個「單字卡・測驗・清單」畫面（測驗的錯誤選項取自同一分類）。按「認識」「不熟」寫進同一份 `toeic7000_progress_v1`（以單字本身為 key，所以「apple」不管從哪裡標都是同一筆），不熟的字也會出現在首頁「不熟」與錯題本。首頁搜尋也找得到主題字（英文、中文都可以，並標示它屬於哪些主題）。
+
+| 分類 | English | 字數 |
+|---|---|---|
+| 🧍 身體部位 | Body parts | 53 |
+| 🍽️ 餐廳 | Restaurant | 42 |
+| 🛋️ 家具 | Furniture | 36 |
+| 🍳 廚房 | Kitchen | 37 |
+| 👕 衣物 | Clothing | 40 |
+| 🖇️ 辦公室 | Office | 37 |
+| ✈️ 機場與旅行 | Airport & travel | 37 |
+| 🏨 旅館 | Hotel | 33 |
+| 🚌 交通工具 | Transportation | 37 |
+| ⛅ 天氣 | Weather | 38 |
+| 👨‍👩‍👧 家人親屬 | Family | 34 |
+| 👷 職業 | Occupations | 44 |
+| 🏥 醫院與健康 | Health & hospital | 38 |
+| 🛍️ 購物 | Shopping | 33 |
+| ⚽ 運動 | Sports | 40 |
+| 🐶 動物 | Animals | 41 |
+| 🍎 水果 | Fruits | 31 |
+| 🥕 蔬菜 | Vegetables | 32 |
+| 🎨 顏色 | Colors | 27 |
+| 🏫 學校 | School | 31 |
+| 😊 情緒 | Emotions | 30 |
+| 🏠 房屋與房間 | House & rooms | 32 |
+| 🍞 食物與飲料 | Food & drink | 44 |
+| 🏔️ 自然與地形 | Nature & geography | 38 |
+| 💰 銀行與金錢 | Banking & money | 31 |
+| 💻 電腦與科技 | Computers & tech | 30 |
+| 🔧 工具 | Tools | 27 |
+| 🏙️ 城市地點 | Places in town | 34 |
+
+共 1007 個分類成員，其中 **319 個字不在 7,010 字庫**（顯示為「主題單字」，查字時排在 7,010 字庫的結果之後），其餘沿用 7,010 字庫的單字。
+
+### 資料來源與授權
+
+- **找過的現成資料集**：GitHub 與網路上沒有找到「依主題分類、又附繁體中文與例句」且授權清楚可用的單一資料集。看過的有 Multi Linguis（CC BY-SA 3.0，授權版本與本站不同）、DictionaryData、KyleBing/english-vocabulary、CodingFriends 等，品質或授權不適合直接納入，所以**沒有直接複製任何一個**。
+- **實際作法**：以 [English Wiktionary](https://en.wiktionary.org/) 的主題分類（如 Category:en:Body parts、en:Furniture，文字以 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 釋出）當作分類與涵蓋範圍的參考，**由本站自行挑選**每類的常用字（`dev/topics/cats.py`）。沒有複製 Wiktionary 的條目文字。
+- **本站自行撰寫**：319 個新字的繁體中文解釋、詞性與每字 2 個例句（含中文翻譯）（`dev/topics/nw/b*.tsv`，`ex/topics.json`）；另有 123 個「7,010 字庫已有、但在該主題下意思不同」的字（例如 body 的 head、heart；restaurant 的 host、special）另寫了該主題的中文解釋與例句（`dev/topics/nw/ov.tsv`），只在主題畫面使用，字庫原本的條目不變。
+- **KK 音標**（319 個新字，`dev/src/topics.ts`）：104 字取自 edc026588/toeic-cards（CC BY-SA 4.0，同上）；194 字由本站用 CMU Pronouncing Dictionary（BSD）的音素轉成 KK（`dev/topics/kkconv.py`，拿同一轉換規則對照 edc 的 9,408 個字，完全相同的有 99.7%）；21 字（CMUdict 沒有的、或需要手動修正重音與複合字的，如 toothbrush、tornado、ice-cream）由本站手動標。因此這 319 字的音標有一部分是本站推導，與上面「沒有任何一筆是本站自行從 CMUdict 推導」那句只適用於 7,010 字庫。
+- 以上衍生資料（主題字表、中文解釋、例句、音標）同樣以 CC BY-SA 4.0 釋出。
+- 產生流程：`dev/topics/gen.py` 讀 `cats.py`、`nw/*.tsv`，輸出 `dev/src/topics.ts` 與 `ex/topics.json`（腳本內的路徑是作者環境的路徑，僅供參考；產出已提交在 repo）。
+- 例句檔 `ex/topics.json`（約 76 KB）第一次需要時才下載，並與其他例句檔一樣由 service worker 快取，離線也能用。

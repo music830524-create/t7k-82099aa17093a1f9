@@ -13,7 +13,7 @@ self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET" || new URL(req.url).origin !== self.location.origin) return;
   // Example sentence files: cache-first (the cache name changes whenever they change).
-  if (/\/ex\/\d+-\d+\.json$/.test(new URL(req.url).pathname)) {
+  if (/\/ex\/(\d+-\d+|topics)\.json$/.test(new URL(req.url).pathname)) {
     e.respondWith(
       caches.open(CACHE).then((c) =>
         c.match(req, { ignoreSearch: true }).then(

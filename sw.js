@@ -1,5 +1,5 @@
 // Offline cache (v2: adds example sentences). Network-first for the page and app code so updates arrive; cache fallback when offline.
-const CACHE = "toeic7000-d70a64cc93";
+const CACHE = "toeic7000-1ac9f033d2";
 const ASSETS = ["./", "index.html", "app.js", "style.css", "manifest.webmanifest", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "favicon.png"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
@@ -13,7 +13,7 @@ self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET" || new URL(req.url).origin !== self.location.origin) return;
   // Example sentence files: cache-first (the cache name changes whenever they change).
-  if (/\/ex\/\d+-\d+\.json$/.test(new URL(req.url).pathname)) {
+  if (/\/ex\/(\d+-\d+|topics)\.json$/.test(new URL(req.url).pathname)) {
     e.respondWith(
       caches.open(CACHE).then((c) =>
         c.match(req, { ignoreSearch: true }).then(
