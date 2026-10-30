@@ -67,16 +67,24 @@ export function Text(p: { children?: RN }) {
   return <p className="txt">{p.children}</p>;
 }
 
-export function Metrics(p: { metrics: { value: string; label: string; detail?: string }[] }) {
+export function Metrics(p: { metrics: { value: string; label: string; detail?: string; onClick?: () => void }[] }) {
   return (
     <div className="metrics">
-      {p.metrics.map((m) => (
-        <div className="metric" key={m.label}>
-          <div className="mv">{m.value}</div>
-          <div className="ml">{m.label}</div>
-          {m.detail ? <div className="md">{m.detail}</div> : null}
-        </div>
-      ))}
+      {p.metrics.map((m) =>
+        m.onClick ? (
+          <button className="metric tap" key={m.label} onClick={m.onClick} aria-label={m.label + "，點一下查看"}>
+            <span className="mv">{m.value}</span>
+            <span className="ml">{m.label}</span>
+            {m.detail ? <span className="md">{m.detail}</span> : null}
+          </button>
+        ) : (
+          <div className="metric" key={m.label}>
+            <div className="mv">{m.value}</div>
+            <div className="ml">{m.label}</div>
+            {m.detail ? <div className="md">{m.detail}</div> : null}
+          </div>
+        )
+      )}
     </div>
   );
 }

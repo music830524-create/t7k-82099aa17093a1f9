@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Word, LEVELS, BANDS, WORDS } from "./words";
-import { lookupSentence, Tok } from "./lookup";
+import { lookupSentence, lookupToken, Tok } from "./lookup";
 
 type Rec = { s: number; c: number; x: number; box: number; due: number };
 type Prog = Record<string, Rec>;
@@ -216,7 +216,15 @@ export default function App() {
   const [quizMode, setQuizMode] = useState<string>("en2zh");
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [session, setSession] = useState<{ c: number; n: number }>({ c: 0, n: 0 });
-  const [query, setQuery] = useState<string>("");
+  const [query, setQuery] = useState<string>(""); // debounced copy of qIn, drives the home search results
+  const [qIn, setQIn] = useState<string>("");
+  const [sMsg, setSMsg] = useState<string>("");
+  const [sk, setSk] = useState<string>("unf"); // which stat card opened the "set" view: known | unf | due | acc
+  const [sTab, setSTab] = useState<string>("list");
+  const [sDeck, setSDeck] = useState<number[]>([]);
+  const [sPos, setSPos] = useState<number>(0);
+  const [sMore, setSMore] = useState<number>(40);
+  const sQuizRef = useRef<{ ids: number[]; pos: number }>({ ids: [], pos: 0 });
   const [listPage, setListPage] = useState<number>(0);
   const [cardDeck, setCardDeck] = useState<number[]>([]);
   const [cardPos, setCardPos] = useState<number>(0);
@@ -381,6 +389,14 @@ export default function App() {
   }, [prog, now]);
   const dueWords: Word[] = useMemo(() => reviewWords.filter((x: Word) => prog[x.w].due <= now), [reviewWords, prog, now]);
 
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      setQuery(qIn);
+      setSMsg("");
+    }, 120);
+    return () => window.clearTimeout(id);
+  }, [qIn]);
+
   // Rebuild the random decks when the level, the skip filter or the round changes.
   useEffect(() => {
     if (!loaded) return;
@@ -421,6 +437,15 @@ export default function App() {
     });
     return { known, unf, c, x, perLv, perUnit };
   }, [prog]);
+
+  const setOf = (kind: string): Word[] => {
+    const p = prog;
+    if (kind === "known") return WORDS.filter((x: Word) => p[x.w] && p[x.w].s === 1);
+    if (kind === "unf") return WORDS.filter((x: Word) => p[x.w] && p[x.w].s === 2).sort((a: Word, b: Word) => p[b.w].x - p[a.w].x);
+    if (kind === "due") return dueWords;
+    return WORDS.filter((x: Word) => p[x.w] && p[x.w].x > 0).sort((a: Word, b: Word) => p[b.w].x - p[a.w].x || p[a.w].c - p[b.w].c);
+  };
+  const setWords: Word[] = useMemo(() => setOf(sk), [sk, prog, dueWords]);
 
   const sp = parseFloat(speed);
   const cur: Word | undefined = cardPos < cardDeck.length ? WORDS[cardDeck[cardPos]] : undefined;
@@ -466,6 +491,21 @@ export default function App() {
   const reviewDeckRef = useRef<{ ids: number[]; pos: number }>({ ids: [], pos: 0 });
 
   const nextQuiz = () => {
+    if (view === "set") {
+      const rd = sQuizRef.current;
+      if (rd.pos >= rd.ids.length) {
+        rd.ids = shuffle(setWords.map((x: Word) => x.id));
+        rd.pos = 0;
+      }
+      if (!rd.ids.length) {
+        setQuiz(null);
+        return;
+      }
+      const w = WORDS[rd.ids[rd.pos]];
+      rd.pos += 1;
+      setQuiz(makeQuiz(w, isReview(progRef.current[w.w])));
+      return;
+    }
     if (view === "review") {
       const rd = reviewDeckRef.current;
       if (rd.pos >= rd.ids.length) {
@@ -524,13 +564,19 @@ export default function App() {
     speak(quiz.word.w, sp);
   };
 
-  const searchResults: Word[] = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
-    const starts = WORDS.filter((x: Word) => x.w.toLowerCase().startsWith(q));
-    const contains = WORDS.filter((x: Word) => !x.w.toLowerCase().startsWith(q) && (x.w.toLowerCase().includes(q) || x.zh.includes(query.trim())));
-    return starts.concat(contains).slice(0, 50);
-  }, [query]);
+  const search = useMemo(() => {
+    const raw = query.trim();
+    const q = raw.toLowerCase();
+    if (!q) return { res: [] as Word[], infl: [] as Word[], ext: [] as Extra[], eng: false };
+    const eng = /^[A-Za-z][A-Za-z'’-]*$/.test(raw);
+    const exact = WORDS.filter((x: Word) => x.w.toLowerCase() === q);
+    const starts = WORDS.filter((x: Word) => x.w.toLowerCase() !== q && x.w.toLowerCase().startsWith(q));
+    const contains = WORDS.filter((x: Word) => !x.w.toLowerCase().startsWith(q) && (x.w.toLowerCase().includes(q) || x.zh.includes(raw)));
+    const res = exact.concat(starts, contains).slice(0, 50);
+    const infl = eng && !exact.length ? lookupToken(raw).filter((h: Word) => res.indexOf(h) < 0) : [];
+    const ext = extra.filter((x: Extra) => x.w.toLowerCase().includes(q));
+    return { res, infl, ext, eng };
+  }, [query, extra]);
 
   const accuracy = stats.c + stats.x ? Math.round((stats.c / (stats.c + stats.x)) * 100) + "%" : "—";
 
@@ -653,6 +699,17 @@ export default function App() {
       例句
     </span>
   );
+  const wordRow = (x: Word, sub?: string) => (
+    <button key={"wr" + x.id} className="srow" data-w={x.w} onClick={() => setDetail(x)}>
+      <span className="l">
+        <span>
+          <span className="w">{x.w}</span> <span className="pos">{x.pos}</span> {kkEl(x, "13px")}
+        </span>
+        <span className="zh">{x.zh}</span>
+        <span className="st">{sub !== undefined ? sub : LEVELS[x.lv] + "・" + statusLabel(x)}</span>
+      </span>
+    </button>
+  );
   const detailSheet = detail ? (
     <div
       className="sheet-bg"
@@ -673,8 +730,11 @@ export default function App() {
         {muted(LEVELS[detail.lv] + "・單元 " + (unitOf(detail) + 1) + "・" + statusLabel(detail) + "・點 🔊 聽例句，點例句中的字可查")}
         {exBlock(detail)}
         {row([
+          <Button key="du" variant={prog[detail.w] && prog[detail.w].s === 2 ? undefined : "primary"} disabled={!!prog[detail.w] && prog[detail.w].s === 2} label={prog[detail.w] && prog[detail.w].s === 2 ? "已在不熟" : "加入不熟"} onClick={() => setStatus(detail, 2)} />,
+          <Button key="dk" disabled={!!prog[detail.w] && prog[detail.w].s === 1} label={prog[detail.w] && prog[detail.w].s === 1 ? "已認識" : "標為已認識"} onClick={() => setStatus(detail, 1)} />,
           <Button key="dp" label="發音" onClick={() => speak(detail.w, sp)} />,
-          <Button key="dc" variant="primary" label="關閉" onClick={() => setDetail(null)} />,
+          <Button key="dg" label="去練習" onClick={() => { const d = detail; setDetail(null); enter(d.lv, unitOf(d)); }} />,
+          <Button key="dc" label="關閉" onClick={() => setDetail(null)} />,
         ])}
       </div>
     </div>
@@ -705,7 +765,7 @@ export default function App() {
             <span className="lk-word" onClick={() => speak(L.tok, sp)} style={{ fontSize: "26px", fontWeight: t.weight.semibold, cursor: "pointer" }}>{L.tok}</span>
             <span style={{ color: t.text.secondary }}>不在 7000 字庫中</span>
           </div>
-          <div style={{ color: t.text.secondary, fontSize: t.font.body2.fontSize, lineHeight: 1.5 }}>{"例句：" + L.sent}</div>
+          {L.sent ? <div style={{ color: t.text.secondary, fontSize: t.font.body2.fontSize, lineHeight: 1.5 }}>{"例句：" + L.sent}</div> : null}
           {row([
             <Button
               key="ae"
@@ -968,6 +1028,31 @@ export default function App() {
     goTop();
   };
 
+  // The four stat cards on the home screen open this "set" view over just those words.
+  const openSet = (kind: string) => {
+    if (kind === "acc" && stats.c + stats.x === 0) {
+      // no quiz answered yet: go straight to a quiz screen
+      enter(last ? last.lv : 0, -1);
+      setTab("quiz");
+      setQuizMode("en2zh");
+      return;
+    }
+    const words = setOf(kind);
+    const ids = shuffle(words.map((x: Word) => x.id));
+    setSk(kind);
+    setSTab(kind === "unf" ? "card" : kind === "due" ? "quiz" : "list");
+    setSDeck(ids);
+    setSPos(0);
+    setSMore(40);
+    setFlipped(false);
+    sQuizRef.current = { ids: [], pos: 0 };
+    go("set");
+    if (kind === "due" && ids.length) {
+      sQuizRef.current = { ids: shuffle(ids), pos: 1 };
+      setQuiz(makeQuiz(WORDS[sQuizRef.current.ids[0]], true));
+    }
+  };
+
   const unitSize = (lv: number, u: number): number => Math.min(UNIT, LV_COUNT[lv] - u * UNIT);
   const unitLabel = (lv: number, u: number): string => LEVELS[lv] + (u < 0 ? "・整級隨機" : "・單元 " + (u + 1));
   const scopeKnown = levelWords.filter((x: Word) => prog[x.w] && prog[x.w].s === 1).length;
@@ -1154,6 +1239,55 @@ export default function App() {
       {detailSheet}
       {lookSheet}
       {view === "home" ? (
+        <Section heading="搜尋單字">
+          <Input label="搜尋單字（英文或中文）" value={qIn} onChange={(v: string) => setQIn(v)} placeholder="例如 invoice、會議、approved" />
+          {query.trim() ? (
+            <div className="slist" data-q={query.trim()}>
+              {search.infl.map((h: Word) => wordRow(h, "「" + query.trim() + "」是 " + h.w + " 的變化形・" + LEVELS[h.lv] + "・" + statusLabel(h)))}
+              {search.res.map((x: Word) => wordRow(x))}
+              {search.ext.map((x: Extra) => (
+                <button key={"ex" + x.t + x.w} className="srow ext" onClick={() => { setLookMsg(""); setLook([{ tok: x.w, hits: [], i: 0, sent: x.s }]); }}>
+                  <span className="l">
+                    <span className="w">{x.w}</span>
+                    <span className="st">{"生字本" + (x.s ? "・" + x.s : "")}</span>
+                  </span>
+                </button>
+              ))}
+              {!search.res.length && !search.infl.length && !search.ext.length ? (
+                search.eng ? (
+                  <div className="srow nomatch">
+                    <span className="l">
+                      <span className="w">{query.trim()}</span>
+                      <span className="st">不在 7000 字庫中</span>
+                      <span style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
+                        <Button label="查看／發音" onClick={() => { setLookMsg(""); setLook([{ tok: query.trim(), hits: lookupToken(query.trim()), i: 0, sent: "" }]); }} />
+                        <Button
+                          variant="primary"
+                          label="加入生字本"
+                          onClick={() => {
+                            const next = extra.concat({ w: query.trim(), s: "", t: Date.now() });
+                            setExtra(next);
+                            saveExtra(next);
+                            setSMsg("已加入生字本。");
+                          }}
+                        />
+                      </span>
+                      {sMsg ? <span className="lk-msg" style={{ color: t.text.success, fontSize: t.font.body2.fontSize, marginTop: 6 }}>{sMsg}</span> : null}
+                    </span>
+                  </div>
+                ) : (
+                  muted("找不到符合的字。")
+                )
+              ) : null}
+            </div>
+          ) : (
+            muted("輸入英文（開頭或片段，也可以打 approved、companies 這種變化形）或中文，會立刻列出結果；點一個字看音標、例句，並可加入不熟或標為已認識。")
+          )}
+          {query.trim() && search.res.length === 50 ? muted("只顯示前 50 筆，打更多字母縮小範圍") : null}
+        </Section>
+      ) : null}
+
+      {view === "home" ? (
         <Section heading="選擇級數">
           {last
             ? row([<Button key="cont" variant="primary" label={"▶ 繼續上次：" + unitLabel(last.lv, last.u)} onClick={() => enter(last.lv, last.u)} />])
@@ -1168,16 +1302,14 @@ export default function App() {
         <Section heading="學習進度">
           <Metrics
             metrics={[
-              { value: stats.known.toLocaleString(), label: "已認識", detail: "共 " + WORDS.length.toLocaleString() + " 字" },
-              { value: String(stats.unf), label: "不熟" },
-              { value: accuracy, label: "測驗正確率", detail: stats.c + stats.x ? "共答 " + (stats.c + stats.x) + " 題" : undefined },
-              { value: String(dueWords.length), label: "今天待複習" },
+              { value: stats.known.toLocaleString(), label: "已認識", detail: "共 " + WORDS.length.toLocaleString() + " 字", onClick: () => openSet("known") },
+              { value: String(stats.unf), label: "不熟", onClick: () => openSet("unf") },
+              { value: accuracy, label: "測驗正確率", detail: stats.c + stats.x ? "共答 " + (stats.c + stats.x) + " 題" : "還沒測驗，點進去開始", onClick: () => openSet("acc") },
+              { value: String(dueWords.length), label: "今天待複習", onClick: () => openSet("due") },
             ]}
           />
-          {row([
-            <Button key="rv" label={"錯題本（" + reviewWords.length + "）"} onClick={() => go("review")} />,
-            <Button key="sr" label="搜尋單字" onClick={() => go("search")} />,
-          ])}
+          {muted("點上面的方塊進去複習：已認識、不熟、今天待複習、測驗答錯的字。")}
+          {row([<Button key="rv" label={"錯題本（" + reviewWords.length + "）"} onClick={() => go("review")} />])}
           {speedControl}
           {muted("每答一題就自動存檔在這支手機上；畫面會跟著手機切換淺色或深色模式。")}
           {!persist ? <Callout tone="info">這個瀏覽器不允許儲存資料（例如無痕模式），進度只會保留到關閉頁面為止。</Callout> : null}
@@ -1268,28 +1400,84 @@ export default function App() {
         </Section>
       ) : null}
 
-      {view === "search" ? (
-        <Section heading="搜尋單字">
+      {view === "set" ? (
+        <Section heading={sk === "known" ? "已認識的字" : sk === "unf" ? "不熟的字" : sk === "due" ? "今天待複習" : "測驗紀錄"}>
           {backHome}
-          <Input label="搜尋單字（英文或中文）" value={query} onChange={(v: string) => setQuery(v)} placeholder="例如 invoice、會議" />
-          {query.trim() ? (
-            <Table
-              columns={["單字", "中文", "位置", ""]}
-              rows={searchResults.map((x: Word) => [
-                wordCell(x),
-                x.zh,
-                LEVELS[x.lv] + "・單元 " + (unitOf(x) + 1) + "・" + statusLabel(x),
-                <span key={x.id} style={{ display: "inline-flex", gap: 12, fontSize: t.font.body1.fontSize }}>
-                  <span onClick={() => speak(x.w, sp)} style={{ cursor: "pointer", color: t.text.accent }}>發音</span>
-                  {wordLink(x)}
-                  <span onClick={() => enter(x.lv, unitOf(x))} style={{ cursor: "pointer", color: t.text.accent }}>去練習</span>
-                </span>,
-              ])}
-            />
-          ) : (
-            muted("輸入英文或中文，會列出單字所在的級數和單元。")
+          {muted(
+            sk === "known"
+              ? "共 " + setWords.length.toLocaleString() + " 字：按過「認識」或測驗連續答對的字。可以用單字卡或測驗再複習，也可以逐字查看。"
+              : sk === "unf"
+              ? "共 " + setWords.length + " 字：按「不熟」或測驗答錯的字，答錯最多的排前面。單字卡或測驗答對幾次後會自動移出。"
+              : sk === "due"
+              ? "共 " + setWords.length + " 字今天到期：測驗答對會拉長下次複習的間隔（1、3、7、14、30 天），答錯就從頭開始。"
+              : "累計答對 " + stats.c + " 題、答錯 " + stats.x + " 題，正確率 " + accuracy + "。下面是曾經答錯的字（" + setWords.length + "），可以再測驗。"
           )}
-          {query.trim() && searchResults.length === 50 ? muted("只顯示前 50 筆，打更多字母縮小範圍") : null}
+          <Segmented
+            options={[
+              { value: "card", label: "單字卡" },
+              { value: "quiz", label: "測驗" },
+              { value: "list", label: "清單（" + setWords.length + "）" },
+            ]}
+            value={sTab}
+            onChange={(v: string) => {
+              setSTab(v);
+              setQuiz(null);
+              setFlipped(false);
+            }}
+          />
+          {setWords.length === 0 ? (
+            <Text>{sk === "due" ? "今天的複習都完成了 🎉" : sk === "unf" ? "目前沒有不熟的字。" : sk === "known" ? "還沒有標為已認識的字。" : "還沒有答錯的字。"}</Text>
+          ) : sTab === "card" ? (
+            (() => {
+              const sc = sPos < sDeck.length ? WORDS[sDeck[sPos]] : undefined;
+              const sNext = () => {
+                setSPos((i: number) => i + 1);
+                setFlipped(false);
+              };
+              const reshuffle = () => {
+                setSDeck(shuffle(setWords.map((x: Word) => x.id)));
+                setSPos(0);
+                setFlipped(false);
+              };
+              return sc ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  {muted("第 " + (sPos + 1) + " / " + sDeck.length + " 張")}
+                  {card(sc)}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                    {btn("✓ 認識", () => { setStatus(sc, 1); sNext(); }, { big: true })}
+                    {btn("✗ 不熟", () => { setStatus(sc, 2); sNext(); }, { big: true })}
+                  </div>
+                  {row([
+                    <Button key="s" variant="primary" label="發音" onClick={() => speak(sc.w, sp)} />,
+                    <Button key="p" label="◀ 上一張" onClick={() => { setSPos((i: number) => Math.max(0, i - 1)); setFlipped(false); }} />,
+                    <Button key="n" label="跳過 ▶" onClick={sNext} />,
+                    <Button key="r" label="重新洗牌" onClick={reshuffle} />,
+                  ])}
+                </div>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  <Text>這一輪看完了。</Text>
+                  {row([<Button key="r" variant="primary" label="再來一輪" onClick={reshuffle} />])}
+                </div>
+              );
+            })()
+          ) : sTab === "quiz" ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {modeSwitch}
+              {quizBlock()}
+              {quizControls("開始測驗")}
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <div className="slist">
+                {setWords.slice(0, sMore).map((x: Word) => {
+                  const r = prog[x.w];
+                  return wordRow(x, LEVELS[x.lv] + "・" + statusLabel(x) + (r && r.c + r.x ? "・答對 " + r.c + "／答錯 " + r.x : ""));
+                })}
+              </div>
+              {setWords.length > sMore ? row([<Button key="m" label={"顯示更多（還有 " + (setWords.length - sMore) + " 字）"} onClick={() => setSMore((n: number) => n + 60)} />]) : null}
+            </div>
+          )}
         </Section>
       ) : null}
 
