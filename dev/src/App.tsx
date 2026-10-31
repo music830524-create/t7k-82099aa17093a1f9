@@ -1355,6 +1355,16 @@ export default function App() {
       ) : null}
 
       {view === "home" ? (
+        <button className="tentry" data-testid="topics-entry" onClick={() => go("topics")}>
+          <span className="te">🗂️</span>
+          <span className="tm">
+            <span className="tn">{"主題分類 · " + TCATS.length + " 個主題"}</span>
+            <span className="tc">身體部位、餐廳、家具⋯⋯</span>
+          </span>
+        </button>
+      ) : null}
+
+      {view === "home" ? (
         <Section heading="選擇級數">
           {last
             ? row([<Button key="cont" variant="primary" label={"▶ 繼續上次：" + unitLabel(last.lv, last.u)} onClick={() => enter(last.lv, last.u)} />])
@@ -1365,9 +1375,10 @@ export default function App() {
         </Section>
       ) : null}
 
-      {view === "home" ? (
-        <Section heading={"主題分類（" + TCATS.length + " 類）"}>
-          <Text>身體部位、餐廳、家具……依生活場景分類的單字，點一類進去用單字卡、測驗或清單複習。</Text>
+      {view === "topics" ? (
+        <Section heading={"主題分類（" + TCATS.length + " 個主題）"}>
+          {backHome}
+          <Text>依生活場景分類的單字，點一類進去用單字卡、測驗或清單複習。</Text>
           <div className="tgrid">
             {TCATS.map((c: TopicWords) => {
               const k = c.words.filter((x: Word) => prog[x.w] && prog[x.w].s === 1).length;
@@ -1487,7 +1498,7 @@ export default function App() {
 
       {view === "set" ? (
         <Section heading={sk === "topic" && tcat ? tcat.emoji + " " + tcat.name + "（" + tcat.en + "）" : sk === "known" ? "已認識的字" : sk === "unf" ? "不熟的字" : sk === "due" ? "今天待複習" : "測驗紀錄"}>
-          {backHome}
+          {sk === "topic" ? row([<Button key="bt" label="◀ 回主題分類" onClick={() => go("topics")} />]) : backHome}
           {muted(
             sk === "topic" && tcat
               ? "共 " + tcat.words.length + " 字，已認識 " + tcat.words.filter((x: Word) => prog[x.w] && prog[x.w].s === 1).length + "、不熟 " + tcat.words.filter((x: Word) => prog[x.w] && prog[x.w].s === 2).length + "。每個字都有 KK 音標和兩個例句；按「認識」或「不熟」會存進同一份學習進度，不熟的字也會出現在首頁的「不熟」和錯題本。"

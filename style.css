@@ -73,3 +73,10 @@ button.srow:active{background:var(--line2)}
 .tcat .te{font-size:28px;line-height:34px}
 .tcat .tn{font-weight:600;font-size:16px}
 .tcat .tc{color:var(--text2);font-size:12px}
+.tentry{display:flex;align-items:center;gap:12px;position:relative;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 40px 12px 14px;color:var(--text);font:inherit;cursor:pointer;box-sizing:border-box;min-height:56px}
+.tentry::after{content:"\203A";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:24px;line-height:24px;color:var(--text3)}
+.tentry:active{background:var(--line2)}
+.tentry .te{font-size:26px;line-height:32px}
+.tentry .tm{display:flex;flex-direction:column;gap:1px;min-width:0}
+.tentry .tn{font-weight:600;font-size:16px}
+.tentry .tc{color:var(--text2);font-size:12px}
