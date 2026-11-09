@@ -6,6 +6,7 @@ import { lookupSentence, lookupToken, Tok } from "./lookup";
 type Rec = { s: number; c: number; x: number; box: number; due: number };
 type Prog = Record<string, Rec>;
 import { KK } from "./kk";
+import GrammarScreen from "./grammar";
 import { ReactNode, ChangeEvent, KeyboardEvent, Page, Section, Text, Metrics, Segmented, Toggle, Input, Button, Table, Callout, useState, useEffect, useMemo, useCallback, useRef, useGrokTheme } from "./kit";
 
 const KK_LIST: string[] = KK.split("|").concat(TOPIC_KK.split("|")); // 7010-list words first, then the topic-only words
@@ -1301,6 +1302,7 @@ export default function App() {
         "KK 音標：edc026588/toeic-cards（CC BY-SA 4.0，由 CMU Pronouncing Dictionary 轉換，BSD 授權）https://github.com/edc026588/toeic-cards ；本站修正 384 筆（詞性、重音位置），清單見 README",
         "主題分類（28 類、319 個字庫外的新字）：單字與分類由本站依 English Wiktionary 主題分類（CC BY-SA 4.0）挑選整理，中文解釋、例句為本站撰寫；音標同上。詳見 README",
         "約 3.7% 的例句（資料集缺漏或不含該單字時）為本站自行撰寫補上，並以相同的 CC BY-SA 4.0 授權釋出；說明 https://github.com/music830524-create/t7k-82099aa17093a1f9#readme",
+        "文法練習：說明與例句為本站自行撰寫。",
       ]}
     >
       {detailSheet}
@@ -1355,13 +1357,22 @@ export default function App() {
       ) : null}
 
       {view === "home" ? (
-        <button className="tentry" data-testid="topics-entry" onClick={() => go("topics")}>
-          <span className="te">🗂️</span>
-          <span className="tm">
-            <span className="tn">{"主題分類 · " + TCATS.length + " 個主題"}</span>
-            <span className="tc">身體部位、餐廳、家具⋯⋯</span>
-          </span>
-        </button>
+        <div className="entries">
+          <button className="tentry" data-testid="topics-entry" onClick={() => go("topics")}>
+            <span className="te">🗂️</span>
+            <span className="tm">
+              <span className="tn">{"主題分類 · " + TCATS.length + " 個主題"}</span>
+              <span className="tc">身體部位、餐廳、家具⋯⋯</span>
+            </span>
+          </button>
+          <button className="tentry" data-testid="grammar-entry" onClick={() => go("grammar")}>
+            <span className="te">📝</span>
+            <span className="tm">
+              <span className="tn">文法練習</span>
+              <span className="tc">句型與詞性</span>
+            </span>
+          </button>
+        </div>
       ) : null}
 
       {view === "home" ? (
@@ -1578,6 +1589,8 @@ export default function App() {
           )}
         </Section>
       ) : null}
+
+      {view === "grammar" ? <GrammarScreen onHome={() => go("home")} /> : null}
 
       {view === "review" ? (
         <Section heading="錯題本">

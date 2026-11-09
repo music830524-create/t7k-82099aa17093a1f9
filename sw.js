@@ -1,6 +1,6 @@
-// Offline cache (v2: adds example sentences). Network-first for the page and app code so updates arrive; cache fallback when offline.
-const CACHE = "toeic7000-35cc4c607c";
-const ASSETS = ["./", "index.html", "app.js", "style.css", "manifest.webmanifest", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "favicon.png"];
+// Offline cache (v3: grammar module). Network-first for the page and app code so updates arrive; cache fallback when offline.
+const CACHE = "toeic7000-95b36ea7b1";
+const ASSETS = ["./", "index.html", "app.js", "style.css", "manifest.webmanifest", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "favicon.png", "grammar/grammar.json"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
 });
@@ -12,8 +12,9 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET" || new URL(req.url).origin !== self.location.origin) return;
-  // Example sentence files: cache-first (the cache name changes whenever they change).
-  if (/\/ex\/(\d+-\d+|topics)\.json$/.test(new URL(req.url).pathname)) {
+  const path = new URL(req.url).pathname;
+  // Example sentences and grammar JSON: cache-first (the cache name changes whenever they change).
+  if (/\/ex\/(\d+-\d+|topics)\.json$/.test(path) || /\/grammar\/[a-z0-9_-]+\.json$/.test(path)) {
     e.respondWith(
       caches.open(CACHE).then((c) =>
         c.match(req, { ignoreSearch: true }).then(

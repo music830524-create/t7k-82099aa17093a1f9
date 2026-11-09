@@ -101,3 +101,16 @@
 - 以上衍生資料（主題字表、中文解釋、例句、音標）同樣以 CC BY-SA 4.0 釋出。
 - 產生流程：`dev/topics/gen.py` 讀 `cats.py`、`nw/*.tsv`，輸出 `dev/src/topics.ts` 與 `ex/topics.json`（腳本內的路徑是作者環境的路徑，僅供參考；產出已提交在 repo）。
 - 例句檔 `ex/topics.json`（約 76 KB）第一次需要時才下載，並與其他例句檔一樣由 service worker 快取，離線也能用。
+
+## 文法練習
+
+首頁在「主題分類」下方只放一張「文法練習」卡片（副標「句型與詞性」）。課文、例句和小測驗都不在首頁上，點進去才看。
+
+文法練習裡有兩區：
+
+- **零基礎文法**：章節清單。資料在 `grammar/grammar.json` 的 `chapters`，之後加章只改這個檔，畫面會自己多一張卡。第一個章是 **be 動詞**（am / is / are、was / were）：主詞搭配、肯定、否定、縮寫、Yes/No 問句與簡答、be 後面的形容詞／名詞／地點、there is / there are（中文「有」不一定是 have），以及 be 不能跟一般動詞原形疊在一起（What does this word mean?、My wife doesn't work.、I'm interested in）。每點約五個例句，標詞性，最後十題選擇。
+- **字尾構詞**：常見字尾依結果分成名詞、形容詞、副詞、動詞，加上 -ed 過去式；十組詞族表（名詞／動詞／形容詞／副詞）和十題選詞填空。
+
+做完按「送出答案」會顯示分數。答錯的題目會列出原句、四個選項、正確答案、你的答案和中文說明。最佳成績和上次錯題存在 `localStorage` 的 `toeic7000_grammar_v1`，不寫進 `toeic7000_progress_v1` 或 `toeic7000_extra_v1`，也不在進度碼裡。
+
+`grammar/grammar.json` 由 service worker 預先快取，離線也能開。說明與例句為本站自行撰寫。
