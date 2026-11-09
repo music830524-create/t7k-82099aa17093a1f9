@@ -1,5 +1,5 @@
 // Offline cache (v3: grammar module). Network-first for the page and app code so updates arrive; cache fallback when offline.
-const CACHE = "toeic7000-95b36ea7b1";
+const CACHE = "toeic7000-3046a963b6";
 const ASSETS = ["./", "index.html", "app.js", "style.css", "manifest.webmanifest", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "favicon.png", "grammar/grammar.json"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
