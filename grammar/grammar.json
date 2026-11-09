@@ -1,0 +1,1742 @@
+{
+  "version": 1,
+  "basics": {
+    "title": "零基礎文法",
+    "intro": "從最常用的句型開始。章節會慢慢增加，點一章進去讀，讀完再做十題。"
+  },
+  "chapters": [
+    {
+      "id": "be",
+      "emoji": "📘",
+      "title": "be 動詞",
+      "en": "am / is / are；was / were",
+      "blurb": "am / is / are、was / were",
+      "intro": [
+        "be 是英文最常用的動詞之一。中文常把「是」省掉，英文不能省。這一章只談 be：現在式 am / is / are，過去式 was / were。",
+        "例句裡的縮寫：n. 名詞、v. 動詞、adj. 形容詞、adv. 副詞、aux. 助動詞。粗體是這一點要看的字。"
+      ],
+      "chart": {
+        "columns": [
+          "主詞",
+          "現在式",
+          "過去式"
+        ],
+        "rows": [
+          [
+            "I",
+            "am",
+            "was"
+          ],
+          [
+            "you",
+            "are",
+            "were"
+          ],
+          [
+            "he / she / it、單數名詞",
+            "is",
+            "was"
+          ],
+          [
+            "we / they、複數名詞",
+            "are",
+            "were"
+          ]
+        ]
+      },
+      "points": [
+        {
+          "id": "forms",
+          "title": "哪個主詞用 am / is / are",
+          "body": [
+            "be 要跟著主詞變。現在式只有三種：am、is、are。",
+            "I 用 am。you 用 are，不管是「你」一個人還是「你們」。he、she、it 和單數名詞用 is。we、they 和複數名詞用 are。"
+          ],
+          "examples": [
+            {
+              "en": "I am a new employee.",
+              "zh": "我是新進員工。",
+              "marks": [
+                {
+                  "t": "am",
+                  "pos": "v."
+                },
+                {
+                  "t": "employee",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "You are on time.",
+              "zh": "你準時到了。",
+              "marks": [
+                {
+                  "t": "are",
+                  "pos": "v."
+                }
+              ]
+            },
+            {
+              "en": "He is in his office.",
+              "zh": "他在他的辦公室裡。",
+              "marks": [
+                {
+                  "t": "is",
+                  "pos": "v."
+                },
+                {
+                  "t": "office",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "Today is a holiday.",
+              "zh": "今天是假日。",
+              "marks": [
+                {
+                  "t": "is",
+                  "pos": "v."
+                },
+                {
+                  "t": "holiday",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "They are busy.",
+              "zh": "他們很忙。",
+              "marks": [
+                {
+                  "t": "are",
+                  "pos": "v."
+                },
+                {
+                  "t": "busy",
+                  "pos": "adj."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "past",
+          "title": "過去式 was / were",
+          "body": [
+            "說過去的事，be 只剩 was 和 were。I、he、she、it 和單數名詞用 was。you、we、they 和複數名詞用 were。"
+          ],
+          "examples": [
+            {
+              "en": "I was at the office yesterday.",
+              "zh": "我昨天在辦公室。",
+              "marks": [
+                {
+                  "t": "was",
+                  "pos": "v."
+                },
+                {
+                  "t": "office",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "You were late this morning.",
+              "zh": "你今天早上遲到了。",
+              "marks": [
+                {
+                  "t": "were",
+                  "pos": "v."
+                },
+                {
+                  "t": "late",
+                  "pos": "adj."
+                }
+              ]
+            },
+            {
+              "en": "She was a receptionist last year.",
+              "zh": "她去年是接待員。",
+              "marks": [
+                {
+                  "t": "was",
+                  "pos": "v."
+                },
+                {
+                  "t": "receptionist",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "We were in a meeting at noon.",
+              "zh": "中午我們在開會。",
+              "marks": [
+                {
+                  "t": "were",
+                  "pos": "v."
+                },
+                {
+                  "t": "meeting",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "The stores were closed.",
+              "zh": "那些店當時沒有營業。",
+              "marks": [
+                {
+                  "t": "were",
+                  "pos": "v."
+                },
+                {
+                  "t": "closed",
+                  "pos": "adj."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "affirm",
+          "title": "肯定句",
+          "body": [
+            "肯定句的順序是「主詞 + be + 後面的字」。中文可以說「餐廳開著」，英文不能省 be，要說 The cafeteria is open."
+          ],
+          "examples": [
+            {
+              "en": "The cafeteria is open.",
+              "zh": "員工餐廳開著。",
+              "marks": [
+                {
+                  "t": "is",
+                  "pos": "v."
+                },
+                {
+                  "t": "open",
+                  "pos": "adj."
+                }
+              ]
+            },
+            {
+              "en": "Mr. Chen is our client.",
+              "zh": "陳先生是我們的客戶。",
+              "marks": [
+                {
+                  "t": "is",
+                  "pos": "v."
+                },
+                {
+                  "t": "client",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "The files are in the cabinet.",
+              "zh": "檔案在櫃子裡。",
+              "marks": [
+                {
+                  "t": "are",
+                  "pos": "v."
+                },
+                {
+                  "t": "cabinet",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "I am available after 3 p.m.",
+              "zh": "我下午三點以後有空。",
+              "marks": [
+                {
+                  "t": "am",
+                  "pos": "v."
+                },
+                {
+                  "t": "available",
+                  "pos": "adj."
+                }
+              ]
+            },
+            {
+              "en": "The conference was a success.",
+              "zh": "這場會議很成功。",
+              "marks": [
+                {
+                  "t": "was",
+                  "pos": "v."
+                },
+                {
+                  "t": "success",
+                  "pos": "n."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "neg",
+          "title": "否定句：isn't、aren't、am not",
+          "body": [
+            "否定是在 be 後面加 not。縮寫：is not → isn't，are not → aren't，was not → wasn't，were not → weren't。",
+            "am not 沒有 amn't 這種寫法。寫成 am not，或把整句縮成 I'm not。"
+          ],
+          "examples": [
+            {
+              "en": "I am not hungry.",
+              "zh": "我不餓。",
+              "marks": [
+                {
+                  "t": "am",
+                  "pos": "v."
+                },
+                {
+                  "t": "hungry",
+                  "pos": "adj."
+                }
+              ]
+            },
+            {
+              "en": "She isn't in her office.",
+              "zh": "她不在她的辦公室。",
+              "marks": [
+                {
+                  "t": "isn't",
+                  "pos": "v."
+                }
+              ]
+            },
+            {
+              "en": "These numbers aren't correct.",
+              "zh": "這些數字不對。",
+              "marks": [
+                {
+                  "t": "aren't",
+                  "pos": "v."
+                },
+                {
+                  "t": "correct",
+                  "pos": "adj."
+                }
+              ]
+            },
+            {
+              "en": "The meeting wasn't long.",
+              "zh": "會議沒有很久。",
+              "marks": [
+                {
+                  "t": "wasn't",
+                  "pos": "v."
+                },
+                {
+                  "t": "long",
+                  "pos": "adj."
+                }
+              ]
+            },
+            {
+              "en": "We weren't late.",
+              "zh": "我們沒有遲到。",
+              "marks": [
+                {
+                  "t": "weren't",
+                  "pos": "v."
+                },
+                {
+                  "t": "late",
+                  "pos": "adj."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "contr",
+          "title": "縮寫",
+          "body": [
+            "口語和電子郵件常用縮寫。I'm = I am，you're = you are，he's = he is，she's = she is，it's = it is，we're = we are，they're = they are。he's 有時是 he has，那是另一個動詞，這一章先只記 he is。",
+            "三個長得很像的字：it's 是 it is；its 沒有撇號，是「它的」（The company changed its name. 公司改了它的名字）。they're 是 they are；their 是「他們的」；there 是「那裡」，也用在 there is。"
+          ],
+          "examples": [
+            {
+              "en": "I'm ready for the interview.",
+              "zh": "我準備好要面試了。",
+              "marks": [
+                {
+                  "t": "I'm",
+                  "pos": "v."
+                },
+                {
+                  "t": "ready",
+                  "pos": "adj."
+                }
+              ]
+            },
+            {
+              "en": "You're right about the schedule.",
+              "zh": "關於這個時程，你是對的。",
+              "marks": [
+                {
+                  "t": "You're",
+                  "pos": "v."
+                },
+                {
+                  "t": "right",
+                  "pos": "adj."
+                }
+              ]
+            },
+            {
+              "en": "It's a short meeting.",
+              "zh": "這是一場短的會議。",
+              "marks": [
+                {
+                  "t": "It's",
+                  "pos": "v."
+                },
+                {
+                  "t": "short",
+                  "pos": "adj."
+                }
+              ]
+            },
+            {
+              "en": "We're on the second floor.",
+              "zh": "我們在二樓。",
+              "marks": [
+                {
+                  "t": "We're",
+                  "pos": "v."
+                }
+              ]
+            },
+            {
+              "en": "They're new clients.",
+              "zh": "他們是新客戶。",
+              "marks": [
+                {
+                  "t": "They're",
+                  "pos": "v."
+                },
+                {
+                  "t": "clients",
+                  "pos": "n."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "yn",
+          "title": "Yes/No 問句與簡答",
+          "body": [
+            "Yes/No 問句把 be 放到主詞前面：Are you ready? Is she here? Was the meeting long?",
+            "簡答要重複 be，不要用 do。肯定的簡答不縮寫：Yes, I am.（不要寫 Yes, I'm.）Yes, she is.（不要寫 Yes, she's.）否定可以縮：No, I'm not. / No, she isn't. / No, they aren't."
+          ],
+          "examples": [
+            {
+              "en": "Are you free at 2 p.m.? — Yes, I am.",
+              "zh": "你下午兩點有空嗎？——有，我有空。",
+              "marks": [
+                {
+                  "t": "Are",
+                  "pos": "v."
+                },
+                {
+                  "t": "am",
+                  "pos": "v."
+                }
+              ]
+            },
+            {
+              "en": "Is Mr. Lin in the lab? — No, he isn't.",
+              "zh": "林先生在實驗室嗎？——不在。",
+              "marks": [
+                {
+                  "t": "Is",
+                  "pos": "v."
+                },
+                {
+                  "t": "isn't",
+                  "pos": "v."
+                }
+              ]
+            },
+            {
+              "en": "Are the samples ready? — Yes, they are.",
+              "zh": "樣品準備好了嗎？——準備好了。",
+              "marks": [
+                {
+                  "t": "Are",
+                  "pos": "v."
+                },
+                {
+                  "t": "are",
+                  "pos": "v."
+                }
+              ]
+            },
+            {
+              "en": "Was the flight on time? — No, it wasn't.",
+              "zh": "班機有準時嗎？——沒有準時。",
+              "marks": [
+                {
+                  "t": "Was",
+                  "pos": "v."
+                },
+                {
+                  "t": "wasn't",
+                  "pos": "v."
+                }
+              ]
+            },
+            {
+              "en": "Were they at the seminar? — Yes, they were.",
+              "zh": "他們有去研討會嗎？——有。",
+              "marks": [
+                {
+                  "t": "Were",
+                  "pos": "v."
+                },
+                {
+                  "t": "were",
+                  "pos": "v."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "comp",
+          "title": "be 後面：形容詞、名詞、地點",
+          "body": [
+            "be 後面最常見三種資料。形容詞說狀態，例如 busy、ready。名詞說「是什麼」，例如 a driver、an invoice。地點片語說「在哪裡」，例如 in the office、on the desk、at home。"
+          ],
+          "examples": [
+            {
+              "en": "The room is quiet.",
+              "zh": "這個房間很安靜。",
+              "marks": [
+                {
+                  "t": "is",
+                  "pos": "v."
+                },
+                {
+                  "t": "quiet",
+                  "pos": "adj."
+                }
+              ],
+              "tag": "形容詞"
+            },
+            {
+              "en": "Anna is an accountant.",
+              "zh": "安娜是會計。",
+              "marks": [
+                {
+                  "t": "is",
+                  "pos": "v."
+                },
+                {
+                  "t": "accountant",
+                  "pos": "n."
+                }
+              ],
+              "tag": "名詞"
+            },
+            {
+              "en": "The printer is next to the door.",
+              "zh": "印表機在門旁邊。",
+              "marks": [
+                {
+                  "t": "is",
+                  "pos": "v."
+                },
+                {
+                  "t": "door",
+                  "pos": "n."
+                }
+              ],
+              "tag": "地點"
+            },
+            {
+              "en": "These chairs are comfortable.",
+              "zh": "這些椅子很舒服。",
+              "marks": [
+                {
+                  "t": "are",
+                  "pos": "v."
+                },
+                {
+                  "t": "comfortable",
+                  "pos": "adj."
+                }
+              ],
+              "tag": "形容詞"
+            },
+            {
+              "en": "The guests were in the lobby.",
+              "zh": "客人當時在大廳。",
+              "marks": [
+                {
+                  "t": "were",
+                  "pos": "v."
+                },
+                {
+                  "t": "lobby",
+                  "pos": "n."
+                }
+              ],
+              "tag": "地點"
+            }
+          ]
+        },
+        {
+          "id": "there",
+          "title": "there is / there are（「有」不一定是 have）",
+          "body": [
+            "中文的「有」不要一律翻成 have。have 是「某人擁有」：I have a car. 我有一輛車。",
+            "若是「某個地方存在著什麼」，用 there is（後面單數）或 there are（後面複數）。be 跟後面的名詞一致，不是跟 there 一致。",
+            "不要寫 There have a book. there 後面用 be，不用 have。也不要把「桌上有一本書」寫成 The desk has a book."
+          ],
+          "examples": [
+            {
+              "en": "There is a message on your desk.",
+              "zh": "你的桌上有一則留言。",
+              "marks": [
+                {
+                  "t": "is",
+                  "pos": "v."
+                },
+                {
+                  "t": "message",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "There are three applicants in the waiting room.",
+              "zh": "等候室裡有三位應徵者。",
+              "marks": [
+                {
+                  "t": "are",
+                  "pos": "v."
+                },
+                {
+                  "t": "applicants",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "There is a problem with the invoice.",
+              "zh": "這張發票有一個問題。",
+              "marks": [
+                {
+                  "t": "is",
+                  "pos": "v."
+                },
+                {
+                  "t": "problem",
+                  "pos": "n."
+                },
+                {
+                  "t": "invoice",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "There were many visitors at the booth.",
+              "zh": "攤位那邊當時有很多訪客。",
+              "marks": [
+                {
+                  "t": "were",
+                  "pos": "v."
+                },
+                {
+                  "t": "visitors",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "I have two tickets, but there is one ticket on the table.",
+              "zh": "我有兩張票，但桌上只有一張票。",
+              "marks": [
+                {
+                  "t": "have",
+                  "pos": "v."
+                },
+                {
+                  "t": "tickets",
+                  "pos": "n."
+                },
+                {
+                  "t": "is",
+                  "pos": "v."
+                },
+                {
+                  "t": "ticket",
+                  "pos": "n."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "do",
+          "title": "不要把 be 和一般動詞疊在一起",
+          "body": [
+            "一般動詞（work、mean、need、like）的現在式，疑問和否定用 do 或 does，不是 be。he、she、it 和單數名詞用 does，其餘用 do。does / do 後面的動詞用原形，不加 -s。",
+            "be 後面可以接形容詞、名詞、地點，也可以接 V-ing 表示正在進行（She is working. 她正在工作）。be 後面不要直接接原形動詞。She isn't work、What is this word mean 都是錯的。",
+            "interested 和 interesting 都是形容詞，意思不同。-ed 是人的感受，-ing 是事物本身的特質。不要寫 I interesting in。"
+          ],
+          "table": {
+            "columns": [
+              "主詞",
+              "肯定",
+              "否定",
+              "問句"
+            ],
+            "rows": [
+              [
+                "I / you / we / they",
+                "work",
+                "do not work",
+                "Do you work?"
+              ],
+              [
+                "he / she / it、單數",
+                "works",
+                "does not work",
+                "Does she work?"
+              ]
+            ]
+          },
+          "fixes": [
+            {
+              "bad": "What is this word mean?",
+              "good": "What does this word mean?",
+              "zh": "這個字是什麼意思？"
+            },
+            {
+              "bad": "My wife isn't work.",
+              "good": "My wife doesn't work.",
+              "zh": "我太太沒有在工作。"
+            },
+            {
+              "bad": "I interesting in music.",
+              "good": "I'm interested in music.",
+              "zh": "我對音樂有興趣。"
+            }
+          ],
+          "examples": [
+            {
+              "en": "What does this word mean?",
+              "zh": "這個字是什麼意思？",
+              "marks": [
+                {
+                  "t": "does",
+                  "pos": "aux."
+                },
+                {
+                  "t": "mean",
+                  "pos": "v."
+                },
+                {
+                  "t": "word",
+                  "pos": "n."
+                }
+              ]
+            },
+            {
+              "en": "My wife doesn't work.",
+              "zh": "我太太沒有在工作。",
+              "marks": [
+                {
+                  "t": "doesn't",
+                  "pos": "aux."
+                },
+                {
+                  "t": "work",
+                  "pos": "v."
+                }
+              ]
+            },
+            {
+              "en": "I'm interested in music.",
+              "zh": "我對音樂有興趣。",
+              "marks": [
+                {
+                  "t": "I'm",
+                  "pos": "v."
+                },
+                {
+                  "t": "interested",
+                  "pos": "adj."
+                }
+              ]
+            },
+            {
+              "en": "The seminar is interesting.",
+              "zh": "這場研討會很有趣。",
+              "marks": [
+                {
+                  "t": "is",
+                  "pos": "v."
+                },
+                {
+                  "t": "interesting",
+                  "pos": "adj."
+                }
+              ]
+            },
+            {
+              "en": "Does your manager need this report?",
+              "zh": "你的主管需要這份報告嗎？",
+              "marks": [
+                {
+                  "t": "Does",
+                  "pos": "aux."
+                },
+                {
+                  "t": "need",
+                  "pos": "v."
+                },
+                {
+                  "t": "report",
+                  "pos": "n."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "id": "be-1",
+          "prompt": "The manager _____ in a meeting right now.",
+          "full": "The manager is in a meeting right now.",
+          "options": [
+            "is",
+            "are",
+            "am",
+            "be"
+          ],
+          "answer": 0,
+          "explain": "manager 是單數，right now 是現在，所以用 is。are 給 you 或複數，am 只給 I，be 是原形，這裡不能單獨當動詞。"
+        },
+        {
+          "id": "be-2",
+          "prompt": "I _____ not satisfied with the first draft.",
+          "full": "I am not satisfied with the first draft.",
+          "options": [
+            "is",
+            "are",
+            "am",
+            "be"
+          ],
+          "answer": 2,
+          "explain": "主詞是 I，否定用 am not。沒有 amn't。satisfied 是形容詞，前面用 be，不是 do。"
+        },
+        {
+          "id": "be-3",
+          "prompt": "There _____ two copies of the contract on the table.",
+          "full": "There are two copies of the contract on the table.",
+          "options": [
+            "is",
+            "are",
+            "has",
+            "have"
+          ],
+          "answer": 1,
+          "explain": "這裡的「有」是存在，用 there are，不用 have / has。two copies 是複數，所以用 are，不用 is。"
+        },
+        {
+          "id": "be-4",
+          "prompt": "_____ the conference room available yesterday afternoon?",
+          "full": "Was the conference room available yesterday afternoon?",
+          "options": [
+            "Was",
+            "Were",
+            "Did",
+            "Is"
+          ],
+          "answer": 0,
+          "explain": "conference room 是單數，yesterday 是過去，把 was 放到句首。available 是形容詞，前面用 be。Did 要用在一般動詞，這裡沒有。"
+        },
+        {
+          "id": "be-5",
+          "prompt": "My wife _____ work on weekends.",
+          "full": "My wife doesn't work on weekends.",
+          "options": [
+            "isn't",
+            "doesn't",
+            "not",
+            "isn't to"
+          ],
+          "answer": 1,
+          "explain": "work 是一般動詞。否定要用 doesn't + 原形，不能寫 isn't work。若是「此刻正在工作」才用 isn't working（be + V-ing），那是進行式，不是原形 work。"
+        },
+        {
+          "id": "be-6",
+          "prompt": "What _____ this word mean?",
+          "full": "What does this word mean?",
+          "options": [
+            "is",
+            "do",
+            "does",
+            "are"
+          ],
+          "answer": 2,
+          "explain": "mean 是一般動詞，主詞 this word 是單數，問句用 does，後面動詞用原形 mean。不能說 What is this word mean?"
+        },
+        {
+          "id": "be-7",
+          "prompt": "The new policy _____ clear to everyone.",
+          "full": "The new policy is clear to everyone.",
+          "options": [
+            "are",
+            "does",
+            "be",
+            "is"
+          ],
+          "answer": 3,
+          "explain": "clear 是形容詞，前面用 be。policy 是單數，用 is。does 要搭配一般動詞，這句沒有。"
+        },
+        {
+          "id": "be-8",
+          "prompt": "Are you the contact person for this account? — Yes, _____.",
+          "full": "Are you the contact person for this account? — Yes, I am.",
+          "options": [
+            "I am",
+            "I'm",
+            "I do",
+            "I are"
+          ],
+          "answer": 0,
+          "explain": "問句是 Are you，簡答就用 am。肯定簡答不縮寫，所以是 Yes, I am，不是 Yes, I'm。這題不是一般動詞，不用 I do。"
+        },
+        {
+          "id": "be-9",
+          "prompt": "The visitors _____ in the lobby a few minutes ago.",
+          "full": "The visitors were in the lobby a few minutes ago.",
+          "options": [
+            "was",
+            "were",
+            "are",
+            "did"
+          ],
+          "answer": 1,
+          "explain": "visitors 是複數，a few minutes ago 是過去，用 were。in the lobby 是地點，前面用 be，不用 did。"
+        },
+        {
+          "id": "be-10",
+          "prompt": "I am _____ in the training program.",
+          "full": "I am interested in the training program.",
+          "options": [
+            "interesting",
+            "interest",
+            "interested",
+            "interests"
+          ],
+          "answer": 2,
+          "explain": "人「感到」有興趣用 interested。interesting 用來形容事物「令人」有興趣，例如 The program is interesting. interest 當名詞或動詞，不能直接放在 am 後面。"
+        }
+      ]
+    }
+  ],
+  "suffix": {
+    "title": "字尾構詞",
+    "blurb": "字尾怎麼改變詞性，再做選詞填空。",
+    "intro": [
+      "字尾會改變一個字的詞性。多益第五大題常要你選對的形：空格要的是名詞、形容詞，還是副詞。",
+      "先看常見字尾，再看同一族的字怎麼排進名詞、動詞、形容詞、副詞。格子若是 —，表示這個家族沒有常用的那個形，不要硬造一個字。"
+    ],
+    "groups": [
+      {
+        "id": "noun",
+        "title": "名詞",
+        "intro": "下面這些字尾，做出來的字多半是名詞。",
+        "items": [
+          {
+            "suffix": "-tion / -sion",
+            "body": [
+              "很多動詞變成「這件事」或「結果」時用 -tion 或 -sion。拼字常常會改，要整組記，不要只在字尾加字母。"
+            ],
+            "pairs": [
+              "decide → decision　決定",
+              "impress → impression　印象",
+              "create → creation　創作、作品",
+              "educate → education　教育"
+            ]
+          },
+          {
+            "suffix": "-ness",
+            "body": [
+              "形容詞加 -ness，變成「那種性質」。字尾是子音加 y 時，y 改成 i。"
+            ],
+            "pairs": [
+              "happy → happiness　幸福、快樂",
+              "kind → kindness　善意",
+              "dark → darkness　黑暗",
+              "weak → weakness　弱點"
+            ]
+          },
+          {
+            "suffix": "-ment",
+            "body": [
+              "動詞加 -ment，常變成名詞，表示動作或結果。"
+            ],
+            "pairs": [
+              "employ → employment　雇用、就業",
+              "improve → improvement　改進",
+              "agree → agreement　協議"
+            ]
+          },
+          {
+            "suffix": "-ity",
+            "body": [
+              "形容詞加 -ity，常變成名詞。"
+            ],
+            "pairs": [
+              "available → availability　可取得、有空",
+              "creative → creativity　創意",
+              "possible → possibility　可能性"
+            ]
+          },
+          {
+            "suffix": "-er / -or",
+            "body": [
+              "多半指做這件事的人。-er 比較常見，有些字用 -or。"
+            ],
+            "pairs": [
+              "employ → employer　雇主",
+              "visit → visitor　訪客",
+              "invent → inventor　發明人"
+            ],
+            "note": "employee 是被雇用的人。-ee 指「被……的人」，和 -er 方向相反。"
+          },
+          {
+            "suffix": "-ance / -ence",
+            "body": [
+              "這兩個字尾多半是名詞。和動詞一起記比較快。"
+            ],
+            "pairs": [
+              "differ → difference　差異",
+              "perform → performance　表現、表演",
+              "exist → existence　存在"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "adj",
+        "title": "形容詞",
+        "intro": "這些字尾做出來的字，用來修飾名詞，或放在 be 後面。",
+        "items": [
+          {
+            "suffix": "-ful",
+            "body": [
+              "名詞加 -ful，表示「充滿……的」。注意是 -ful，不是 -full。"
+            ],
+            "pairs": [
+              "care → careful　小心的",
+              "help → helpful　有幫助的",
+              "success → successful　成功的"
+            ]
+          },
+          {
+            "suffix": "-less",
+            "body": [
+              "表示「沒有……的」，和 -ful 相反。"
+            ],
+            "pairs": [
+              "care → careless　粗心的",
+              "end → endless　沒有盡頭的",
+              "use → useless　沒用的"
+            ]
+          },
+          {
+            "suffix": "-ous",
+            "body": [
+              "表示「有這種性質的」。"
+            ],
+            "pairs": [
+              "danger → dangerous　危險的",
+              "fame → famous　有名的"
+            ]
+          },
+          {
+            "suffix": "-able / -ible",
+            "body": [
+              "表示「可以……的、能夠被……的」。"
+            ],
+            "pairs": [
+              "avail → available　可取得的、有空的",
+              "access → accessible　進得去的、可使用的"
+            ]
+          },
+          {
+            "suffix": "-al",
+            "body": [
+              "表示「與……有關的」。"
+            ],
+            "pairs": [
+              "profession → professional　專業的",
+              "nation → national　國家的"
+            ]
+          },
+          {
+            "suffix": "-ive",
+            "body": [
+              "表示「有這種作用或傾向的」。"
+            ],
+            "pairs": [
+              "impress → impressive　令人印象深刻的",
+              "create → creative　有創意的",
+              "decide → decisive　果斷的"
+            ]
+          },
+          {
+            "suffix": "-ed / -ing（分詞當形容詞）",
+            "body": [
+              "兩個都是形容詞。-ed 形容人的感受，-ing 形容造成那種感受的事物。",
+              "I'm interested in this job. 我對這份工作有興趣。The book is interesting. 這本書很有趣。",
+              "同類的還有 bored / boring（感到無聊／令人無聊）、tired / tiring（感到累／令人累）、excited / exciting（感到興奮／令人興奮）。"
+            ],
+            "note": "所以 I'm interested in this job. 是對的。I interesting in this job. 少了 be，字尾也不對。"
+          }
+        ]
+      },
+      {
+        "id": "adv",
+        "title": "副詞",
+        "intro": "副詞常修飾動詞，告訴你動作是「怎麼做的」。",
+        "items": [
+          {
+            "suffix": "-ly",
+            "body": [
+              "多數形容詞加 -ly 變成副詞。careful → carefully　小心地。successful → successfully　成功地。",
+              "拼字有三條常見規則。第一，子音加 y：把 y 改成 i 再加 ly。happy → happily，easy → easily。",
+              "第二，字尾是 -le：去掉 e，加上 y。gentle → gently，possible → possibly。",
+              "第三，字尾是 -ic：多半加 -ally。basic → basically，automatic → automatically。例外要單獨記：public → publicly。"
+            ],
+            "note": "hard 不是加 -ly 就變成「努力地」。work hard 的 hard 本身就是副詞，意思是努力地、猛烈地。hardly 是另一個字，意思是「幾乎不」。She hardly works. 是她幾乎不工作，不是她很努力。"
+          }
+        ]
+      },
+      {
+        "id": "verb",
+        "title": "動詞",
+        "intro": "這些字尾把名詞或形容詞變成動詞。",
+        "items": [
+          {
+            "suffix": "-ize",
+            "body": [
+              "表示「使成為、做成」。英式拼法常寫成 -ise，多益兩個拼法都看過，題目通常只留一個。"
+            ],
+            "pairs": [
+              "modern → modernize　使現代化",
+              "summary → summarize　做摘要"
+            ]
+          },
+          {
+            "suffix": "-en",
+            "body": [
+              "表示「變成、使變得」。"
+            ],
+            "pairs": [
+              "wide → widen　加寬",
+              "short → shorten　縮短",
+              "strength → strengthen　加強"
+            ]
+          },
+          {
+            "suffix": "-ify",
+            "body": [
+              "表示「使成為」。"
+            ],
+            "pairs": [
+              "simple → simplify　簡化",
+              "pure → purify　淨化"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ed",
+        "title": "-ed 過去式",
+        "intro": "規則動詞的過去式在字尾加 -ed。這和上面「感到……的」那個 -ed 形容詞是同一個形，但這裡先談過去式。",
+        "items": [
+          {
+            "suffix": "怎麼加",
+            "body": [
+              "一般直接加：work → worked，play → played。",
+              "字尾已經有 e，只加 d：live → lived，close → closed。",
+              "子音加 y：y 改成 i 再加 ed。study → studied。母音加 y 則不變：play → played。",
+              "單音節、一個母音再加一個子音，要重複最後一個子音：stop → stopped，plan → planned。兩個音節以上，多半只有重音在最後才重複：prefer → preferred。visit 的重音不在最後，所以是 visited。"
+            ],
+            "note": "讀音可以先記三種感覺：清音後面比較像輕短的 t（worked、stopped）；母音或濁音後面比較像 d（played、lived）；字尾本來就是 t 或 d 時，會多一個音節（needed、wanted）。go → went、have → had 這種不規則變化要個別記。"
+          }
+        ]
+      }
+    ],
+    "families": [
+      {
+        "id": "success",
+        "title": "success",
+        "cols": {
+          "n": {
+            "word": "success",
+            "examples": [
+              {
+                "en": "The campaign was a success.",
+                "zh": "這次活動很成功。"
+              }
+            ]
+          },
+          "v": {
+            "word": "succeed",
+            "examples": [
+              {
+                "en": "We hope the plan will succeed.",
+                "zh": "我們希望這個計畫會成功。"
+              }
+            ]
+          },
+          "adj": {
+            "word": "successful",
+            "examples": [
+              {
+                "en": "She is a successful designer.",
+                "zh": "她是一位成功的設計師。"
+              }
+            ]
+          },
+          "adv": {
+            "word": "successfully",
+            "examples": [
+              {
+                "en": "They successfully launched the product.",
+                "zh": "他們成功地推出了這項產品。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "create",
+        "title": "create",
+        "cols": {
+          "n": {
+            "word": "creation；creativity",
+            "examples": [
+              {
+                "en": "The poster is her latest creation.",
+                "zh": "這張海報是她最新的作品。"
+              },
+              {
+                "en": "Her creativity impressed the client.",
+                "zh": "她的創意讓客戶印象深刻。"
+              }
+            ],
+            "note": "名詞有兩個：creation 是作品或創立，creativity 是創意。"
+          },
+          "v": {
+            "word": "create",
+            "examples": [
+              {
+                "en": "We need to create a simple logo.",
+                "zh": "我們需要設計一個簡單的標誌。"
+              }
+            ]
+          },
+          "adj": {
+            "word": "creative",
+            "examples": [
+              {
+                "en": "He is a creative writer.",
+                "zh": "他是一位有創意的作者。"
+              }
+            ]
+          },
+          "adv": {
+            "word": "creatively",
+            "examples": [
+              {
+                "en": "She solved the problem creatively.",
+                "zh": "她很有創意地解決了這個問題。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "care",
+        "title": "care",
+        "cols": {
+          "n": {
+            "word": "care",
+            "examples": [
+              {
+                "en": "Please handle the glass with care.",
+                "zh": "請小心拿這個玻璃杯。"
+              }
+            ]
+          },
+          "v": {
+            "word": "care",
+            "examples": [
+              {
+                "en": "We care about product quality.",
+                "zh": "我們在意產品品質。"
+              }
+            ]
+          },
+          "adj": {
+            "word": "careful",
+            "examples": [
+              {
+                "en": "Be careful with the cables.",
+                "zh": "請小心那些電線。"
+              }
+            ]
+          },
+          "adv": {
+            "word": "carefully",
+            "examples": [
+              {
+                "en": "Read the contract carefully.",
+                "zh": "請仔細閱讀這份合約。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "avail",
+        "title": "avail-",
+        "cols": {
+          "n": {
+            "word": "availability",
+            "examples": [
+              {
+                "en": "Please check the availability of the room for Friday.",
+                "zh": "請確認星期五那個房間是否有空。"
+              }
+            ]
+          },
+          "v": {
+            "word": "",
+            "note": "avail 當動詞（avail oneself of）太正式，多益很少考，這一格先空著。"
+          },
+          "adj": {
+            "word": "available",
+            "examples": [
+              {
+                "en": "The manager is available at 4 p.m.",
+                "zh": "經理下午四點有空。"
+              }
+            ]
+          },
+          "adv": {
+            "word": "",
+            "note": "available 一般不加 -ly。要說「有空的時候」，用 when available，或 if you are available。"
+          }
+        }
+      },
+      {
+        "id": "impress",
+        "title": "impress",
+        "cols": {
+          "n": {
+            "word": "impression",
+            "examples": [
+              {
+                "en": "The demo left a good impression.",
+                "zh": "這場示範留下了好印象。"
+              }
+            ]
+          },
+          "v": {
+            "word": "impress",
+            "examples": [
+              {
+                "en": "The numbers did not impress the board.",
+                "zh": "這些數字沒有讓董事會印象深刻。"
+              }
+            ]
+          },
+          "adj": {
+            "word": "impressive",
+            "examples": [
+              {
+                "en": "It was an impressive result.",
+                "zh": "這是一個很亮眼的結果。"
+              }
+            ]
+          },
+          "adv": {
+            "word": "impressively",
+            "examples": [
+              {
+                "en": "Sales grew impressively last quarter.",
+                "zh": "上一季的銷售成長得很亮眼。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "decide",
+        "title": "decide",
+        "cols": {
+          "n": {
+            "word": "decision",
+            "examples": [
+              {
+                "en": "We need a decision by Friday.",
+                "zh": "我們星期五之前得做出決定。"
+              }
+            ]
+          },
+          "v": {
+            "word": "decide",
+            "examples": [
+              {
+                "en": "They will decide tomorrow.",
+                "zh": "他們明天會決定。"
+              }
+            ]
+          },
+          "adj": {
+            "word": "decisive",
+            "examples": [
+              {
+                "en": "She is a decisive leader.",
+                "zh": "她是一位果斷的主管。"
+              }
+            ]
+          },
+          "adv": {
+            "word": "decisively",
+            "examples": [
+              {
+                "en": "He spoke decisively about the budget.",
+                "zh": "他談預算的時候很果斷。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "differ",
+        "title": "differ",
+        "cols": {
+          "n": {
+            "word": "difference",
+            "examples": [
+              {
+                "en": "There is a small difference in price.",
+                "zh": "價格有一點差異。"
+              }
+            ]
+          },
+          "v": {
+            "word": "differ",
+            "examples": [
+              {
+                "en": "Our opinions differ on this point.",
+                "zh": "我們對這一點的看法不同。"
+              }
+            ]
+          },
+          "adj": {
+            "word": "different",
+            "examples": [
+              {
+                "en": "This is a different approach.",
+                "zh": "這是一種不同的做法。"
+              }
+            ]
+          },
+          "adv": {
+            "word": "differently",
+            "examples": [
+              {
+                "en": "The two teams reacted differently.",
+                "zh": "兩組的反應不一樣。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "please",
+        "title": "please",
+        "cols": {
+          "n": {
+            "word": "pleasure",
+            "examples": [
+              {
+                "en": "It is a pleasure to meet you.",
+                "zh": "很高興認識你。"
+              }
+            ]
+          },
+          "v": {
+            "word": "please",
+            "examples": [
+              {
+                "en": "The new menu will please most guests.",
+                "zh": "新菜單會讓大多數客人滿意。"
+              }
+            ]
+          },
+          "adj": {
+            "word": "pleasant",
+            "examples": [
+              {
+                "en": "We had a pleasant conversation.",
+                "zh": "我們談得很愉快。"
+              }
+            ]
+          },
+          "adv": {
+            "word": "pleasantly",
+            "examples": [
+              {
+                "en": "She pleasantly surprised the team.",
+                "zh": "她給了團隊一個驚喜。"
+              }
+            ]
+          }
+        },
+        "note": "pleasant 是「令人愉快的」，形容事物或氣氛。人「感到高興」要用 pleased，例如 I am pleased. 不要和 pleasant 混在一起。"
+      },
+      {
+        "id": "hard",
+        "title": "hard / hardly",
+        "cols": {
+          "n": {
+            "word": "hardness",
+            "examples": [
+              {
+                "en": "The lab measured the hardness of the metal.",
+                "zh": "實驗室測量了金屬的硬度。"
+              }
+            ],
+            "note": "這一列的重點是副詞。hardness（硬度）先認識即可。"
+          },
+          "v": {
+            "word": "",
+            "note": "hard 通常不作動詞。要說「使變硬」用 harden。"
+          },
+          "adj": {
+            "word": "hard",
+            "examples": [
+              {
+                "en": "The exam was hard.",
+                "zh": "這次考試很難。"
+              }
+            ]
+          },
+          "adv": {
+            "word": "hard；hardly",
+            "examples": [
+              {
+                "en": "She works hard.",
+                "zh": "她工作很努力。（hard = 努力地）"
+              },
+              {
+                "en": "She hardly works on Fridays.",
+                "zh": "她星期五幾乎不工作。（hardly = 幾乎不）"
+              }
+            ]
+          }
+        },
+        "note": "hardly 不是「努力地」。She works hard. 是她很努力工作。She hardly works. 是她幾乎不工作。不要寫 work hardly 來表示努力。"
+      },
+      {
+        "id": "compete",
+        "title": "compete",
+        "cols": {
+          "n": {
+            "word": "competition",
+            "examples": [
+              {
+                "en": "The competition is strong this year.",
+                "zh": "今年的競爭很激烈。"
+              }
+            ]
+          },
+          "v": {
+            "word": "compete",
+            "examples": [
+              {
+                "en": "We compete with two local firms.",
+                "zh": "我們和兩家本地公司競爭。"
+              }
+            ]
+          },
+          "adj": {
+            "word": "competitive",
+            "examples": [
+              {
+                "en": "This is a competitive market.",
+                "zh": "這是一個競爭激烈的市場。"
+              }
+            ]
+          },
+          "adv": {
+            "word": "competitively",
+            "examples": [
+              {
+                "en": "They priced the new model competitively.",
+                "zh": "他們把新型號的價格定得很有競爭力。"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "quiz": [
+      {
+        "id": "sx-1",
+        "prompt": "The team completed the report _____.",
+        "full": "The team completed the report successfully.",
+        "options": [
+          "successful",
+          "successfully",
+          "success",
+          "succeed"
+        ],
+        "answer": 1,
+        "explain": "completed 是動詞，要用副詞 successfully 說明「完成得怎樣」。successful 是形容詞，success 是名詞，succeed 是動詞，都不能放在這個位置。"
+      },
+      {
+        "id": "sx-2",
+        "prompt": "Please confirm the _____ of the meeting room before you send the invitation.",
+        "full": "Please confirm the availability of the meeting room before you send the invitation.",
+        "options": [
+          "available",
+          "availability",
+          "availably",
+          "avail"
+        ],
+        "answer": 1,
+        "explain": "the 後面要名詞。availability 是「是否有空、是否可訂」。available 是形容詞，不能直接接在 the 後面。"
+      },
+      {
+        "id": "sx-3",
+        "prompt": "Her _____ to postpone the launch surprised everyone.",
+        "full": "Her decision to postpone the launch surprised everyone.",
+        "options": [
+          "decide",
+          "decisive",
+          "decision",
+          "decisively"
+        ],
+        "answer": 2,
+        "explain": "Her 後面、to postpone 前面要名詞 decision（決定）。decisive 是形容詞，decisively 是副詞，decide 是動詞。"
+      },
+      {
+        "id": "sx-4",
+        "prompt": "The speaker gave an _____ presentation on customer service.",
+        "full": "The speaker gave an impressive presentation on customer service.",
+        "options": [
+          "impression",
+          "impress",
+          "impressively",
+          "impressive"
+        ],
+        "answer": 3,
+        "explain": "an 和 presentation（名詞）中間要形容詞 impressive。impression 是名詞，impressively 是副詞，impress 是動詞。"
+      },
+      {
+        "id": "sx-5",
+        "prompt": "Please read the safety instructions _____.",
+        "full": "Please read the safety instructions carefully.",
+        "options": [
+          "careful",
+          "carefully",
+          "care",
+          "caring"
+        ],
+        "answer": 1,
+        "explain": "修飾動詞 read，用副詞 carefully（仔細地）。careful 是形容詞，care 可以是名詞或動詞，caring 在這裡也不適合。"
+      },
+      {
+        "id": "sx-6",
+        "prompt": "The two proposals are quite _____.",
+        "full": "The two proposals are quite different.",
+        "options": [
+          "differ",
+          "difference",
+          "different",
+          "differently"
+        ],
+        "answer": 2,
+        "explain": "be 後面這裡要形容詞 different。differently 是副詞，difference 是名詞，differ 是動詞。"
+      },
+      {
+        "id": "sx-7",
+        "prompt": "It was a _____ to work with your department.",
+        "full": "It was a pleasure to work with your department.",
+        "options": [
+          "please",
+          "pleasant",
+          "pleasure",
+          "pleasantly"
+        ],
+        "answer": 2,
+        "explain": "a 後面要名詞 pleasure。pleasant 是形容詞（a pleasant day 可以，但 a pleasant to work 不行），pleasantly 是副詞，please 是動詞。"
+      },
+      {
+        "id": "sx-8",
+        "prompt": "The designer is known for her _____.",
+        "full": "The designer is known for her creativity.",
+        "options": [
+          "creative",
+          "creatively",
+          "create",
+          "creativity"
+        ],
+        "answer": 3,
+        "explain": "her 後面要名詞。creativity 是「創意」。creative 是形容詞，creatively 是副詞，create 是動詞。"
+      },
+      {
+        "id": "sx-9",
+        "prompt": "From the back of the hall, I could _____ hear the speaker.",
+        "full": "From the back of the hall, I could hardly hear the speaker.",
+        "options": [
+          "hard",
+          "hardly",
+          "harden",
+          "hardness"
+        ],
+        "answer": 1,
+        "explain": "hardly 是「幾乎不」。could hardly hear 是幾乎聽不到。hard 當副詞是「努力地、猛烈地」，不能用來表示幾乎沒聽到。harden 是動詞「使變硬」，hardness 是名詞「硬度」。"
+      },
+      {
+        "id": "sx-10",
+        "prompt": "The city plans to _____ the main road next year.",
+        "full": "The city plans to widen the main road next year.",
+        "options": [
+          "wide",
+          "width",
+          "widen",
+          "widely"
+        ],
+        "answer": 2,
+        "explain": "plans to 後面要動詞原形。widen（字尾 -en）是「加寬」。wide 是形容詞，width 是名詞「寬度」，widely 是副詞。"
+      }
+    ]
+  }
+}
