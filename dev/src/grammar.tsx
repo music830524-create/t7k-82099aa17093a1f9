@@ -11,6 +11,8 @@ type Point = { id: string; title: string; body: string[]; examples: Ex[]; fixes?
 type Q = { id: string; prompt: string; full: string; options: string[]; answer: number; explain: string };
 type Chapter = {
   id: string;
+  no?: number;
+  group?: string;
   emoji?: string;
   title: string;
   en: string;
@@ -20,13 +22,20 @@ type Chapter = {
   points: Point[];
   quiz: Q[];
 };
+type SectionGroup = { id: string; title: string; section?: string };
 type PairItem = { suffix: string; body: string[]; pairs?: string[]; note?: string };
 type Group = { id: string; title: string; intro?: string; items: PairItem[] };
 type CellEx = { en: string; zh: string };
 type Cell = { word: string; examples?: CellEx[]; note?: string };
 type Family = { id: string; title: string; note?: string; cols: { n: Cell; v: Cell; adj: Cell; adv: Cell } };
 type Suffix = { title: string; blurb: string; intro: string[]; groups: Group[]; families: Family[]; quiz: Q[] };
-type Data = { basics: { title: string; intro: string }; chapters: Chapter[]; suffix: Suffix };
+type Data = {
+  basics: { title: string; intro: string };
+  patterns?: { title: string; intro: string };
+  groups?: SectionGroup[];
+  chapters: Chapter[];
+  suffix: Suffix;
+};
 type Wrong = { id: string; picked: number };
 export type Attempt = { best: number; last: number; n: number; wrong: Wrong[]; at: number };
 type Store = { chapters: Record<string, Attempt>; suffix?: Attempt };
@@ -209,7 +218,7 @@ function Quiz(p: { testId: string; questions: Q[]; saved?: Attempt; onSave: (a: 
   return (
     <div className="gquiz" id="grammar-quiz" data-testid={p.testId} ref={topRef}>
       <h3>{"小測驗（" + p.questions.length + " 題）"}</h3>
-      <p className="glead">選一個答案。十題都選完再按送出。送出後若有答錯，會看到完整原句、四個選項、正確答案、你選的答案，和中文說明。</p>
+      <p className="glead">選一個答案。每一題都選完再按送出。送出後若有答錯，會看到完整原句、四個選項、正確答案、你選的答案，和中文說明。</p>
       {p.questions.map((q, qi) => (
         <div key={q.id} className="qcard" data-qid={q.id}>
           <div className="qprompt">{qi + 1 + ". " + q.prompt}</div>
@@ -441,27 +450,79 @@ function SuffixView(p: { data: Suffix; saved?: Attempt; onBack: () => void; onSa
   );
 }
 
+function ChapterButton(p: { ch: Chapter; store: Store; onChapter: (id: string) => void }) {
+  const sv = p.store.chapters[p.ch.id];
+  const label = p.ch.no ? "第 " + p.ch.no + " 章" : "";
+  return (
+    <button type="button" className="tcat gwide" data-chapter={p.ch.id} onClick={() => p.onChapter(p.ch.id)}>
+      <span className="te">{p.ch.emoji || "📘"}</span>
+      <span className="tn">{p.ch.title}</span>
+      <span className="tc">{label ? label + " · " + p.ch.blurb : p.ch.blurb}</span>
+      <span className="tc" data-score={p.ch.id}>{sv ? "最佳 " + sv.best + " / " + sv.n : "尚未測驗"}</span>
+    </button>
+  );
+}
+
+function ChapterGroups(p: { data: Data; store: Store; section: string; onChapter: (id: string) => void }) {
+  const groups = (p.data.groups || []).filter((g) => (g.section || "basics") === p.section);
+  const loose = p.data.chapters.filter((c) => (p.section === "basics" ? !c.group : false));
+  if (!groups.length) {
+    const items = p.section === "basics" ? p.data.chapters.filter((c) => (c.group || "basics") !== "patterns") : [];
+    return <div className="glist">{items.map((ch) => <ChapterButton key={ch.id} ch={ch} store={p.store} onChapter={p.onChapter} />)}</div>;
+  }
+  return (
+    <>
+      <div className="gtoc">
+        {groups.map((g) => (
+          <button key={g.id} type="button" onClick={() => scrollToId("gsec-" + g.id)}>
+            {g.title}
+          </button>
+        ))}
+      </div>
+      {groups.map((g) => {
+        const items = p.data.chapters.filter((c) => c.group === g.id);
+        if (!items.length) return null;
+        return (
+          <div key={g.id} id={"gsec-" + g.id} className="gpoint" data-group={g.id}>
+            <h3 className="gsub">{g.title}</h3>
+            <div className="glist">
+              {items.map((ch) => (
+                <ChapterButton key={ch.id} ch={ch} store={p.store} onChapter={p.onChapter} />
+              ))}
+            </div>
+          </div>
+        );
+      })}
+      {loose.length ? (
+        <div className="glist">
+          {loose.map((ch) => (
+            <ChapterButton key={ch.id} ch={ch} store={p.store} onChapter={p.onChapter} />
+          ))}
+        </div>
+      ) : null}
+    </>
+  );
+}
+
 function Hub(p: { data: Data; store: Store; onHome: () => void; onChapter: (id: string) => void; onSuffix: () => void }) {
+  const basicsCount = p.data.chapters.filter((c) => (p.data.groups || []).some((g) => g.id === c.group && (g.section || "basics") === "basics")).length;
+  const patternCount = p.data.chapters.length - basicsCount;
+  const patterns = p.data.patterns || { title: "常用句型", intro: "多益常考的句型，放在基礎章後面。" };
   return (
     <Section heading="文法練習">
       <div className="gstack" data-testid="grammar-hub">
         <Button label="◀ 回首頁" onClick={p.onHome} />
-        <Text>課文和小測驗都在裡面。首頁只留這一個入口。</Text>
+        <Text>課文和小測驗都在裡面。首頁只留這一個入口。每一章會記下最佳成績。</Text>
         <h3 className="gsub">{p.data.basics.title}</h3>
-        <p className="glead">{p.data.basics.intro}</p>
-        <div className="glist">
-          {p.data.chapters.map((ch) => {
-            const sv = p.store.chapters[ch.id];
-            return (
-              <button key={ch.id} type="button" className="tcat" data-chapter={ch.id} onClick={() => p.onChapter(ch.id)}>
-                <span className="te">{ch.emoji || "📘"}</span>
-                <span className="tn">{ch.title}</span>
-                <span className="tc">{ch.blurb}</span>
-                <span className="tc">{sv ? "最佳 " + sv.best + " / " + sv.n : "尚未測驗"}</span>
-              </button>
-            );
-          })}
-        </div>
+        <p className="glead">{p.data.basics.intro + (basicsCount ? "（" + basicsCount + " 章）" : "")}</p>
+        <ChapterGroups data={p.data} store={p.store} section="basics" onChapter={p.onChapter} />
+        {patternCount > 0 ? (
+          <>
+            <h3 className="gsub">{patterns.title}</h3>
+            <p className="glead">{patterns.intro + "（" + patternCount + " 章）"}</p>
+            <ChapterGroups data={p.data} store={p.store} section="patterns" onChapter={p.onChapter} />
+          </>
+        ) : null}
         <h3 className="gsub">{p.data.suffix.title}</h3>
         <p className="glead">{p.data.suffix.blurb}</p>
         <button type="button" className="tcat gwide" data-testid="suffix-entry" onClick={p.onSuffix}>
